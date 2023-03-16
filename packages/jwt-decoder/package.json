@@ -9,7 +9,8 @@
     "url": "git+https://github.com/isoauth/opensource.git"
   },
   "files": [
-    "lib/**"
+    "lib/cjs/**",
+    "lib/esm/**"
   ],
   "directories": {
     "lib": "lib"
@@ -27,15 +28,8 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build:cjs": "rm -rf lib/cjs && tsc --noEmit false --module commonjs --outDir lib/cjs && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
-    "build:esm": "rm -rf lib/esm && tsc --noEmit false --module es2022 --outDir lib/esm",
-    "build": "npm run build:cjs && npm run build:esm",
+    "build": "rm -rf lib && tsc -b tsconfig.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
     "prepublishOnly": "npx @isoauth/prepublish"
-  },
-  "devDependencies": {
-    "@isoauth/jwk-factory": "*",
-    "@isoauth/jwk-resolver": "*",
-    "@isoauth/jwt-factory": "*"
   },
   "publishConfig": {
     "access": "public"

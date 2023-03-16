@@ -106,8 +106,9 @@ dist
 # All dot-prefixed files and directories
 .*
 !.gitignore
-!.npmrc
 !.github
+!.npmrc
+!.eslintrc.*
 
 out/
 lib/

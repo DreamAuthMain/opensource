@@ -1,10 +1,14 @@
-import { JwkFactory } from '@isoauth/jwk-factory';
-import { JwkResolver } from '@isoauth/jwk-resolver';
-import { JwtFactory } from '@isoauth/jwt-factory';
-
 import { JwtDecodeError, JwtDecoder } from './index.js';
 
 describe('JwtDecoder', () => {
+  /* eslint-disable @typescript-eslint/no-var-requires */
+  /* eslint-disable import/no-extraneous-dependencies */
+  // Circular references only used for testing.
+  // Using require() to avoid TS complaints.
+  const { JwkFactory } = require('@isoauth/jwk-factory');
+  const { JwkResolver } = require('@isoauth/jwk-resolver');
+  const { JwtFactory } = require('@isoauth/jwt-factory');
+
   (
     [
       'HS256',

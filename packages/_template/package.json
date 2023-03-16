@@ -1,0 +1,38 @@
+{
+  "private": true,
+  "name": "@isoauth/template",
+  "description": "ISOAuth template project.",
+  "version": "0.1.0-prerelease.0",
+  "author": "Chris Ackerman <chris@topher.land>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isoauth/opensource.git"
+  },
+  "files": [
+    "lib/cjs/**",
+    "lib/esm/**"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "type": "module",
+  "types": "lib/esm/index.d.ts",
+  "module": "lib/esm/index.js",
+  "main": "lib/cjs/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/esm/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "rm -rf lib && tsc -b tsconfig.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
+    "prepublishOnly": "npx @isoauth/prepublish"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
