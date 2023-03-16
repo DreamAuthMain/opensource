@@ -44,10 +44,7 @@ jobs:
         continue-on-error: true
         run: |
           npm config --location project set //registry.npmjs.org/:_authToken '${NPM_TOKEN}'
-          if [ "$GITHUB_REF_NAME" == "main" ] && [ "$GITHUB_REF_TYPE" == "branch" ]; then
-            npm publish --access public --ignore-scripts *.tgz
-          else
-            npm publish --tag "$GITHUB_REF_NAME" --access public --ignore-scripts *.tgz
-          fi
+          npx catch-uncommitted --exclude=.npmrc
+          npx lerna publish from-package --no-git-tag-version --no-push --yes
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}

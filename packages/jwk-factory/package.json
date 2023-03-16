@@ -1,0 +1,36 @@
+{
+  "private": true,
+  "name": "@isoauth/jwk-factory",
+  "description": "JWK creation based on Web Crypto.",
+  "author": "Chris Ackerman <chris@topher.land>",
+  "license": "ISC",
+  "version": "0.1.0-prerelease.0",
+  "files": [
+    "lib/**"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "type": "module",
+  "types": "lib/esm/index.d.ts",
+  "module": "lib/esm/index.js",
+  "main": "lib/cjs/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/esm/index.d.ts",
+      "import": "./lib/esm/index.js",
+      "default": "./lib/cjs/index.js"
+    }
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build:cjs": "rm -rf lib/cjs && tsc --noEmit false --module commonjs --outDir lib/cjs && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
+    "build:esm": "rm -rf lib/esm && tsc --noEmit false --module es2022 --outDir lib/esm",
+    "build": "npm run build:cjs && npm run build:esm",
+    "prepublishOnly": "npx @isoauth/prepublish"
+  },
+  "devDependencies": {
+    "@isoauth/jwt-factory": "*",
+    "@isoauth/jwt-decoder": "*"
+  }
+}
