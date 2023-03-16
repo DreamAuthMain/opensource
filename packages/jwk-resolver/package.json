@@ -31,5 +31,8 @@
     "build:esm": "rm -rf lib/esm && tsc --noEmit false --module es2022 --outDir lib/esm",
     "build": "npm run build:cjs && npm run build:esm",
     "prepublishOnly": "npx @isoauth/prepublish"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

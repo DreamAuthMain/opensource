@@ -36,5 +36,8 @@
     "@isoauth/jwk-factory": "*",
     "@isoauth/jwk-resolver": "*",
     "@isoauth/jwt-factory": "*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

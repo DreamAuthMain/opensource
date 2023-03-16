@@ -35,5 +35,8 @@
   "devDependencies": {
     "@isoauth/jwk-factory": "*",
     "@isoauth/jwt-decoder": "*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
