@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "types": ["jest", "node"],
+    "strict": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "downlevelIteration": true,
+    "useDefineForClassFields": true,
+    "noUncheckedIndexedAccess": true,
+    "jsx": "react-jsx",
+    "sourceMap": true,
+    "declaration": true,
+    "noEmit": true
+  },
+  "include": ["*/**/*.ts", "*/**/*.tsx"],
+  "exclude": ["**/node_modules", "**/.*"]
+}
