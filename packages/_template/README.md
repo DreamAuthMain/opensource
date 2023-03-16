@@ -2,9 +2,7 @@
 
 One-liner description of the package.
 
-## Getting started
-
-Quick start code examples in separate blocks with short descriptions of the next block of code.
+Quick start code examples in separate blocks with short descriptions before each block of code.
 
 ```ts
 // First step.

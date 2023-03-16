@@ -13,8 +13,8 @@ describe('createFetchSdk', () => {
 
   beforeEach(() => {
     res.status = 200;
-    (global as any).fetch = jest.fn().mockResolvedValue(res);
-    (global as any).Request = class {
+    (globalThis as any).fetch = jest.fn().mockResolvedValue(res);
+    (globalThis as any).Request = class {
       constructor(url: string, init: Record<string, string>) {
         Object.assign(this, { url: String(url), ...init, headers: new Headers(init.headers as any) });
       }
@@ -24,7 +24,7 @@ describe('createFetchSdk', () => {
   });
 
   afterEach(() => {
-    delete (global as any).fetch;
+    delete (globalThis as any).fetch;
   });
 
   describe('defines', () => {

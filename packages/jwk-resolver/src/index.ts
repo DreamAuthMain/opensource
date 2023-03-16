@@ -75,7 +75,7 @@ export class JwkResolver {
   readonly #retryDelay: number;
   readonly #cache = new Map<string, { expiration: number; promise: Promise<any> }>();
 
-  #timeoutCacheClean: number | undefined | NodeJS.Timeout;
+  #timeoutCacheClean: number | undefined;
 
   constructor({
     issuers,

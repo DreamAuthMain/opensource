@@ -1,13 +1,16 @@
 import { JwtFactory } from './index.js';
 
-describe('createJwt', () => {
-  /* eslint-disable @typescript-eslint/no-var-requires */
-  /* eslint-disable import/no-extraneous-dependencies */
-  // Circular references only used for testing.
-  // Using require() to avoid TS complaints.
-  const { JwkFactory } = require('@isoauth/jwk-factory');
-  const { JwtDecoder } = require('@isoauth/jwt-decoder');
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable import/no-extraneous-dependencies */
+// Circular references only used for testing.
+// Using require() to avoid TS complaints.
+declare global {
+  export const require: (id: string) => any;
+}
+const { JwkFactory } = require('@isoauth/jwk-factory');
+const { JwtDecoder } = require('@isoauth/jwt-decoder');
 
+describe('createJwt', () => {
   (
     [
       'HS256',

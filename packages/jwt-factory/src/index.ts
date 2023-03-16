@@ -1,3 +1,5 @@
+import { base64UrlEncode } from '@isoauth/base64url-encode';
+
 interface JsonObject {
   readonly [key: string]:
     | JsonObject
@@ -64,18 +66,6 @@ export interface Jwt {
 
 const GLOBAL_CRYPTO = crypto;
 const SECONDS_PER_MINUTE = 60;
-
-const base64UrlEncode = (value: string | ArrayBuffer): string => {
-  return btoa(
-    (typeof value === 'string' ? new TextEncoder().encode(value) : new Uint8Array(value)).reduce(
-      (result, byte) => result + String.fromCharCode(byte),
-      '',
-    ),
-  )
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
-};
 
 const algorithms = {
   HS256: { params: { name: 'HMAC', hash: 'SHA-256' } },
