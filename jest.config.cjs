@@ -1,7 +1,10 @@
 const { globSync } = require('glob');
 
 const packageJson = require('./package.json');
-const packages = globSync(packageJson.workspaces, { ignore: '**/node_modules/**' });
+const packages = globSync(packageJson.workspaces, { ignore: '**/node_modules/**' }).filter((dir) => {
+  return globSync(`**/*.test.*`, { ignore: '**/node_modules/**', cwd: dir }).length > 0;
+});
+
 const ignorePatterns = ['/node_modules/', '/\\.', '/_', '\\.d\\.ts$'];
 const coverageThreshold = { branches: 80, functions: 80, lines: 80, statements: 80 };
 
