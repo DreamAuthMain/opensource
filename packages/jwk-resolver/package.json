@@ -1,7 +1,7 @@
 {
   "name": "@isoauth/jwk-resolver",
   "description": "Caching JWK resolver compatible with OIDC Discovery and FAPI JWKS selection.",
-  "version": "0.1.0-prerelease.0",
+  "version": "0.1.0-prerelease.1",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {

@@ -50,6 +50,6 @@ A `null` value is returned if the JWT cannot be decoded or verified for any reas
 
 ## Related
 
-- [jwk-factory](../jwk-factory) - JWK creation based on Web Crypto.
-- [jwk-resolver](../jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
-- [jwt-factory](../jwk-factory) - JWT creation based on Web Crypto.
+- [jwk-factory](https://www.npmjs.com/package/@isoauth/jwk-factory) - JWK creation based on Web Crypto.
+- [jwk-resolver](https://www.npmjs.com/package/@isoauth/jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
+- [jwt-factory](https://www.npmjs.com/package/@isoauth/jwt-factory) - JWT creation based on Web Crypto.

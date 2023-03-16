@@ -57,6 +57,6 @@ if (jwk.public) {
 
 ## Related
 
-- [jwk-resolver](../jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
-- [jwt-decoder](../jwk-decoder) - JWT decoding based on Web Crypto.
-- [jwt-factory](../jwt-factory) - JWT creation based on Web Crypto.
+- [jwk-resolver](https://www.npmjs.com/package/@isoauth/jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
+- [jwt-decoder](https://www.npmjs.com/package/@isoauth/jwt-decoder) - JWT decoding based on Web Crypto.
+- [jwt-factory](https://www.npmjs.com/package/@isoauth/jwt-resolver) - JWT creation based on Web Crypto.

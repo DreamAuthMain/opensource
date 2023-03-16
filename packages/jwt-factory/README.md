@@ -63,6 +63,6 @@ The returned `jwt` object has the following properties.
 
 ## Related
 
-- [jwk-factory](../jwk-factory) - JWK creation based on Web Crypto.
-- [jwk-resolver](../jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
-- [jwt-decoder](../jwk-decoder) - JWT decoding based on Web Crypto.
+- [jwk-factory](https://www.npmjs.com/package/@isoauth/jwk-factory) - JWK creation based on Web Crypto.
+- [jwk-resolver](https://www.npmjs.com/package/@isoauth/jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
+- [jwt-decoder](https://www.npmjs.com/package/@isoauth/jwt-decoder) - JWT decoding based on Web Crypto.

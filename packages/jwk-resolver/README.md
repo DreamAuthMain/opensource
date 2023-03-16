@@ -51,6 +51,6 @@ Resolution requires `payload.iss` and `header.kid` values, and is performed as f
 
 ## Related
 
-- [jwk-factory](../jwk-factory) - JWK creation based on Web Crypto.
-- [jwt-decoder](../jwk-decoder) - JWT decoding based on Web Crypto.
-- [jwt-factory](../jwt-factory) - JWT creation based on Web Crypto.
+- [jwk-factory](https://www.npmjs.com/package/@isoauth/jwk-factory) - JWK creation based on Web Crypto.
+- [jwt-decoder](https://www.npmjs.com/package/@isoauth/jwk-decoder) - JWT decoding based on Web Crypto.
+- [jwt-factory](https://www.npmjs.com/package/@isoauth/jwt-factory) - JWT creation based on Web Crypto.
