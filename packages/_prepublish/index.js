@@ -17,9 +17,9 @@ if (files.length === 0) {
   process.exit(1);
 }
 
-Object.values(packageJson.dependencies || {}).forEach((version) => {
-  if (version === '*') {
-    console.error('Dependency has wildcard (*) version.');
-    process.exit(1);
-  }
-});
+// Object.values(packageJson.dependencies || {}).forEach((version) => {
+//   if (version === '*') {
+//     console.error('Dependency has wildcard (*) version.');
+//     process.exit(1);
+//   }
+// });

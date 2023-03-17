@@ -62,6 +62,12 @@ export const assert: <P extends AnyPredicate, T extends Infer<P>>(
 export const string = () => schema<string>((u) => typeof u === 'string');
 export const number = () => schema<number>((u) => typeof u === 'number');
 export const boolean = () => schema<boolean>((u) => typeof u === 'boolean');
+export const literal = <V extends (boolean | number | string)[]>(...primitives: V) =>
+  schema<ArrayType<V>>((u) => primitives.some((v) => v === u));
+
+export const array = (): Schema<unknown[]> => schema<unknown[]>((u) => Array.isArray(u));
+export const record = (): Schema<Record<string, unknown>> =>
+  schema<Record<string, unknown>>((u) => typeof u === 'object' && u !== null);
 
 export const notDefined = <T extends undefined | void = undefined>() => schema<T>((u) => typeof u === 'undefined');
 export const defined = () => schema<{} | null>((u) => typeof u !== 'undefined');
@@ -69,17 +75,6 @@ export const nul = () => schema<null>((u) => u === null);
 export const notNul = () => schema<{} | undefined>((u) => u !== null);
 export const nil = () => schema<null | undefined>((u) => u == null);
 export const notNil = () => schema<{}>((u) => u != null);
-
-export const array = (): Schema<unknown[]> => schema<unknown[]>((u) => Array.isArray(u));
-export const record = (): Schema<Record<string, unknown>> =>
-  schema<Record<string, unknown>>((u) => typeof u === 'object' && u !== null);
-
-//
-// Configurable Schemas
-//
-
-export const literal = <V extends (boolean | number | string)[]>(...primitives: V) =>
-  schema<ArrayType<V>>((u) => primitives.some((v) => v === u));
 
 //
 // Composition Schemas

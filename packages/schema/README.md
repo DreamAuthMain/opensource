@@ -40,6 +40,7 @@ Simple schemas match the basic TS types.
 - `string()`
 - `number()`
 - `boolean()`
+- `literal(...primitives: Primitive[])`
 - `record()`
 - `array()`
 - `notDefined()`
@@ -48,11 +49,6 @@ Simple schemas match the basic TS types.
 - `notNul()`
 - `nil()`
 - `notNil()`
-
-Configurable schemas accept values for matching.
-
-- `enumeration(enumType: EnumLike)`
-- `literal(...primitives: Primitive[])`
 
 Composition schemas merge other schemas (or predicates) into more complex schemas.
 
