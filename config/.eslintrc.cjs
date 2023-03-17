@@ -1,18 +1,14 @@
 module.exports = {
+  root: true,
   env: { node: true },
+  parserOptions: { ecmaVersion: 2022 },
   extends: ['rational', 'rational/react', 'rational/warn', 'rational/prettier'],
-  ignorePatterns: ['node_modules', 'lib', 'out', 'dist'],
+  ignorePatterns: ['node_modules', '**/lib/**', 'out', 'dist'],
   overrides: [
     {
       files: ['*.cjs'],
       parserOptions: {
         sourceType: 'script',
-      },
-    },
-    {
-      files: ['*.mjs'],
-      parserOptions: {
-        sourceType: 'module',
       },
     },
     {

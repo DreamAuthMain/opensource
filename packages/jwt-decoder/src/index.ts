@@ -1,3 +1,5 @@
+import { base64UrlDecode } from '@isoauth/base64url-decode';
+
 interface JsonObject {
   readonly [key: string]:
     | JsonObject
@@ -46,14 +48,6 @@ export interface Jwt {
 }
 
 const GLOBAL_CRYPTO = crypto;
-
-const base64UrlDecode = (value: string): Uint8Array => {
-  const b64 = value
-    .replace(/-/g, '+')
-    .replace(/_/g, '/')
-    .padEnd(value.length + (value.length % 4 === 0 ? 0 : 4 - (value.length % 4)), '=');
-  return new Uint8Array(Array.from(atob(b64)).map((char) => char.charCodeAt(0)));
-};
 
 const isJsonObject = (value: unknown): value is JsonObject => {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
