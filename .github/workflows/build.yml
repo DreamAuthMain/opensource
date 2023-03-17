@@ -43,8 +43,8 @@ jobs:
       - name: Publish (NPM)
         continue-on-error: true
         run: |
+          npx catch-uncommitted
           npm config --location project set //registry.npmjs.org/:_authToken '${NPM_TOKEN}'
-          npx catch-uncommitted --exclude=.npmrc
           npx lerna publish from-package --no-git-tag-version --no-push --yes
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}
