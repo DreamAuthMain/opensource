@@ -3,11 +3,9 @@
   "compilerOptions": {
     "composite": true,
     "noEmit": false,
-    "rootDir": "../src",
     "outDir": "../lib/esm",
     "module": "ES2022"
   },
-  "references": [],
   "files": ["../src/index.ts"],
   "include": []
 }

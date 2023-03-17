@@ -1,7 +1,5 @@
 module.exports = {
-  env: {
-    node: true,
-  },
+  env: { node: true },
   extends: ['rational', 'rational/react', 'rational/warn', 'rational/prettier'],
   ignorePatterns: ['node_modules', 'lib', 'out', 'dist'],
   overrides: [
@@ -31,5 +29,4 @@ module.exports = {
       },
     },
   ],
-  root: true,
 };

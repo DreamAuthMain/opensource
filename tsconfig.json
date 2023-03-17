@@ -4,7 +4,7 @@
     "module": "NodeNext",
     "target": "ES2022",
     "lib": ["ES2022", "DOM"],
-    "types": ["jest", "node"],
+    "types": ["jest"],
     "strict": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,

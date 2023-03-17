@@ -28,7 +28,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "build": "rm -rf lib && tsc -b tsconfig.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
+    "build": "rm -rf lib && tsc -b config/tsconfig.build.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
     "prepublishOnly": "npx @isoauth/prepublish"
   },
   "publishConfig": {
@@ -36,5 +36,10 @@
   },
   "devDependencies": {
     "@isoauth/fetch-error": "*"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    }
   }
 }
