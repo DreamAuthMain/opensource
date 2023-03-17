@@ -1,4 +1,4 @@
-# ISOAuth Title Of Package
+# ISOAuth Base64Url Encode
 
 Base64URL encode strings or byte arrays.
 

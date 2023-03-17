@@ -1,7 +1,7 @@
 {
-  "name": "@isoauth/jwt-decoder",
-  "description": "JWT decoding based on Web Crypto.",
-  "version": "0.1.0-prerelease.2",
+  "name": "@isoauth/base64url-decode",
+  "description": "Base64URL decode to byte array.",
+  "version": "0.1.0-prerelease.0",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -38,8 +38,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@isoauth/base64url-decode": "*"
   }
 }

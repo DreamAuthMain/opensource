@@ -1,7 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": { "rootDir": "src", "lib": ["ES2022"], "types": ["jest"] },
-  "references": [{ "path": "./config/tsconfig.cjs.json" }, { "path": "./config/tsconfig.esm.json" }],
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["**/node_modules", "**/lib", "**/.*"]
+  "extends": "../../config/tsconfig.json",
+  "compilerOptions": { "rootDir": "src" },
+  "include": ["src/**/*"]
 }

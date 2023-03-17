@@ -4,8 +4,10 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
+    "lint": "lerna run eslint .",
     "test": "jest",
     "build": "lerna run build --concurrency=1",
+    "clean": "rm -rf out **/out lib **/lib node_modules **/node_modules",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
   "workspaces": [
@@ -25,14 +27,12 @@
     "endOfLine": "lf"
   },
   "eslintConfig": {
-    "root": true,
-    "extends": "./config/eslint.config.cjs"
+    "extends": "./config/.eslintrc.cjs"
   },
   "jest": {
     "preset": "./config/jest.config.cjs"
   },
   "devDependencies": {
-    "@isoauth/prepublish": "*",
     "@lerna-lite/cli": "^1.17.0",
     "@lerna-lite/exec": "^1.17.0",
     "@lerna-lite/publish": "^1.17.0",
