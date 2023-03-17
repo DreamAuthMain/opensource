@@ -1,15 +1,13 @@
 # ISOAuth Schema
 
-Composable [type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) for runtime type checking.
+Composable [type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) for **JSON** runtime type checking.
 
 ## Getting Started
 
 Import the schema namespace. Using `$` is recommended for brevity.
 
 ```ts
-import * as $ from './schema.js';
-// Or, as an NPM package.
-import * as $ from '@minstack/schema';
+import * as $ from '@isoauth/schema';
 ```
 
 Construct a new custom schema from pre-existing schemas.
@@ -41,33 +39,26 @@ Simple schemas match the basic TS types.
 
 - `string()`
 - `number()`
-- `bigint()`
 - `boolean()`
-- `symbol()`
-- `callable()` - Match functions or constructors.
+- `record()`
+- `array()`
 - `notDefined()`
 - `defined`
 - `nul()`
 - `notNul()`
-- `nil()` - Match null or undefined.
+- `nil()`
 - `notNil()`
-- `any()` - Match anything as type `any`.
-- `unknown()` - Match anything as type `unknown`.
 
 Configurable schemas accept values for matching.
 
 - `enumeration(enumType: EnumLike)`
 - `literal(...primitives: Primitive[])`
-- `instance(...constructors: AnyConstructor[])`
 
 Composition schemas merge other schemas (or predicates) into more complex schemas.
 
 - `union(...predicates: AnyPredicate[])`
 - `intersection(...predicates: AnyPredicate[])`
 - `object(shape: Record<string, AnyPredicate>)`
-- `tuple(...shape: AnyPredicate[])`
-- `record(type?: AnyPredicate)`
-- `array(type?: AnyPredicate)`
 
 Utilities which are less commonly used, or normally only used internally.
 
@@ -171,14 +162,14 @@ Then, derive the recursive type. This type is needed to explicitly type the recu
 
 ```ts
 type Node = $.SchemaType<typeof isNode>;
-type Tree = Node & { children: Tree[] };
+type LinkedList = Node & { child?: LinkedList };
 ```
 
 And finally, extend the non-recursive schema to add recursion, and assign the final schema to an explicitly typed variable.
 
 ```ts
-const isTree: $.ObjectSchema<Tree> = isNode.extend({
-  children: $.array($.lazy(() => isTree)),
+const isLinkedList: $.ObjectSchema<Tree> = isNode.extend({
+  child: $.lazy(() => isLinkedList.optional()),
 });
 ```
 
@@ -187,20 +178,21 @@ const isTree: $.ObjectSchema<Tree> = isNode.extend({
 A `TS2454` error is raised without the `$.lazy` wrapper around the self reference. This is because the schema is used before it is defined.
 
 ```ts
-const isTree: $.ObjectSchema<Tree> = isNode.extend({
-  // Error: Variable 'isTree' is used before being assigned. ts(2454)
-  children: $.array(isTree),
+const isLinkedList: $.ObjectSchema<Tree> = isNode.extend({
+  // Error: Variable 'isLinkedList' is used before being assigned.
+  //        ts(2454)
+  child: isLinkedList.optional(),
 });
 ```
 
 A `TS7022` error is raised when defining the recursive type in a single step. This is because typescript cannot automatically infer a type which references itself.
 
 ```ts
-// Error: 'isTree' implicitly has type 'any' because it does not have a
-//        type annotation and is referenced directly or indirectly in its
-//        own initializer. ts(7022)
-const isTree = $.object({
+// Error: 'isLinkedList' implicitly has type 'any' because it does not
+//        have a type annotation and is referenced directly or indirectly
+//        in its own initializer. ts(7022)
+const isLinkedList = $.object({
   name: $.string(),
-  children: $.array($.lazy(() => isTree)),
+  child: $.lazy(() => isLinkedList.optional()),
 });
 ```

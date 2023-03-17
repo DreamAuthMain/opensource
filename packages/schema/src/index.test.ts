@@ -18,16 +18,6 @@ describe('schema', () => {
     expect(a).toHaveBeenLastCalledWith(3);
   });
 
-  describe('match everything', () => {
-    (['any', 'unknown'] as const).forEach((name) => {
-      test(name, () => {
-        [true, 1, 2n, 'string', [], {}, new Date(), Symbol(), null, undefined].forEach((value) => {
-          expect($[name]()(value)).toBe(true);
-        });
-      });
-    });
-  });
-
   describe('match nullish and non-nullish', () => {
     const notNils = [true, 1, 2n, 'string', [], {}, new Date(), Symbol()];
 
@@ -54,9 +44,7 @@ describe('schema', () => {
       [
         ['boolean', [true, false], [1, 2n, 'true', Symbol()]],
         ['number', [1, Number.NaN], [true, '1', 2n, Symbol()]],
-        ['bigint', [1n], [true, 1, '2n', Symbol()]],
         ['string', ['string'], [true, 1, 2n, Symbol()]],
-        ['symbol', [Symbol(), Symbol.iterator], [true, 1, 2n, '']],
       ] as const
     ).forEach(([name, expected, notExpected]) => {
       test(name, () => {
@@ -75,7 +63,7 @@ describe('schema', () => {
   });
 
   test('match literal', () => {
-    const primitives = [1, 2n, 'a', true, null, Symbol.iterator];
+    const primitives = [1, 'a', true];
 
     for (let i = 0; i < primitives.length; ++i) {
       const pass = primitives.slice(i, i + 2);
@@ -84,54 +72,6 @@ describe('schema', () => {
       pass.forEach((value) => expect(matcher(value)).toBe(true));
       fail.forEach((value) => expect(matcher(value)).toBe(false));
     }
-  });
-
-  test('match enum', () => {
-    enum NoValue {
-      a,
-      b,
-    }
-    enum Value {
-      a = 1,
-      b = 'B',
-    }
-
-    const a = $.enumeration(NoValue);
-    // Pass
-    [NoValue.a, NoValue.b, 0, 1].forEach((value) => expect(a(value)).toBe(true));
-    // Fail
-    [Value.b, 'a', 'b'].forEach((value) => expect(a(value)).toBe(false));
-
-    const b = $.enumeration(Value);
-    // Pass
-    [Value.a, Value.b, 1, 'B'].forEach((value) => expect(b(value)).toBe(true));
-    // Fail
-    [NoValue.a, 'a', 'b'].forEach((value) => expect(b(value)).toBe(false));
-  });
-
-  describe('match function', () => {
-    test('instance', () => {
-      // Pass
-      expect($.instance(Date)(new Date())).toBe(true);
-      expect($.instance(Object)(new Date())).toBe(true);
-      expect($.instance(Date, Error)(new Date())).toBe(true);
-      expect($.instance(Date, Error)(new TypeError('...'))).toBe(true);
-      // Fail
-      expect($.instance(Date)(Date)).toBe(false);
-      expect($.instance(Date)(new RegExp('/./'))).toBe(false);
-    });
-
-    test('callable', () => {
-      // Pass
-      expect($.callable()(() => {})).toBe(true);
-      expect($.callable()(function () {})).toBe(true);
-      expect($.callable()(class A {})).toBe(true);
-      expect($.callable()(new Function())).toBe(true);
-      // Fail
-      [null, undefined, {}, [], /./].forEach((value) => {
-        expect($.callable()(value)).toBe(false);
-      });
-    });
   });
 
   test('lazy match', () => {
@@ -208,61 +148,13 @@ describe('schema', () => {
     expect(d({ a: '', b: true })).toBe(false);
   });
 
-  test('tuple', () => {
-    const a = $.tuple($.string(), $.object({ a: $.number() }));
-    // Pass
-    expect(a(['', { a: 1 }])).toBe(true);
-    expect(a(['', { a: 1 }, true])).toBe(true);
-    // Fail
-    expect(a(['', true])).toBe(false);
-
-    const b = a.partial();
-    // Pass
-    expect(b([])).toBe(true);
-    expect(b([''])).toBe(true);
-    expect(b([undefined, { a: 1 }])).toBe(true);
-    // Fail
-    expect(b(null)).toBe(false);
-    expect(b(undefined)).toBe(false);
-    expect(b(() => {})).toBe(false);
-    expect(b({ b: {} })).toBe(false);
-
-    const c = b.required();
-    // Pass
-    expect(c(['', { a: 1 }])).toBe(true);
-    expect(c(['', { a: 1 }, true])).toBe(true);
-    // Fail
-    expect(c(['', true])).toBe(false);
-  });
-
   describe('array', () => {
     test('untyped', () => {
       const a = $.array();
       // Pass
       expect(a([1, null, {}])).toBe(true);
-      expect(a.nonEmpty()([1])).toBe(true);
       // Fail
       expect(a({ 0: '', length: 1 })).toBe(false);
-      expect(a.nonEmpty()([])).toBe(false);
-    });
-
-    test('typed', () => {
-      const a = $.array($.string().or($.number()));
-      // Pass
-      expect(a([])).toBe(true);
-      expect(a(['', 1])).toBe(true);
-      expect(a([1, ''])).toBe(true);
-      expect(a([1])).toBe(true);
-      expect(a([''])).toBe(true);
-      expect(a.partial()([undefined])).toBe(true);
-      expect(a.nonEmpty()([1])).toBe(true);
-      // Fail
-      expect(a([1n])).toBe(false);
-      expect(a([1, '', true])).toBe(false);
-      expect(a({ 0: '', 1: 2, length: 2 })).toBe(false);
-      expect(a([undefined])).toBe(false);
-      expect(a.partial().required()([undefined])).toBe(false);
-      expect(a.nonEmpty()([])).toBe(false);
     });
   });
 
@@ -278,68 +170,46 @@ describe('schema', () => {
       expect(a('')).toBe(false);
       expect(a(null)).toBe(false);
     });
-
-    test('typed', () => {
-      const a = $.record($.string().or($.number()));
-      // Pass
-      expect(a({})).toBe(true);
-      expect(a({ a: '', b: 1 })).toBe(true);
-      expect(a({ a: 1, b: '' })).toBe(true);
-      expect(a({ a: 1 })).toBe(true);
-      expect(a({ b: '' })).toBe(true);
-      expect(a.partial()([undefined])).toBe(true);
-      // Fail
-      expect(a({ a: 1n })).toBe(false);
-      expect(a({ a: 1, b: '', c: true })).toBe(false);
-      expect(a([undefined])).toBe(false);
-      expect(a.partial().required()([undefined])).toBe(false);
-    });
   });
 
   describe('recursive', () => {
     const isNode = $.object({ name: $.string() });
 
     type Node = $.SchemaType<typeof isNode>;
-    type Tree = Node & { children: Tree[] };
+    type LinkedList = Node & { child?: LinkedList };
 
-    const isTree: $.ObjectSchema<Tree> = isNode.extend({
-      children: $.array($.lazy(() => isTree)),
+    const isLinkedList: $.ObjectSchema<LinkedList> = isNode.extend({
+      child: $.lazy(() => isLinkedList.optional()),
     });
 
     test('tree', () => {
       expect(
-        isTree({
+        isLinkedList({
           name: 'root',
-          children: [
-            {
-              name: 'child',
-              children: [],
-            },
-          ],
+          child: {
+            name: 'child',
+          },
         }),
       ).toBe(true);
 
       expect(
-        isTree({
+        isLinkedList({
           name: 'root',
-          children: [
-            {
-              name: 'child',
-              children: 'foo',
-            },
-          ],
+          child: {
+            name: 'child',
+            child: 'foo',
+          },
         }),
       ).toBe(false);
     });
 
     test('depth limit (cyclic data)', () => {
-      const tree: Tree = {
+      const tree: LinkedList = {
         name: 'root',
-        children: [],
       };
-      tree.children.push(tree);
+      tree.child = tree;
 
-      expect(isTree(tree)).toBe(true);
+      expect(isLinkedList(tree)).toBe(true);
     });
   });
 });

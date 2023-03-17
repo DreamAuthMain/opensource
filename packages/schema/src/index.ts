@@ -61,10 +61,7 @@ export const assert: <P extends AnyPredicate, T extends Infer<P>>(
 
 export const string = () => schema<string>((u) => typeof u === 'string');
 export const number = () => schema<number>((u) => typeof u === 'number');
-export const bigint = () => schema<bigint>((u) => typeof u === 'bigint');
 export const boolean = () => schema<boolean>((u) => typeof u === 'boolean');
-export const symbol = () => schema<symbol>((u) => typeof u === 'symbol');
-export const callable = <T extends (...args: any[]) => unknown>() => schema<T>((u) => typeof u === 'function');
 
 export const notDefined = <T extends undefined | void = undefined>() => schema<T>((u) => typeof u === 'undefined');
 export const defined = () => schema<{} | null>((u) => typeof u !== 'undefined');
@@ -73,33 +70,16 @@ export const notNul = () => schema<{} | undefined>((u) => u !== null);
 export const nil = () => schema<null | undefined>((u) => u == null);
 export const notNil = () => schema<{}>((u) => u != null);
 
-export const any = () => schema<any>(() => true);
-export const unknown = () => schema<unknown>(() => true);
+export const array = (): Schema<unknown[]> => schema<unknown[]>((u) => Array.isArray(u));
+export const record = (): Schema<Record<string, unknown>> =>
+  schema<Record<string, unknown>>((u) => typeof u === 'object' && u !== null);
 
 //
 // Configurable Schemas
 //
 
-type Primitive = bigint | boolean | number | string | symbol | null | undefined;
-
-export const literal = <V extends Primitive[]>(...primitives: V) =>
+export const literal = <V extends (boolean | number | string)[]>(...primitives: V) =>
   schema<ArrayType<V>>((u) => primitives.some((v) => v === u));
-
-type EnumLike = { [k: string]: number | string; [j: number]: string };
-type EnumValues<E extends EnumLike> = { [K in keyof E]: K extends number | `${number}` ? never : E[K] }[keyof E];
-
-export const enumeration = <E extends EnumLike>(enumType: E) =>
-  schema<EnumValues<E>>(
-    (u) =>
-      (typeof u === 'string' || typeof u === 'number') &&
-      Object.values(enumType).includes(u) &&
-      !(u in enumType && Number.isNaN(Number(u))),
-  );
-
-type AnyConstructor = new (...args: any[]) => unknown;
-
-export const instance = <C extends AnyConstructor[]>(...constructors: C) =>
-  schema<InstanceType<ArrayType<C>>>((u) => constructors.some((c) => u instanceof c));
 
 //
 // Composition Schemas
@@ -115,7 +95,7 @@ type SmartPartial<T> = UnionToIntersection<
 >;
 type InferObject<P extends Record<string, AnyPredicate>> = Simplify<SmartPartial<{ [K in keyof P]: Infer<P[K]> }>>;
 
-export type ObjectSchema<T extends object> = Schema<T> & {
+export type ObjectSchema<T extends object> = Schema<T & Record<string, unknown>> & {
   partial(): ObjectSchema<Simplify<Partial<T>>>;
   required(): ObjectSchema<Simplify<Required<T>>>;
   extend<P extends Record<string, AnyPredicate>>(p: P): ObjectSchema<Simplify<T & InferObject<P>>>;
@@ -146,55 +126,3 @@ export const object = <P extends Record<string, AnyPredicate> = {}, T extends In
     },
   ) as ObjectSchema<T>;
 };
-
-export type ArraySchema<T extends readonly any[]> = Schema<T> & {
-  partial(): ArraySchema<Simplify<{ [K in keyof T]: T[K] | undefined }>>;
-  required(): ArraySchema<Simplify<{ [K in keyof T]: Exclude<T[K], undefined> }>>;
-  nonEmpty(): ArraySchema<[ArrayType<T>, ...ArrayType<T>[]]>;
-};
-
-export const array = <P extends AnyPredicate, T extends Infer<P>>(predicate?: P): ArraySchema<T[]> =>
-  Object.assign(
-    schema<T[]>((u) => Array.isArray(u) && (!predicate || u.slice(0, options.maxBreadth).every(predicate))),
-    {
-      partial: () => array(predicate && notDefined().or(predicate)),
-      required: () => array(predicate && defined().and(predicate)),
-      nonEmpty: () => array(predicate).and((u: any): u is never => typeof u?.length === 'number' && u.length > 0),
-    },
-  ) as ArraySchema<T[]>;
-
-export type RecordSchema<T extends object> = Schema<T> & {
-  partial(): RecordSchema<Simplify<{ [K in keyof T]: T[K] | undefined }>>;
-  required(): RecordSchema<Simplify<{ [K in keyof T]: Exclude<T[K], undefined> }>>;
-};
-
-export const record = <P extends AnyPredicate, T extends Record<string, Infer<P>>>(predicate?: P): RecordSchema<T> =>
-  Object.assign(
-    schema<T>((u) => {
-      return (
-        typeof u === 'object' &&
-        u !== null &&
-        (!predicate || Object.values(u).slice(0, options.maxBreadth).every(predicate))
-      );
-    }),
-    {
-      partial: () => record(predicate && notDefined().or(predicate)),
-      required: () => record(predicate && defined().and(predicate)),
-    },
-  ) as RecordSchema<T>;
-
-type InferTuple<P extends AnyPredicate[]> = { [K in keyof P]: Infer<P[K]> };
-
-export type TupleSchema<T extends readonly any[]> = Schema<T> & {
-  partial(): TupleSchema<Simplify<Partial<T>>>;
-  required(): TupleSchema<Simplify<Required<T>>>;
-};
-
-export const tuple = <P extends AnyPredicate[], T extends InferTuple<P>>(...shape: P): TupleSchema<T> =>
-  Object.assign(
-    schema<T>((u) => Array.isArray(u) && shape.every((p, i) => p(u[i]))),
-    {
-      partial: () => tuple(...shape.map((p) => notDefined().or(p))),
-      required: () => tuple(...shape.map((p) => defined().and(p))),
-    } as TupleSchema<T>,
-  );
