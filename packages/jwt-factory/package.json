@@ -1,7 +1,7 @@
 {
   "name": "@isoauth/jwt-factory",
   "description": "JWT creation based on Web Crypto.",
-  "version": "0.1.0-prerelease.2",
+  "version": "0.1.0-prerelease.3",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
