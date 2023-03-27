@@ -7,7 +7,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dreamauthmain/opensource.git"
+    "url": "git+https://github.com/DreamAuthMain/opensource.git"
   },
   "files": [
     "lib/cjs/**",

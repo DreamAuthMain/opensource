@@ -1,9 +1,9 @@
-# DreamAuth OpenSource Repo
+# DreamAuth Open Source Repo
 
 Official DreamAuth open source packages.
 
-[![push](https://github.com/dreamauthmain/opensource/actions/workflows/push.yml/badge.svg)](https://github.com/dreamauthmain/opensource/actions/workflows/push.yml)
-[![codecov](https://codecov.io/gh/dreamauthmain/opensource/branch/main/graph/badge.svg?token=E2VYI8XJLB)](https://codecov.io/gh/dreamauthmain/opensource)
+[![push](https://github.com/DreamAuthMain/opensource/actions/workflows/push.yml/badge.svg)](https://github.com/DreamAuthMain/opensource/actions/workflows/push.yml)
+[![codecov](https://codecov.io/gh/DreamAuthMain/opensource/branch/main/graph/badge.svg?token=E2VYI8XJLB)](https://codecov.io/gh/DreamAuthMain/opensource)
 
 ## Development
 
