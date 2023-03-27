@@ -36,6 +36,9 @@
   "jest": {
     "preset": "../../config/jest.config.test.cjs"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@dreamauth/fetch-error": "file://../fetch-error"
   }
