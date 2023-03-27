@@ -1,4 +1,4 @@
-# ISOAuth Title Of Package
+# DreamAuth Title Of Package
 
 One-liner description of the package.
 

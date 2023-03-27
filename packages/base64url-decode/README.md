@@ -1,4 +1,4 @@
-# ISOAuth Base64Url Decode
+# DreamAuth Base64Url Decode
 
 Base64URL decode to byte array.
 

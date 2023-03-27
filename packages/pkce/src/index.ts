@@ -1,4 +1,4 @@
-import { base64UrlEncode } from '@isoauth/base64url-encode';
+import { base64UrlEncode } from '@dreamauth/base64url-encode';
 
 const createPkceVerifier = (length = 128): string => {
   const bytes = crypto.getRandomValues(new Uint8Array(Math.min(128, Math.max(43, length)) || 128));

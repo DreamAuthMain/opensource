@@ -1,4 +1,4 @@
-import { base64UrlEncode } from '@isoauth/base64url-encode';
+import { base64UrlEncode } from '@dreamauth/base64url-encode';
 
 interface JsonObject {
   readonly [key: string]:

@@ -1,4 +1,4 @@
-# ISOAuth Fetch SDK
+# DreamAuth Fetch SDK
 
 Helper for creating fetch SDK classes.
 

@@ -7,9 +7,9 @@ import { JwtDecodeError, JwtDecoder } from './index.js';
 declare global {
   export const require: (id: string) => any;
 }
-const { JwkFactory } = require('@isoauth/jwk-factory');
-const { JwkResolver } = require('@isoauth/jwk-resolver');
-const { JwtFactory } = require('@isoauth/jwt-factory');
+const { JwkFactory } = require('@dreamauth/jwk-factory');
+const { JwkResolver } = require('@dreamauth/jwk-resolver');
+const { JwtFactory } = require('@dreamauth/jwt-factory');
 
 describe('JwtDecoder', () => {
   (

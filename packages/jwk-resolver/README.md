@@ -1,4 +1,4 @@
-# ISOAuth JWK Resolver
+# DreamAuth JWK Resolver
 
 Caching JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html) and [FAPI JWKS selection](https://openid.net/specs/openid-financial-api-part-2-1_0.html#duplicate-key-identifiers).
 
@@ -51,6 +51,6 @@ Resolution requires `payload.iss` and `header.kid` values, and is performed as f
 
 ## Related
 
-- [jwk-factory](https://www.npmjs.com/package/@isoauth/jwk-factory) - JWK creation based on Web Crypto.
-- [jwt-decoder](https://www.npmjs.com/package/@isoauth/jwk-decoder) - JWT decoding based on Web Crypto.
-- [jwt-factory](https://www.npmjs.com/package/@isoauth/jwt-factory) - JWT creation based on Web Crypto.
+- [jwk-factory](https://www.npmjs.com/package/@dreamauth/jwk-factory) - JWK creation based on Web Crypto.
+- [jwt-decoder](https://www.npmjs.com/package/@dreamauth/jwk-decoder) - JWT decoding based on Web Crypto.
+- [jwt-factory](https://www.npmjs.com/package/@dreamauth/jwt-factory) - JWT creation based on Web Crypto.

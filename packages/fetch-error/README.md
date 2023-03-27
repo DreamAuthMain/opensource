@@ -1,4 +1,4 @@
-# ISOAuth Fetch Error
+# DreamAuth Fetch Error
 
 Error type for failed fetch requests.
 

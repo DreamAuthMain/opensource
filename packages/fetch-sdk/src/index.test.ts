@@ -1,4 +1,4 @@
-import { FetchError } from '@isoauth/fetch-error';
+import { FetchError } from '@dreamauth/fetch-error';
 
 import { createFetchSdk } from './index.js';
 

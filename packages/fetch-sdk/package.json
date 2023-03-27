@@ -1,12 +1,12 @@
 {
-  "name": "@isoauth/fetch-sdk",
+  "name": "@dreamauth/fetch-sdk",
   "description": "Helper for creating fetch SDK classes.",
-  "version": "0.1.0-prerelease.0",
+  "version": "0.1.0",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/isoauth/opensource.git"
+    "url": "git+https://github.com/dreamauthmain/opensource.git"
   },
   "files": [
     "lib/cjs/**",
@@ -31,12 +31,12 @@
     "lint": "eslint .",
     "test": "jest",
     "build": "tsc -b config/tsconfig.build.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
-    "prepublishOnly": "npx @isoauth/prepublish"
+    "prepublishOnly": "npx @dreamauth/prepublish"
   },
   "jest": {
     "preset": "../../config/jest.config.test.cjs"
   },
   "devDependencies": {
-    "@isoauth/fetch-error": "*"
+    "@dreamauth/fetch-error": "file://../fetch-error"
   }
 }

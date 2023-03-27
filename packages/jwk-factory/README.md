@@ -1,4 +1,4 @@
-# ISOAuth JWK Factory
+# DreamAuth JWK Factory
 
 JWK creation based on [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API). Supports algorithms for JWT signing and verifying only (not encryption).
 
@@ -57,6 +57,6 @@ if (jwk.public) {
 
 ## Related
 
-- [jwk-resolver](https://www.npmjs.com/package/@isoauth/jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
-- [jwt-decoder](https://www.npmjs.com/package/@isoauth/jwt-decoder) - JWT decoding based on Web Crypto.
-- [jwt-factory](https://www.npmjs.com/package/@isoauth/jwt-resolver) - JWT creation based on Web Crypto.
+- [jwk-resolver](https://www.npmjs.com/package/@dreamauth/jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
+- [jwt-decoder](https://www.npmjs.com/package/@dreamauth/jwt-decoder) - JWT decoding based on Web Crypto.
+- [jwt-factory](https://www.npmjs.com/package/@dreamauth/jwt-resolver) - JWT creation based on Web Crypto.

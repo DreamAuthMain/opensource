@@ -7,8 +7,8 @@ import { JwtFactory } from './index.js';
 declare global {
   export const require: (id: string) => any;
 }
-const { JwkFactory } = require('@isoauth/jwk-factory');
-const { JwtDecoder } = require('@isoauth/jwt-decoder');
+const { JwkFactory } = require('@dreamauth/jwk-factory');
+const { JwtDecoder } = require('@dreamauth/jwt-decoder');
 
 describe('createJwt', () => {
   (

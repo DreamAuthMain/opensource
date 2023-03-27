@@ -1,4 +1,4 @@
-# ISOAuth PKCE
+# DreamAuth PKCE
 
 Generate PKCE verifiers and challenges using [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Crypto).
 

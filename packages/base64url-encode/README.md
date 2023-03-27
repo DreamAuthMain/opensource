@@ -1,4 +1,4 @@
-# ISOAuth Base64Url Encode
+# DreamAuth Base64Url Encode
 
 Base64URL encode strings or byte arrays.
 

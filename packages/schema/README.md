@@ -1,4 +1,4 @@
-# ISOAuth Schema
+# DreamAuth Schema
 
 Composable [type predicates](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates) for **JSON** runtime type checking.
 
@@ -7,7 +7,7 @@ Composable [type predicates](https://www.typescriptlang.org/docs/handbook/2/narr
 Import the schema namespace. Using `$` is recommended for brevity.
 
 ```ts
-import * as $ from '@isoauth/schema';
+import * as $ from '@dreamauth/schema';
 ```
 
 Construct a new custom schema from pre-existing schemas.

@@ -1,9 +1,9 @@
-# ISOAuth OpenSource Repo
+# DreamAuth OpenSource Repo
 
-Official ISOAuth open source packages.
+Official DreamAuth open source packages.
 
-[![build](https://github.com/isoauth/opensource/actions/workflows/build.yml/badge.svg)](https://github.com/isoauth/opensource/actions/workflows/build.yml)
-[![codecov](https://codecov.io/gh/isoauth/opensource/branch/main/graph/badge.svg?token=E2VYI8XJLB)](https://codecov.io/gh/isoauth/opensource)
+[![push](https://github.com/dreamauthmain/opensource/actions/workflows/push.yml/badge.svg)](https://github.com/dreamauthmain/opensource/actions/workflows/push.yml)
+[![codecov](https://codecov.io/gh/dreamauthmain/opensource/branch/main/graph/badge.svg?token=E2VYI8XJLB)](https://codecov.io/gh/dreamauthmain/opensource)
 
 ## Development
 

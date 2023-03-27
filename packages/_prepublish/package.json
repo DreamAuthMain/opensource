@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@isoauth/prepublish",
+  "name": "@dreamauth/prepublish",
   "type": "module",
   "bin": "./index.js",
   "dependencies": {

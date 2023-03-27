@@ -1,4 +1,4 @@
-# ISOAuth JWT Decoder
+# DreamAuth JWT Decoder
 
 JWT decoding based on [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API).
 
@@ -50,6 +50,6 @@ A `null` value is returned if the JWT cannot be decoded or verified for any reas
 
 ## Related
 
-- [jwk-factory](https://www.npmjs.com/package/@isoauth/jwk-factory) - JWK creation based on Web Crypto.
-- [jwk-resolver](https://www.npmjs.com/package/@isoauth/jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
-- [jwt-factory](https://www.npmjs.com/package/@isoauth/jwt-factory) - JWT creation based on Web Crypto.
+- [jwk-factory](https://www.npmjs.com/package/@dreamauth/jwk-factory) - JWK creation based on Web Crypto.
+- [jwk-resolver](https://www.npmjs.com/package/@dreamauth/jwk-resolver) - JWK resolver compatible with [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html).
+- [jwt-factory](https://www.npmjs.com/package/@dreamauth/jwt-factory) - JWT creation based on Web Crypto.

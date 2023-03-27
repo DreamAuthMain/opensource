@@ -6,6 +6,6 @@
     "outDir": "../lib/cjs",
     "module": "CommonJS"
   },
-  "files": ["../src/index.ts"],
-  "include": []
+  "include": ["../src/**/*"],
+  "exclude": ["../src/**/*.test.*"]
 }
