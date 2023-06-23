@@ -1,5 +1,0 @@
-{
-  "extends": "../../config/tsconfig.json",
-  "compilerOptions": { "rootDir": "src", "lib": ["ES2022", "DOM", "DOM.Iterable"] },
-  "include": ["src/**/*"]
-}

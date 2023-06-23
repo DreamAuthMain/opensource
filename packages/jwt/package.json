@@ -1,7 +1,7 @@
 {
-  "name": "@dreamauth/pkce",
-  "description": "DreamAuth PKCE",
-  "version": "0.1.1",
+  "name": "@dreamauth/jwt",
+  "description": "DreamAuth JWT utilities.",
+  "version": "0.1.0",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -16,14 +16,14 @@
     "lib": "lib"
   },
   "type": "module",
-  "types": "lib/esm/main.d.ts",
-  "module": "lib/esm/main.js",
-  "main": "lib/cjs/main.js",
+  "types": "lib/esm/exports.d.ts",
+  "module": "lib/esm/exports.js",
+  "main": "lib/cjs/exports.js",
   "exports": {
     ".": {
-      "types": "./lib/esm/main.d.ts",
-      "import": "./lib/esm/main.js",
-      "default": "./lib/cjs/main.js"
+      "types": "./lib/esm/exports.d.ts",
+      "import": "./lib/esm/exports.js",
+      "default": "./lib/cjs/exports.js"
     }
   },
   "sideEffects": false,
@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "@dreamauth/base64url": "0.1.0",
+    "@dreamauth/errors": "0.1.0",
+    "@dreamauth/jwk": "0.1.0",
     "@dreamauth/types": "0.1.0"
   },
   "werk": {

@@ -3,6 +3,7 @@
 !.github
 !.npmrc
 !.eslintrc.*
+!.prettierrc.*
 !.terraform.lock.hcl
 
 node_modules
