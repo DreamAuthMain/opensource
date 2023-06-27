@@ -16,20 +16,17 @@
     "lib": "lib"
   },
   "type": "module",
-  "types": "lib/esm/main.d.ts",
-  "module": "lib/esm/main.js",
-  "main": "lib/cjs/main.js",
+  "types": "lib/esm/exports.d.ts",
+  "module": "lib/esm/exports.js",
+  "main": "lib/cjs/exports.js",
   "exports": {
     ".": {
-      "types": "./lib/esm/main.d.ts",
-      "import": "./lib/esm/main.js",
-      "default": "./lib/cjs/main.js"
+      "types": "./lib/esm/exports.d.ts",
+      "import": "./lib/esm/exports.js",
+      "default": "./lib/cjs/exports.js"
     }
   },
   "sideEffects": false,
-  "scripts": {
-    "build": "rm -rf lib out && tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -38,39 +35,5 @@
     "@dreamauth/jwk": "0.1.0",
     "@dreamauth/types": "0.1.0",
     "hash-wasm": "^4.9.0"
-  },
-  "werk": {
-    "tsc": {
-      "config": [
-        {
-          "compilerOptions": {
-            "noEmit": false,
-            "rootDir": "src",
-            "outDir": "lib/cjs",
-            "module": "CommonJS"
-          },
-          "include": [
-            "src"
-          ],
-          "exclude": [
-            "**/*.test.*"
-          ]
-        },
-        {
-          "compilerOptions": {
-            "noEmit": false,
-            "rootDir": "src",
-            "outDir": "lib/esm",
-            "module": "NodeNext"
-          },
-          "include": [
-            "src"
-          ],
-          "exclude": [
-            "**/*.test.*"
-          ]
-        }
-      ]
-    }
   }
 }

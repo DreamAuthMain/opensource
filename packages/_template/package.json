@@ -28,44 +28,7 @@
     }
   },
   "sideEffects": false,
-  "scripts": {
-    "build": "rm -rf lib out && tsc -p tsconfig.esm.json && tsc -p tsconfig.cjs.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json"
-  },
   "publishConfig": {
     "access": "public"
-  },
-  "werk": {
-    "tsc": {
-      "config": [
-        {
-          "compilerOptions": {
-            "noEmit": false,
-            "rootDir": "src",
-            "outDir": "lib/cjs",
-            "module": "CommonJS"
-          },
-          "include": [
-            "src"
-          ],
-          "exclude": [
-            "**/*.test.*"
-          ]
-        },
-        {
-          "compilerOptions": {
-            "noEmit": false,
-            "rootDir": "src",
-            "outDir": "lib/esm",
-            "module": "NodeNext"
-          },
-          "include": [
-            "src"
-          ],
-          "exclude": [
-            "**/*.test.*"
-          ]
-        }
-      ]
-    }
   }
 }

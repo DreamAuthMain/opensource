@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf out packages/*/out lib packages/*/lib node_modules packages/*/node_modules",
     "lint": "eslint .",
-    "build": "werk -p tsc",
+    "build": "werk -p build",
     "test": "npm run lint && npm run build && werk vitest run",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
@@ -23,13 +23,13 @@
   "devDependencies": {
     "@testing-library/react": "^14.0.0",
     "@types/eslint": "^8.40.2",
-    "@types/node": "^20.3.1",
+    "@types/node": "^20.3.2",
     "@vitest/coverage-v8": "^0.32.2",
-    "@werk/command-exec": "^1.0.26",
-    "@werk/command-publish": "^1.2.13",
-    "@werk/command-run": "^1.1.16",
-    "@werk/command-tsc": "^1.1.4",
-    "@werk/command-vitest": "^1.0.6",
+    "@werk/command-build": "^1.1.0",
+    "@werk/command-exec": "^1.1.0",
+    "@werk/command-publish": "^1.4.0",
+    "@werk/command-run": "^1.2.0",
+    "@werk/command-vitest": "^1.1.0",
     "eslint": "^8.43.0",
     "eslint-config-rational": "^2.0.23",
     "jsdom": "^22.1.0",
