@@ -2,12 +2,9 @@
 
 Official DreamAuth open source packages.
 
-[![push](https://github.com/DreamAuthMain/opensource/actions/workflows/push.yml/badge.svg)](https://github.com/DreamAuthMain/opensource/actions/workflows/push.yml)
-[![codecov](https://codecov.io/gh/DreamAuthMain/opensource/branch/main/graph/badge.svg?token=E2VYI8XJLB)](https://codecov.io/gh/DreamAuthMain/opensource)
-
 ## Development
 
-Scripts expect a Mac or Linux environment (no Windows).
+Scripts expect a Mac or Linux environment. Windows is not a supported development environment.
 
 After cloning, run the following command to complete enlistment.
 
