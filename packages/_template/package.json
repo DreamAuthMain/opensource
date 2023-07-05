@@ -2,7 +2,7 @@
   "private": true,
   "name": "@dreamauth/_template",
   "description": "DreamAuth template project.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {

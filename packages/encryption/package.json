@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/encryption",
   "description": "DreamAuth Encryption",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -31,8 +31,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/errors": "0.1.0",
-    "@dreamauth/jwk": "0.1.0",
-    "@dreamauth/types": "0.1.0"
+    "@dreamauth/errors": "^1.0.0",
+    "@dreamauth/jwk": "^1.0.0",
+    "@dreamauth/types": "^1.0.0"
   }
 }
