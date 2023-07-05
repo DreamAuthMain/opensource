@@ -31,9 +31,9 @@
     "@werk/command-run": "^1.2.0",
     "@werk/command-vitest": "^1.1.0",
     "eslint": "^8.44.0",
-    "eslint-config-rational": "^2.0.23",
+    "eslint-config-rational": "^2.0.24",
     "jsdom": "^22.1.0",
-    "prettier": "^3.0.0",
+    "prettier": "^2.8.8",
     "typescript": "^5.1.6",
     "vitest": "^0.32.4",
     "vitest-fetch-mock": "^0.2.2"
