@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf out packages/*/out lib packages/*/lib node_modules packages/*/node_modules",
-    "lint": "eslint .",
+    "lint": "eslint 'packages/*/src/**/*.{js,cjs,ts,tsx}'",
     "build": "werk -p build",
-    "test": "npm run lint && npm run build && werk vitest run",
+    "test": "npm run build && npm run lint && werk vitest run",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
   "workspaces": [
@@ -31,7 +31,7 @@
     "@werk/command-run": "^1.2.0",
     "@werk/command-vitest": "^1.1.0",
     "eslint": "^8.44.0",
-    "eslint-config-rational": "^2.1.0",
+    "eslint-config-rational": "^3.0.4",
     "jsdom": "^22.1.0",
     "prettier": "^3.0.0",
     "typescript": "^5.1.6",

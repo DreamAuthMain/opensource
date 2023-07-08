@@ -26,7 +26,8 @@ export class JwtDecoder {
   async decode(value: string): Promise<Jwt> {
     const [headerString = '', payloadString = '', signature = ''] = value.split('.', 3);
 
-    let header, payload: unknown;
+    let header: unknown;
+    let payload: unknown;
 
     try {
       header = JSON.parse(new TextDecoder().decode(base64UrlDecode(headerString)));

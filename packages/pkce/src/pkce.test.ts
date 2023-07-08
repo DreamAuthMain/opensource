@@ -13,10 +13,9 @@ const mockBytes = new Uint8Array([
 ]);
 
 describe('PkceFactory', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     vi.spyOn(webcrypto, 'getRandomValues').mockImplementation((array) => {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return mockBytes.slice(0, new Uint8Array(array!.byteLength).length);
+      return mockBytes.slice(0, new Uint8Array(array.byteLength).length);
     });
   });
 
