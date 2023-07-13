@@ -1,3 +1,9 @@
+## 1.0.3 (2023-07-12)
+
+### Build System
+
+- Include CHANGELOG.md in the published package. (9da87e5)
+
 ## 1.0.2 (2023-07-12)
 
 **Note**: Updated local dependencies.

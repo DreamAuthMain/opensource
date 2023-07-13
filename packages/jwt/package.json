@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/jwt",
   "description": "DreamAuth JWT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -33,9 +33,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/base64url": "^1.0.2",
-    "@dreamauth/errors": "^1.0.2",
-    "@dreamauth/jwk": "^1.0.2",
-    "@dreamauth/types": "^1.0.2"
+    "@dreamauth/base64url": "^1.0.3",
+    "@dreamauth/errors": "^1.0.3",
+    "@dreamauth/jwk": "^1.0.3",
+    "@dreamauth/types": "^1.0.3"
   }
 }
