@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/types",
   "description": "DreamAuth Types",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -32,6 +32,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/errors": "^1.0.0"
+    "@dreamauth/errors": "^1.0.1"
   }
 }
