@@ -1,19 +1,9 @@
 # DreamAuth PKCE
 
-Generate PKCE verifiers and challenges using [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Crypto).
+Generate PKCE verifiers and challenges.
 
-Generate a PKCE verifier.
+See the [examples](examples.ts).
 
-```ts
-// Use the default length of 128 bytes.
-const verifier = createPkceVerifier();
+## Security Recommendations
 
-// Use an explicit length from 43 to 128 bytes.
-const verifier = createPkceVerifier(43);
-```
-
-Generate the PKCE challenge for a given verifier.
-
-```ts
-const challenge = createPkceChallenge(verifier);
-```
+- Verifiers should be at least 43 bytes, and 96-128 bytes is recommended.

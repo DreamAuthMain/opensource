@@ -2,16 +2,19 @@
 !.gitignore
 !.github
 !.npmrc
-!.eslintrc.*
+!.eslintrc*
+!.prettierrc*
 !.terraform.lock.hcl
 
 node_modules
 lib
-out
 dist
+out
+coverage
 
 *.log
 *.tar
 *.gz
 *.tgz
 *.zip
+*.tfstate*

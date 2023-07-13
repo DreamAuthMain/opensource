@@ -1,0 +1,33 @@
+{
+  "name": "@dreamauth/errors",
+  "description": "DreamAuth Errors",
+  "version": "1.0.0",
+  "author": "Chris Ackerman <chris@topher.land>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreamAuthMain/opensource.git"
+  },
+  "files": [
+    "lib/cjs/**",
+    "lib/esm/**"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "type": "module",
+  "types": "lib/esm/exports.d.ts",
+  "module": "lib/esm/exports.js",
+  "main": "lib/cjs/exports.js",
+  "exports": {
+    ".": {
+      "types": "./lib/esm/exports.d.ts",
+      "import": "./lib/esm/exports.js",
+      "default": "./lib/cjs/exports.js"
+    }
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}

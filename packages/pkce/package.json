@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/pkce",
-  "description": "Generate PKCE verifiers and challenges using Web Crypto.",
-  "version": "0.1.0",
+  "description": "DreamAuth PKCE",
+  "version": "1.0.0",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -16,30 +16,22 @@
     "lib": "lib"
   },
   "type": "module",
-  "types": "lib/esm/index.d.ts",
-  "module": "lib/esm/index.js",
-  "main": "lib/cjs/index.js",
+  "types": "lib/esm/exports.d.ts",
+  "module": "lib/esm/exports.js",
+  "main": "lib/cjs/exports.js",
   "exports": {
     ".": {
-      "types": "./lib/esm/index.d.ts",
-      "import": "./lib/esm/index.js",
-      "default": "./lib/cjs/index.js"
+      "types": "./lib/esm/exports.d.ts",
+      "import": "./lib/esm/exports.js",
+      "default": "./lib/cjs/exports.js"
     }
   },
   "sideEffects": false,
-  "scripts": {
-    "lint": "eslint .",
-    "test": "jest",
-    "build": "tsc -b config/tsconfig.build.json && echo '{ \"type\": \"commonjs\" }' > lib/cjs/package.json",
-    "prepublishOnly": "npx @dreamauth/prepublish"
-  },
-  "jest": {
-    "preset": "../../config/jest.config.test.cjs"
-  },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/base64url-encode": "file://../base64url-encode"
+    "@dreamauth/base64url": "^1.0.0",
+    "@dreamauth/types": "^1.0.0"
   }
 }

@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "name": "@dreamauth/prepublish",
-  "type": "module",
-  "bin": "./index.js",
-  "dependencies": {
-    "glob": "^9.3.0"
-  }
-}
