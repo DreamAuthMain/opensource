@@ -2,6 +2,8 @@
 
 Generate password hashes.
 
+See the [examples](examples.ts).
+
 ## Algorithms
 
 - `Argon2id` (recommended: side-channel and GPU-based attack resistant)
