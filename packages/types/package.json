@@ -10,6 +10,7 @@
     "directory": "packages/types"
   },
   "files": [
+    "CHANGELOG.md",
     "lib/cjs/**",
     "lib/esm/**"
   ],

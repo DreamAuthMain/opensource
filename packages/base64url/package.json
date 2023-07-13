@@ -10,6 +10,7 @@
     "directory": "packages/base64url"
   },
   "files": [
+    "CHANGELOG.md",
     "lib/cjs/**",
     "lib/esm/**"
   ],

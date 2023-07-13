@@ -10,6 +10,7 @@
     "directory": "packages/jwt"
   },
   "files": [
+    "CHANGELOG.md",
     "lib/cjs/**",
     "lib/esm/**"
   ],

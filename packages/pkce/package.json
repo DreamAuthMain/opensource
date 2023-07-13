@@ -10,6 +10,7 @@
     "directory": "packages/pkce"
   },
   "files": [
+    "CHANGELOG.md",
     "lib/cjs/**",
     "lib/esm/**"
   ],
