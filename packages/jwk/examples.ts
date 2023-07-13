@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import crypto from 'node:crypto';
 
-import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from './src/exports.js';
+import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
 
 //
 // Create JWKs

@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import crypto from 'node:crypto';
 
-import { type Jwk } from '@dreamauth/types';
+import { JwkFactory } from '@dreamauth/jwk';
+import { JwtDecoder, JwtFactory, JwtVerifier } from '@dreamauth/jwt';
 
-import { JwtDecoder, JwtFactory, JwtVerifier } from './src/exports.js';
+// You need a private JWK for JWT signing, and a public JWK for JWT
+// verification. These would normally be generated ahead of time, and
+// rotated occasionally.
+const jwkFactory = new JwkFactory(crypto.webcrypto);
+const { publicKey, privateKey } = await jwkFactory.createRSA('RS256');
 
 //
 // Create JWTs.
@@ -15,11 +20,8 @@ const jwtFactory = new JwtFactory(crypto.webcrypto, 'https://issuer.com', {
   lifetime: 3600, // Default token lifetime in seconds.
 });
 
-// Load your private JWK from a secure location.
-const privateJwk = {} as Jwk<'RS256', 'sign'>;
-
 // Create a JWT, signed with the private JWK.
-const jwt = await jwtFactory.create(privateJwk, {
+const jwt = await jwtFactory.create(privateKey, {
   header: { foo: 'override header value' },
   payload: { bar: 'override payload value' },
   lifetime: 1800, // Override token lifetime in seconds.
@@ -32,7 +34,7 @@ const jwt = await jwtFactory.create(privateJwk, {
 const verifier = new JwtVerifier(crypto.webcrypto, ['https://issuer.com'], {
   load: async (iss: string) => {
     // Load all public JWKs for the given issuer.
-    return [];
+    return [publicKey];
   },
 });
 const decoder = new JwtDecoder(verifier);

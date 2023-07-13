@@ -1,6 +1,6 @@
 import crypto from 'node:crypto';
 
-import { PasswordHashFactory } from './src/exports.js';
+import { PasswordHashFactory } from '@dreamauth/password';
 
 const hashFactory = new PasswordHashFactory(crypto.webcrypto);
 

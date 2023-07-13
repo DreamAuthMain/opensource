@@ -1,8 +1,7 @@
 import crypto from 'node:crypto';
 
+import { EncryptionCodec } from '@dreamauth/encryption-codec';
 import { JwkFactory } from '@dreamauth/jwk';
-
-import { EncryptionCodec } from './src/encryption-codec.js';
 
 // You need a JWK RSA key pair to encrypt and decrypt data.
 const jwkFactory = new JwkFactory(crypto.webcrypto);

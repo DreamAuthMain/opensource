@@ -1,4 +1,4 @@
-import { createErrors } from './src/exports.js';
+import { createErrors } from '@dreamauth/errors';
 
 // Create an error() function and an errors object from a map of error
 // codes and messages.
