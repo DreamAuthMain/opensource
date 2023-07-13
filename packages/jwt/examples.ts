@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import crypto from 'node:crypto';
 
 import { JwkFactory } from '@dreamauth/jwk';

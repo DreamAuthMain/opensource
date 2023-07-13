@@ -5,6 +5,7 @@ export default rational({
     {
       files: ['packages/*/examples.ts'],
       rules: {
+        '@typescript-eslint/no-unused-vars': 'off',
         'import/no-extraneous-dependencies': 'off',
       },
     },
