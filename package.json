@@ -7,7 +7,7 @@
     "clean": "rm -rf out packages/*/out lib packages/*/lib node_modules packages/*/node_modules",
     "lint": "eslint 'packages/*/src/**/*.{js,cjs,ts,tsx}'",
     "build": "werk -p build",
-    "test": "npm run build && npm run lint && werk vitest run",
+    "test": "npm run build && npm run lint -- --max-warnings=0 && werk vitest run",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
   "workspaces": [
