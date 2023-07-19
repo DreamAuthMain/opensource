@@ -1,4 +1,4 @@
-name: Push
+name: Release
 
 on:
   push:
@@ -9,7 +9,7 @@ concurrency:
   group: ${{ github.workflow }}
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
