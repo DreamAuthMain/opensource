@@ -1,3 +1,9 @@
+# 2.0.0 (2023-07-26)
+
+### Breaking Changes
+
+- Remove HMAC JWK/T support. (2d467c4)
+
 ## 1.0.3 (2023-07-12)
 
 ### Build System

@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/encryption-codec",
   "description": "DreamAuth Encryption Codec",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -33,7 +33,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/jwk": "^1.0.3",
-    "@dreamauth/types": "^1.0.3"
+    "@dreamauth/jwk": "^2.0.0",
+    "@dreamauth/types": "^2.0.0"
   }
 }
