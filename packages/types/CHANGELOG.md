@@ -1,3 +1,9 @@
+## 2.0.1 (2023-07-26)
+
+### Bug Fixes
+
+- Remove remaining HMAC references. (b8ce42d)
+
 # 2.0.0 (2023-07-26)
 
 ### Breaking Changes
