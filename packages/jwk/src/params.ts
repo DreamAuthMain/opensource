@@ -39,7 +39,7 @@ export const IMPORT_PARAMS = {
     name: 'RSA-OAEP',
     hash: 'SHA-256',
   },
-} as const satisfies Record<string, HmacImportParams | RsaHashedImportParams | EcKeyImportParams>;
+} as const satisfies Record<string, RsaHashedImportParams | EcKeyImportParams>;
 
 export const GEN_RSA_PARAMS = {
   RS256: {

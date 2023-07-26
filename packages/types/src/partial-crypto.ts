@@ -3,15 +3,15 @@ interface BaseCrypto {
   getRandomValues(array: Uint8Array): Uint8Array;
   subtle: {
     generateKey(
-      algorithm: HmacKeyGenParams | RsaHashedKeyGenParams | EcKeyGenParams,
+      algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
       extractable: true,
       keyUsages: ['encrypt', 'decrypt'] | ['verify', 'sign'],
-    ): Promise<CryptoKeyPair | CryptoKey>;
+    ): Promise<CryptoKeyPair>;
     exportKey(format: 'jwk', key: CryptoKey): Promise<JsonWebKey>;
     importKey(
       format: 'raw' | 'jwk',
       keyData: Uint8Array | JsonWebKey,
-      algorithm: AlgorithmIdentifier | HmacImportParams | RsaHashedImportParams | EcKeyImportParams,
+      algorithm: AlgorithmIdentifier | RsaHashedImportParams | EcKeyImportParams,
       extractable: false,
       keyUsages: ['verify'] | ['sign'] | ['encrypt'] | ['decrypt'] | ['deriveBits'],
     ): Promise<CryptoKey>;

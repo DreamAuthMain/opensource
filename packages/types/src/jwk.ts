@@ -30,10 +30,6 @@ export interface JwkPair<A extends string = string, TPublicOp extends string = s
   readonly publicKey: Jwk<A, TPublicOp>;
 }
 
-export interface JwkSingleton<A extends string = string, O extends string = string> {
-  readonly key: Jwk<A, O>;
-}
-
 const isJwkObject = (value: unknown): value is Jwk => {
   return (
     isObject(value) &&

@@ -1,4 +1,4 @@
-import { type JwkPair, type JwkSingleton, type PartialCrypto } from '@dreamauth/types';
+import { type JwkPair, type PartialCrypto } from '@dreamauth/types';
 
 import { GEN_ECC_PARAMS, GEN_RSA_PARAMS } from './params.js';
 
@@ -35,26 +35,17 @@ export class JwkFactory {
   >(alg: A, params: RsaHashedKeyGenParams | EcKeyGenParams, keyUsage: U): Promise<JwkPair<A, U[0], U[1]>>;
   async #create(
     alg: string,
-    params: HmacKeyGenParams | RsaHashedKeyGenParams | EcKeyGenParams,
+    params: RsaHashedKeyGenParams | EcKeyGenParams,
     keyUsage: readonly ['verify', 'sign'] | readonly ['encrypt', 'decrypt'],
-  ): Promise<JwkPair | JwkSingleton> {
+  ): Promise<JwkPair> {
     const result = await this.#crypto.subtle.generateKey(params, true, [...keyUsage]);
     const kid = this.#crypto.randomUUID();
-
-    if ('privateKey' in result) {
-      const privateJwk = await this.#crypto.subtle.exportKey('jwk', result.privateKey);
-      const publicJwk = await this.#crypto.subtle.exportKey('jwk', result.publicKey);
-
-      return {
-        privateKey: { alg, ...privateJwk, kid, key_ops: keyUsage },
-        publicKey: { alg, ...publicJwk, kid, key_ops: keyUsage },
-      };
-    }
-
-    const jwk = await this.#crypto.subtle.exportKey('jwk', result);
+    const privateJwk = await this.#crypto.subtle.exportKey('jwk', result.privateKey);
+    const publicJwk = await this.#crypto.subtle.exportKey('jwk', result.publicKey);
 
     return {
-      key: { alg, ...jwk, kid, key_ops: keyUsage },
+      privateKey: { alg, ...privateJwk, kid, key_ops: keyUsage },
+      publicKey: { alg, ...publicJwk, kid, key_ops: keyUsage },
     };
   }
 }
