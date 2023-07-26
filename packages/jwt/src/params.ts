@@ -1,13 +1,4 @@
 export const PARAMS = {
-  HS256: {
-    name: 'HMAC',
-  },
-  HS384: {
-    name: 'HMAC',
-  },
-  HS512: {
-    name: 'HMAC',
-  },
   RS256: {
     name: 'RSASSA-PKCS1-v1_5',
   },

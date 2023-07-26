@@ -1,19 +1,4 @@
 export const IMPORT_PARAMS = {
-  HS256: {
-    name: 'HMAC',
-    hash: 'SHA-256',
-    // length: 256,
-  },
-  HS384: {
-    name: 'HMAC',
-    hash: 'SHA-384',
-    // length: 384,
-  },
-  HS512: {
-    name: 'HMAC',
-    hash: 'SHA-512',
-    // length: 512,
-  },
   RS256: {
     name: 'RSASSA-PKCS1-v1_5',
     hash: 'SHA-256',
@@ -55,24 +40,6 @@ export const IMPORT_PARAMS = {
     hash: 'SHA-256',
   },
 } as const satisfies Record<string, HmacImportParams | RsaHashedImportParams | EcKeyImportParams>;
-
-export const GEN_HMAC_PARAMS = {
-  HS256: {
-    name: 'HMAC',
-    hash: 'SHA-256',
-    length: 256,
-  },
-  HS384: {
-    name: 'HMAC',
-    hash: 'SHA-384',
-    length: 384,
-  },
-  HS512: {
-    name: 'HMAC',
-    hash: 'SHA-512',
-    length: 512,
-  },
-} as const satisfies Record<string, HmacKeyGenParams>;
 
 export const GEN_RSA_PARAMS = {
   RS256: {

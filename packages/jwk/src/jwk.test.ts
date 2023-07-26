@@ -104,28 +104,4 @@ describe('JwkFactory and JwkImporter', () => {
       });
     });
   });
-
-  ([['HS256', 'HMAC', 'SHA-256', 'createHMAC']] as const).forEach(([alg, name, hash, method]) => {
-    test(`create and import ${alg}`, async () => {
-      const jwkFactory = new JwkFactory(webcrypto);
-      const jwkImporter = new JwkImporter(webcrypto);
-      const jwk = await jwkFactory[method](alg);
-      const signKey = await jwkImporter.import(jwk.key, 'sign');
-      const verifyKey = await jwkImporter.import(jwk.key, 'verify');
-
-      expect(signKey.usages).toEqual(['sign']);
-      expect(verifyKey.usages).toEqual(['verify']);
-      [signKey, verifyKey].forEach((key) => {
-        expect(key).toBeInstanceOf(webcrypto.CryptoKey);
-        expect(key).toMatchObject({
-          type: 'secret',
-          extractable: false,
-          algorithm: {
-            name: name,
-            hash: { name: hash },
-          },
-        });
-      });
-    });
-  });
 });

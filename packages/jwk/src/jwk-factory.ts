@@ -1,6 +1,6 @@
 import { type JwkPair, type JwkSingleton, type PartialCrypto } from '@dreamauth/types';
 
-import { GEN_ECC_PARAMS, GEN_HMAC_PARAMS, GEN_RSA_PARAMS } from './params.js';
+import { GEN_ECC_PARAMS, GEN_RSA_PARAMS } from './params.js';
 
 type ModulusLength = 2048 | 3072 | 4096;
 
@@ -14,12 +14,6 @@ export class JwkFactory {
 
   constructor(crypto: PartialCrypto<'randomUUID' | 'generateKey' | 'exportKey'>) {
     this.#crypto = crypto;
-  }
-
-  async createHMAC<A extends keyof typeof GEN_HMAC_PARAMS>(alg: A): Promise<JwkSingleton<A, 'verify' | 'sign'>> {
-    const params = GEN_HMAC_PARAMS[alg];
-    const pair = await this.#create(alg, params, ['verify', 'sign']);
-    return pair;
   }
 
   async createRSA<A extends keyof typeof GEN_RSA_PARAMS>(
@@ -39,11 +33,6 @@ export class JwkFactory {
     A extends keyof typeof GEN_RSA_PARAMS | keyof typeof GEN_ECC_PARAMS,
     U extends readonly ['verify', 'sign'] | readonly ['encrypt', 'decrypt'],
   >(alg: A, params: RsaHashedKeyGenParams | EcKeyGenParams, keyUsage: U): Promise<JwkPair<A, U[0], U[1]>>;
-  async #create<A extends keyof typeof GEN_HMAC_PARAMS>(
-    alg: A,
-    params: HmacKeyGenParams,
-    keyUsage: readonly ['verify', 'sign'],
-  ): Promise<JwkSingleton<A, 'sign' | 'verify'>>;
   async #create(
     alg: string,
     params: HmacKeyGenParams | RsaHashedKeyGenParams | EcKeyGenParams,

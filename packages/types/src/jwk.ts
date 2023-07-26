@@ -2,9 +2,6 @@ import { isArray } from './is-array.js';
 import { isObject } from './is-object.js';
 
 type Alg =
-  | 'HS256'
-  | 'HS384'
-  | 'HS512'
   | 'RS256'
   | 'RS384'
   | 'RS512'

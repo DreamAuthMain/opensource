@@ -24,10 +24,6 @@ const jwkEccPair = await jwkFactory.createECC('ES256');
 jwkEccPair.privateKey;
 jwkEccPair.publicKey;
 
-// Create a JWK HMAC singleton for signing.
-const jwkHmac = await jwkFactory.createHMAC('HS256');
-jwkHmac.key;
-
 //
 // Load JWKs.
 //
