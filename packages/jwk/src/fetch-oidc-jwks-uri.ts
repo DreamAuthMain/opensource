@@ -1,4 +1,4 @@
-import { isObject } from '@dreamauth/types';
+import { isObject } from '@dreamauth/util';
 
 export const fetchOIDCJwksUri = async (baseUrl: string): Promise<string> => {
   const response = await fetch(`${baseUrl}/openid-configuration`).catch(() => null);

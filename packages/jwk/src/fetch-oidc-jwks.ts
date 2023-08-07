@@ -1,4 +1,5 @@
-import { isArray, isJwk, isObject, type Jwk } from '@dreamauth/types';
+import { isJwk, type Jwk } from '@dreamauth/types';
+import { isArray, isObject } from '@dreamauth/util';
 
 import { IMPORT_PARAMS } from './params.js';
 
