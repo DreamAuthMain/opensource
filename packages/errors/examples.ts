@@ -7,8 +7,8 @@ const [error, errors] = createErrors({
 });
 
 // Error messages can be accessed by key from the errors object.
-const message = errors['invalid-jwk'];
-console.log(message); // The JWK is invalid.
+console.log(errors['invalid-jwk'].code); // invalid-jwk
+console.log(errors['invalid-jwk'].message); // The JWK is invalid.
 
 try {
   error('invalid-jwk', new Error('cause'));

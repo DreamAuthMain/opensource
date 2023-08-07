@@ -4,14 +4,14 @@ import { createErrors } from './errors.js';
 
 describe('errors', () => {
   test('known', () => {
-    const [error, ERRORS] = createErrors({
+    const [error, errors] = createErrors({
       a: 'A',
       b: 'B',
     });
 
-    expect(ERRORS).toEqual({
-      a: 'A',
-      b: 'B',
+    expect(errors).toStrictEqual({
+      a: { code: 'a', message: 'A' },
+      b: { code: 'b', message: 'B' },
     });
 
     (
@@ -28,8 +28,8 @@ describe('errors', () => {
   });
 
   test('unknown', () => {
-    const [error, ERRORS] = createErrors({});
-    expect(ERRORS).toEqual({});
+    const [error, errors] = createErrors({});
+    expect(errors).toEqual({});
     expect(() => error(null)).toThrowError(new Error('unknown error'));
   });
 });
