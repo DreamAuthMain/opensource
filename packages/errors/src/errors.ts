@@ -6,13 +6,6 @@ type Errors<T extends Record<string, string>> = {
   };
 };
 
-declare global {
-  interface Error {
-    code?: unknown;
-    cause?: unknown;
-  }
-}
-
 export const createErrors = <T extends Record<string, string>>(
   errorMessages: T,
 ): [raise: RaiseError<keyof T>, errors: Errors<T>] => {
