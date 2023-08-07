@@ -1,3 +1,13 @@
+## 2.0.1 (2023-08-07)
+
+### Bug Fixes
+
+- **errors,util:** Missing code on type Error. (4e57f48)
+
+### Chores
+
+- Remove global Error type extension. (180aa72)
+
 # 2.0.0 (2023-08-07)
 
 ### Breaking Changes
