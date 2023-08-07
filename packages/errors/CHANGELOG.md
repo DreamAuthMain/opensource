@@ -1,3 +1,9 @@
+# 2.0.0 (2023-08-07)
+
+### Breaking Changes
+
+- Return map of error codes and messages. (a3c4be2)
+
 ## 1.0.3 (2023-07-12)
 
 ### Build System
