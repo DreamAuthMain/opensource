@@ -10,7 +10,7 @@ export const createErrors = <T extends Record<string, string>>(
   errorMessages: T,
 ): [raise: RaiseError<keyof T>, errors: Errors<T>] => {
   const raise: RaiseError<keyof T> = (code, cause) => {
-    const throwable = new Error(code == null ? 'unknown error' : errorMessages[code]);
+    const throwable: Error & { code?: unknown } = new Error(code == null ? 'unknown error' : errorMessages[code]);
     throwable.code = code;
     throwable.cause = cause;
     throw throwable;

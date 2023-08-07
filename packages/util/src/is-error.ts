@@ -9,5 +9,5 @@ export const isError: {
   code?: string | { readonly code: string },
 ): value is Error & { readonly code: unknown; readonly cause?: unknown } => {
   code = typeof code === 'string' ? code : code?.code;
-  return value instanceof Error && (code == null || value.code === code);
+  return value instanceof Error && (code == null || ('code' in value && value.code === code));
 };
