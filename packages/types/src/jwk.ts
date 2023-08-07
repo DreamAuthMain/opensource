@@ -1,5 +1,4 @@
-import { isArray } from './is-array.js';
-import { isObject } from './is-object.js';
+import { isArray, isObject } from '@dreamauth/util';
 
 type Alg =
   | 'RS256'

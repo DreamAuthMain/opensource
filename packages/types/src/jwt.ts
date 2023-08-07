@@ -1,4 +1,4 @@
-import { isObject } from './is-object.js';
+import { isObject } from '@dreamauth/util';
 
 export type JwtIssuerUrl = `https://${string}` | `http://localhost${`:${string}` | `/${string}` | ''}`;
 

@@ -33,6 +33,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/errors": "^1.0.3"
+    "@dreamauth/util": "^1.0.0"
   }
 }
