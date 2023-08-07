@@ -1,3 +1,9 @@
+## 2.0.2 (2023-08-07)
+
+### Chores
+
+- Add util package dependency. (1df87b6)
+
 ## 2.0.1 (2023-07-26)
 
 ### Bug Fixes

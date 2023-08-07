@@ -1,3 +1,9 @@
+# 3.0.0 (2023-08-07)
+
+### Breaking Changes
+
+- Remove isObject and isArray. (118b586)
+
 ## 2.0.1 (2023-07-26)
 
 ### Bug Fixes
