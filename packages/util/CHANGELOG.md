@@ -1,3 +1,9 @@
+## 1.0.2 (2023-08-08)
+
+### Chores
+
+- Support multiple codes when calling &#96;isError&#96;. (f315431)
+
 ## 1.0.1 (2023-08-07)
 
 ### Bug Fixes
