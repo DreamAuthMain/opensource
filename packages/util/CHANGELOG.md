@@ -1,3 +1,9 @@
+## 1.0.3 (2023-08-08)
+
+### Bug Fixes
+
+- Incorrect isError type. (310b97d)
+
 ## 1.0.2 (2023-08-08)
 
 ### Chores
