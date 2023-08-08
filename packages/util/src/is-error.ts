@@ -2,7 +2,7 @@ export const isError: {
   (value: unknown): value is Error & { readonly code?: unknown; readonly cause?: unknown };
   <TCode extends string>(
     value: unknown,
-    code: TCode | { readonly code: TCode },
+    ...codes: readonly (TCode | { readonly code: TCode })[]
   ): value is Error & { readonly code: TCode; readonly cause?: unknown };
 } = (
   value: unknown,
