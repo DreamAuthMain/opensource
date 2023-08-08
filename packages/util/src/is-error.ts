@@ -6,8 +6,14 @@ export const isError: {
   ): value is Error & { readonly code: TCode; readonly cause?: unknown };
 } = (
   value: unknown,
-  code?: string | { readonly code: string },
+  ...codes: readonly (string | { readonly code: string })[]
 ): value is Error & { readonly code: unknown; readonly cause?: unknown } => {
-  code = typeof code === 'string' ? code : code?.code;
-  return value instanceof Error && (code == null || ('code' in value && value.code === code));
+  return (
+    value instanceof Error &&
+    (codes.length === 0 ||
+      ('code' in value &&
+        codes.some((code) => {
+          return typeof code === 'string' ? value.code === code : value.code === code.code;
+        })))
+  );
 };
