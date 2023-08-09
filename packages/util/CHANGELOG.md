@@ -1,3 +1,9 @@
+## 1.0.4 (2023-08-09)
+
+### Bug Fixes
+
+- Incorrect readme. (73d7322)
+
 ## 1.0.3 (2023-08-08)
 
 ### Bug Fixes

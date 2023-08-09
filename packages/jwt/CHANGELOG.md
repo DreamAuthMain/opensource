@@ -1,3 +1,9 @@
+## 3.0.4 (2023-08-09)
+
+### Chores
+
+- Use time package. (e49b1f0)
+
 ## 3.0.3 (2023-08-08)
 
 **Note**: Updated local dependencies.
