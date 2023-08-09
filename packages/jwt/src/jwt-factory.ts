@@ -1,5 +1,6 @@
 import { base64UrlEncode } from '@dreamauth/base64url';
 import { JwkImporter } from '@dreamauth/jwk';
+import { SECONDS, time } from '@dreamauth/time';
 import { type Jwk, type JwtHeader, type JwtIssuerUrl, type JwtPayload, type PartialCrypto } from '@dreamauth/types';
 
 import { PARAMS } from './params.js';
@@ -50,7 +51,7 @@ export class JwtFactory {
   ): Promise<string> {
     const params = PARAMS[jwk.alg];
     const key = await this.#jwkImporter.import(jwk, 'sign');
-    const nowSeconds = Math.floor(Date.now() / 1000);
+    const nowSeconds = time.now().as(SECONDS);
     const headerFinal: JwtHeader = {
       ...this.#header,
       ...header,

@@ -1,5 +1,6 @@
 import { base64UrlDecode } from '@dreamauth/base64url';
 import { JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
+import { SECONDS, time } from '@dreamauth/time';
 import { isJwk, type Jwk, type Jwt, type PartialCrypto } from '@dreamauth/types';
 
 import { error } from './errors.js';
@@ -31,10 +32,10 @@ export class JwtVerifier {
   }
 
   async verify(jwt: Jwt): Promise<void> {
-    const nowSeconds = Math.floor(Date.now() / 1000);
+    const nowSeconds = time.now().as(SECONDS);
 
     if (!this.#issuers.has(jwt.payload.iss)) return error('InvalidJwtIss');
-    if (jwt.payload.exp < nowSeconds) return error('ExpiredJwt');
+    if (jwt.payload.exp <= nowSeconds) return error('ExpiredJwt');
     if (jwt.payload.nbf != null && jwt.payload.nbf > nowSeconds) return error('InvalidJwtNbf');
 
     const cachedJwks: Jwk<keyof typeof PARAMS, 'verify'>[] | undefined = this.#cache.get(jwt.payload.iss);

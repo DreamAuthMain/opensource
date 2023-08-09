@@ -36,6 +36,7 @@
     "@dreamauth/base64url": "^1.0.3",
     "@dreamauth/errors": "^2.0.1",
     "@dreamauth/jwk": "^2.0.5",
+    "@dreamauth/time": "^1.0.0",
     "@dreamauth/types": "^3.0.3"
   }
 }
