@@ -1,3 +1,3 @@
-# DreamAuth Types
+# DreamAuth Util
 
-Common types and type predicate functions.
+Small utility functions for DreamAuth.
