@@ -1,3 +1,9 @@
+## 1.0.7 (2023-08-10)
+
+### Bug Fixes
+
+- **merge:** Shouldn't export AutoPartial and Simplify types. (847130a)
+
 ## 1.0.6 (2023-08-10)
 
 ### Bug Fixes
