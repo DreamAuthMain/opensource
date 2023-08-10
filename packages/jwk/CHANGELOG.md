@@ -1,3 +1,9 @@
+# 3.0.0 (2023-08-10)
+
+### Breaking Changes
+
+- Switched to optional crypto providers. (0b89fdb)
+
 ## 2.0.7 (2023-08-10)
 
 **Note**: Updated local dependencies.
