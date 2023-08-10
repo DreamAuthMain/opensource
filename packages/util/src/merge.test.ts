@@ -7,8 +7,8 @@ test('merge', () => {
   const b: { a: number | undefined; c: boolean; d: never; e?: number } = { a: 1, c: true, d: undefined as never };
   const c: { c: number | undefined } = { c: 1 };
   const result0 = merge(undefined, a, b);
-  const result1 = merge(a, b, c, undefined);
-  const result2 = merge(result0, result1);
+  const result1 = merge(a, b, undefined, c);
+  const result2 = merge(result0, null, result1);
   const merged0: { a: string | number; b: number; c: boolean; d?: undefined; e?: number | undefined } = result0;
   const merged1: { a: string | number; b: number; c: boolean | number; d?: undefined; e?: number | undefined } =
     result1;

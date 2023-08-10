@@ -22,14 +22,14 @@ export type Merged<TBase, TSources> = TSources extends [infer TSource, ...infer 
     >
   : AutoPartial<TBase>;
 
-export const merge = <TBase extends object, TSources extends readonly (object | undefined)[]>(
-  a: TBase | undefined,
-  ...[b, ...rest]: TSources
+export const merge = <TBase extends object, TSources extends readonly (object | undefined | null)[]>(
+  first: TBase | undefined | null,
+  ...rest: TSources
 ): Simplify<Merged<TBase, TSources>> => {
-  while (b !== undefined) {
-    a = Object.assign({}, a, Object.fromEntries(Object.entries(b).filter(([, v]) => v !== undefined)));
-    b = rest.shift();
+  for (const value of rest) {
+    if (value == null) continue;
+    first = Object.assign({}, first, Object.fromEntries(Object.entries(value).filter(([, v]) => v !== undefined)));
   }
 
-  return a as unknown as Simplify<Merged<TBase, TSources>>;
+  return first as unknown as Simplify<Merged<TBase, TSources>>;
 };
