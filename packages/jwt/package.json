@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@dreamauth/base64url": "^1.0.3",
+    "@dreamauth/crypto": "^1.0.0",
     "@dreamauth/errors": "^2.0.1",
     "@dreamauth/jwk": "^2.0.7",
     "@dreamauth/time": "^1.0.0",

@@ -1,7 +1,8 @@
 import { base64UrlEncode } from '@dreamauth/base64url';
+import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
 import { JwkImporter } from '@dreamauth/jwk';
-import { SECONDS, time } from '@dreamauth/time';
-import { type Jwk, type JwtHeader, type JwtIssuerUrl, type JwtPayload, type PartialCrypto } from '@dreamauth/types';
+import { DAYS, SECONDS, time } from '@dreamauth/time';
+import { type Jwk, type JwtHeader, type JwtIssuerUrl, type JwtPayload } from '@dreamauth/types';
 
 import { PARAMS } from './params.js';
 
@@ -18,6 +19,10 @@ export interface JwtFactoryOptions {
    * JWT lifetime in seconds.
    */
   readonly lifetime?: number;
+  /**
+   * Custom crypto provider.
+   */
+  readonly crypto?: PartialCryptoProvider<'randomUUID' | 'importKey' | 'sign'>;
 }
 
 /**
@@ -25,7 +30,7 @@ export interface JwtFactoryOptions {
  * [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API).
  */
 export class JwtFactory {
-  readonly #crypto: PartialCrypto<'randomUUID' | 'importKey' | 'sign'>;
+  readonly #crypto: PartialCryptoProvider<'randomUUID' | 'importKey' | 'sign'>;
   readonly #jwkImporter: JwkImporter;
   readonly #issuer: JwtIssuerUrl;
   readonly #header: Partial<JwtHeader>;
@@ -33,22 +38,27 @@ export class JwtFactory {
   readonly #lifetime: number;
 
   constructor(
-    crypto: PartialCrypto<'randomUUID' | 'importKey' | 'sign'>,
     issuer: JwtIssuerUrl,
-    { header = {}, payload = {}, lifetime = 86_400 /* 24 hours in seconds */ }: JwtFactoryOptions = {},
+    {
+      header = {},
+      payload = {},
+      lifetime = time(1, DAYS).as(SECONDS),
+      crypto = cryptoProvider,
+    }: JwtFactoryOptions = {},
   ) {
-    this.#crypto = crypto;
-    this.#jwkImporter = new JwkImporter(crypto);
     this.#issuer = issuer;
     this.#header = header;
     this.#payload = payload;
     this.#lifetime = lifetime;
+    this.#crypto = crypto;
+    this.#jwkImporter = new JwkImporter(crypto);
   }
 
   async create(
     jwk: Jwk<keyof typeof PARAMS, 'sign'>,
     { header = {}, payload = {}, lifetime = this.#lifetime }: Partial<JwtFactoryOptions> = {},
   ): Promise<string> {
+    const crypto = await this.#crypto();
     const params = PARAMS[jwk.alg];
     const key = await this.#jwkImporter.import(jwk, 'sign');
     const nowSeconds = time.now().as(SECONDS);
@@ -70,7 +80,7 @@ export class JwtFactory {
     const payloadJson = JSON.stringify(payloadFinal);
     const headerString = base64UrlEncode(headerJson);
     const payloadString = base64UrlEncode(payloadJson);
-    const signatureBytes = await this.#crypto.subtle.sign(
+    const signatureBytes = await crypto.subtle.sign(
       params,
       key,
       new TextEncoder().encode(`${headerString}.${payloadString}`),

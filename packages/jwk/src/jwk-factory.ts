@@ -1,4 +1,5 @@
-import { type JwkPair, type PartialCrypto } from '@dreamauth/types';
+import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { type JwkPair } from '@dreamauth/types';
 
 import { GEN_ECC_PARAMS, GEN_RSA_PARAMS } from './params.js';
 
@@ -10,9 +11,9 @@ type ModulusLength = 2048 | 3072 | 4096;
  * Supports algorithms for JWT signing and verifying only (not encryption).
  */
 export class JwkFactory {
-  readonly #crypto: PartialCrypto<'randomUUID' | 'generateKey' | 'exportKey'>;
+  readonly #crypto: PartialCryptoProvider<'randomUUID' | 'generateKey' | 'exportKey'>;
 
-  constructor(crypto: PartialCrypto<'randomUUID' | 'generateKey' | 'exportKey'>) {
+  constructor(crypto: PartialCryptoProvider<'randomUUID' | 'generateKey' | 'exportKey'> = cryptoProvider) {
     this.#crypto = crypto;
   }
 
@@ -38,10 +39,11 @@ export class JwkFactory {
     params: RsaHashedKeyGenParams | EcKeyGenParams,
     keyUsage: readonly ['verify', 'sign'] | readonly ['encrypt', 'decrypt'],
   ): Promise<JwkPair> {
-    const result = await this.#crypto.subtle.generateKey(params, true, [...keyUsage]);
-    const kid = this.#crypto.randomUUID();
-    const privateJwk = await this.#crypto.subtle.exportKey('jwk', result.privateKey);
-    const publicJwk = await this.#crypto.subtle.exportKey('jwk', result.publicKey);
+    const crypto = await this.#crypto();
+    const result = await crypto.subtle.generateKey(params, true, [...keyUsage]);
+    const kid = crypto.randomUUID();
+    const privateJwk = await crypto.subtle.exportKey('jwk', result.privateKey);
+    const publicJwk = await crypto.subtle.exportKey('jwk', result.publicKey);
 
     return {
       privateKey: { alg, ...privateJwk, kid, key_ops: keyUsage },

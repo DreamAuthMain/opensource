@@ -1,13 +1,14 @@
+import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
 import { JwkImporter } from '@dreamauth/jwk';
-import { type Jwk, type PartialCrypto } from '@dreamauth/types';
+import { type Jwk } from '@dreamauth/types';
 
 import { PARAMS } from './params.js';
 
 export class EncryptionCodec {
-  #crypto: PartialCrypto<'importKey' | 'encrypt' | 'decrypt'>;
+  #crypto: PartialCryptoProvider<'importKey' | 'encrypt' | 'decrypt'>;
   #jwkImporter: JwkImporter;
 
-  constructor(crypto: PartialCrypto<'importKey' | 'encrypt' | 'decrypt'>) {
+  constructor(crypto: PartialCryptoProvider<'importKey' | 'encrypt' | 'decrypt'> = cryptoProvider) {
     this.#crypto = crypto;
     this.#jwkImporter = new JwkImporter(crypto);
   }
@@ -25,9 +26,10 @@ export class EncryptionCodec {
     jwk: Jwk<'RSA-OAEP-256', O>,
     data: Uint8Array,
   ): Promise<Uint8Array> {
+    const crypto = await this.#crypto();
     const params = PARAMS[jwk.alg as keyof typeof PARAMS];
     const key = await this.#jwkImporter.import(jwk, operation);
-    const result = await this.#crypto.subtle[operation](params, key, data);
+    const result = await crypto.subtle[operation](params, key, data);
 
     return new Uint8Array(result);
   }

@@ -1,14 +1,12 @@
-import crypto from 'node:crypto';
-
 import { Pkce } from '@dreamauth/pkce';
 
-const pkce = new Pkce(crypto.webcrypto);
+const pkce = new Pkce();
 
 //
 // Create verifier.
 //
 
-const verifier = pkce.createVerifier(128);
+const verifier = await pkce.createVerifier(128);
 
 //
 // Create challenge.

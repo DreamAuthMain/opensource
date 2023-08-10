@@ -1,9 +1,10 @@
-import { type Jwk, type PartialCrypto } from '@dreamauth/types';
+import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { type Jwk } from '@dreamauth/types';
 
 import { IMPORT_PARAMS } from './params.js';
 
 export class JwkImporter {
-  #crypto: PartialCrypto<'importKey'>['subtle'];
+  #crypto: PartialCryptoProvider<'importKey'>;
   #cache = {
     sign: new WeakMap<Jwk, CryptoKey>(),
     verify: new WeakMap<Jwk, CryptoKey>(),
@@ -11,8 +12,8 @@ export class JwkImporter {
     encrypt: new WeakMap<Jwk, CryptoKey>(),
   } as const;
 
-  constructor(crypto: PartialCrypto<'importKey'>) {
-    this.#crypto = crypto.subtle;
+  constructor(crypto: PartialCryptoProvider<'importKey'> = cryptoProvider) {
+    this.#crypto = crypto;
   }
 
   async import(
@@ -22,9 +23,10 @@ export class JwkImporter {
     let key = this.#cache[keyUsage].get(jwk);
 
     if (!key) {
+      const crypto = await this.#crypto();
       const params = IMPORT_PARAMS[jwk.alg];
 
-      key = await this.#crypto.importKey('jwk', jwk as unknown as JsonWebKey, params, false, [keyUsage]);
+      key = await crypto.subtle.importKey('jwk', jwk as unknown as JsonWebKey, params, false, [keyUsage]);
       this.#cache[keyUsage].set(jwk, key);
     }
 

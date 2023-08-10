@@ -19,28 +19,28 @@ describe('PkceFactory', () => {
     });
   });
 
-  test('createVerifier', () => {
-    const pkce = new Pkce(webcrypto);
+  test('createVerifier', async () => {
+    const pkce = new Pkce(async () => webcrypto);
     let verifier: string;
 
-    verifier = pkce.createVerifier(96);
+    verifier = await pkce.createVerifier(96);
     expect(verifier).toMatchInlineSnapshot(
       '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIf"',
     );
 
-    verifier = pkce.createVerifier(128);
+    verifier = await pkce.createVerifier(128);
     expect(verifier).toMatchInlineSnapshot(
       '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIfCEbLY8N24qrDcxmnrjkpNxcz1fzDTa_3onxPRnASd30"',
     );
 
-    verifier = pkce.createVerifier();
+    verifier = await pkce.createVerifier();
     expect(verifier).toMatchInlineSnapshot(
       '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIfCEbLY8N24qrDcxmnrjkpNxcz1fzDTa_3onxPRnASd30"',
     );
   });
 
   test('createChallenge', async () => {
-    const pkce = new Pkce(webcrypto);
+    const pkce = new Pkce(async () => webcrypto);
     const challenge = await pkce.createChallenge(
       'XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIf',
     );

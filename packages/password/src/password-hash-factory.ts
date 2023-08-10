@@ -1,5 +1,5 @@
 import { base64UrlDecode, base64UrlEncode } from '@dreamauth/base64url';
-import { type PartialCrypto } from '@dreamauth/types';
+import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
 import { argon2id } from 'hash-wasm/dist/argon2.umd.min.js';
 
 export interface Argon2IdParams {
@@ -29,9 +29,9 @@ export interface PBKDF2Params {
 }
 
 export class PasswordHashFactory {
-  #crypto: PartialCrypto<'getRandomValues' | 'importKey' | 'deriveBits'>;
+  #crypto: PartialCryptoProvider<'getRandomValues' | 'importKey' | 'deriveBits'>;
 
-  constructor(crypto: PartialCrypto<'getRandomValues' | 'importKey' | 'deriveBits'>) {
+  constructor(crypto: PartialCryptoProvider<'getRandomValues' | 'importKey' | 'deriveBits'> = cryptoProvider) {
     this.#crypto = crypto;
   }
 
@@ -41,14 +41,15 @@ export class PasswordHashFactory {
     plaintextPassword: string,
     params: Argon2IdParams | PBKDF2Params,
   ): Promise<[hash: string, params: Argon2IdParams | PBKDF2Params]> {
+    const crypto = await this.#crypto();
     const { t, s, l = 32 } = params;
     const password = new TextEncoder().encode(plaintextPassword);
-    const salt: Uint8Array = s ? base64UrlDecode(s) : this.#crypto.getRandomValues(new Uint8Array(l * 2));
+    const salt: Uint8Array = s ? base64UrlDecode(s) : crypto.getRandomValues(new Uint8Array(l * 2));
 
     if (t === 'pbkdf2') {
       const { i = 100_000, h = 'SHA-256' } = params;
-      const cryptoKey = await this.#crypto.subtle.importKey('raw', password, { name: 'PBKDF2' }, false, ['deriveBits']);
-      const hashBytes = await this.#crypto.subtle.deriveBits(
+      const cryptoKey = await crypto.subtle.importKey('raw', password, { name: 'PBKDF2' }, false, ['deriveBits']);
+      const hashBytes = await crypto.subtle.deriveBits(
         { name: 'PBKDF2', salt, iterations: i, hash: h },
         cryptoKey,
         l * 8, // `l` bytes * 8 = bits

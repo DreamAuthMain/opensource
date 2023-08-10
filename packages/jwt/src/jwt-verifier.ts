@@ -1,12 +1,18 @@
 import { base64UrlDecode } from '@dreamauth/base64url';
+import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
 import { JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
 import { SECONDS, time } from '@dreamauth/time';
-import { isJwk, type Jwk, type Jwt, type PartialCrypto } from '@dreamauth/types';
+import { isJwk, type Jwk, type Jwt } from '@dreamauth/types';
 
 import { error } from './errors.js';
 import { PARAMS } from './params.js';
 
 const algs = Object.keys(PARAMS) as unknown as [keyof typeof PARAMS, ...(keyof typeof PARAMS)[]];
+
+interface JwtVerifierOptions {
+  readonly loader?: JwkLoader;
+  readonly crypto?: PartialCryptoProvider<'importKey' | 'verify'>;
+}
 
 /**
  * JWT validator which uses
@@ -14,21 +20,17 @@ const algs = Object.keys(PARAMS) as unknown as [keyof typeof PARAMS, ...(keyof t
  * to verify JWT signatures.
  */
 export class JwtVerifier {
-  #crypto: PartialCrypto<'importKey' | 'verify'>['subtle'];
-  #jwkImporter: JwkImporter;
   #issuers: Set<string>;
   #loader: JwkLoader;
+  #crypto: PartialCryptoProvider<'importKey' | 'verify'>;
+  #jwkImporter: JwkImporter;
   #cache = new Map<string, Jwk<keyof typeof PARAMS, 'verify'>[]>();
 
-  constructor(
-    crypto: PartialCrypto<'importKey' | 'verify'>,
-    issuers: string[],
-    loader: JwkLoader = new JwkOIDCLoader(),
-  ) {
-    this.#crypto = crypto.subtle;
-    this.#jwkImporter = new JwkImporter(crypto);
+  constructor(issuers: string[], { loader = new JwkOIDCLoader(), crypto = cryptoProvider }: JwtVerifierOptions = {}) {
     this.#issuers = new Set(issuers);
     this.#loader = loader;
+    this.#crypto = crypto ?? cryptoProvider;
+    this.#jwkImporter = new JwkImporter(crypto);
   }
 
   async verify(jwt: Jwt): Promise<void> {
@@ -67,9 +69,10 @@ export class JwtVerifier {
 
       if (!key) continue;
 
+      const crypto = await this.#crypto();
       const params = PARAMS[jwk.alg];
 
-      return await this.#crypto.verify(params, key, signatureBytes, dataBytes).catch(() => false);
+      return await crypto.subtle.verify(params, key, signatureBytes, dataBytes).catch(() => false);
     }
 
     return false;

@@ -1,5 +1,3 @@
-import crypto from 'node:crypto';
-
 import { JwkFactory } from '@dreamauth/jwk';
 import { afterEach, beforeEach, describe, expect, test, vitest } from 'vitest';
 
@@ -18,12 +16,12 @@ describe('JwtFactory and JwtDecoder', () => {
   });
 
   test('should create, decode, and verify a JWT', async () => {
-    const jwkFactory = new JwkFactory(crypto.webcrypto);
-    const jwtFactory = new JwtFactory(crypto.webcrypto, 'http://localhost');
+    const jwkFactory = new JwkFactory();
+    const jwtFactory = new JwtFactory('http://localhost');
     const jwks = await jwkFactory.createRSA('RS256');
     const jwt = await jwtFactory.create(jwks.privateKey);
 
-    const jwtVerifier = new JwtVerifier(crypto.webcrypto, ['http://localhost'], { load: async () => [jwks.publicKey] });
+    const jwtVerifier = new JwtVerifier(['http://localhost'], { loader: { load: async () => [jwks.publicKey] } });
     const jwtDecoder = new JwtDecoder(jwtVerifier);
     const decoded = await jwtDecoder.decode(jwt);
 
@@ -49,14 +47,14 @@ describe('JwtFactory and JwtDecoder', () => {
   });
 
   test('fail verification if the JWT is invalid', async () => {
-    const jwkFactory = new JwkFactory(crypto.webcrypto);
-    const jwtFactory = new JwtFactory(crypto.webcrypto, 'http://localhost');
+    const jwkFactory = new JwkFactory();
+    const jwtFactory = new JwtFactory('http://localhost');
     const jwks = await jwkFactory.createRSA('RS256');
     const jwt = await jwtFactory.create(jwks.privateKey, { lifetime: 100 });
 
     const jwks2 = await jwkFactory.createRSA('RS256');
-    const jwtVerifier = new JwtVerifier(crypto.webcrypto, ['http://localhost'], {
-      load: async () => [jwks2.publicKey],
+    const jwtVerifier = new JwtVerifier(['http://localhost'], {
+      loader: { load: async () => [jwks2.publicKey] },
     });
     const jwtDecoder = new JwtDecoder(jwtVerifier);
 
@@ -64,27 +62,27 @@ describe('JwtFactory and JwtDecoder', () => {
   });
 
   test('fail verification if the JWT is expired', async () => {
-    const jwkFactory = new JwkFactory(crypto.webcrypto);
-    const jwtFactory = new JwtFactory(crypto.webcrypto, 'http://localhost');
+    const jwkFactory = new JwkFactory();
+    const jwtFactory = new JwtFactory('http://localhost');
     const jwks = await jwkFactory.createRSA('RS256');
     const jwt = await jwtFactory.create(jwks.privateKey, { lifetime: 100 });
 
     vitest.setSystemTime(Date.now() + 200_000);
 
-    const jwtVerifier = new JwtVerifier(crypto.webcrypto, ['http://localhost'], { load: async () => [jwks.publicKey] });
+    const jwtVerifier = new JwtVerifier(['http://localhost'], { loader: { load: async () => [jwks.publicKey] } });
     const jwtDecoder = new JwtDecoder(jwtVerifier);
 
     await expect(() => jwtDecoder.decode(jwt)).rejects.toThrow('expired jwt');
   });
 
   test('fail verification if the JWT has invalid issuer', async () => {
-    const jwkFactory = new JwkFactory(crypto.webcrypto);
-    const jwtFactory = new JwtFactory(crypto.webcrypto, 'http://localhost');
+    const jwkFactory = new JwkFactory();
+    const jwtFactory = new JwtFactory('http://localhost');
     const jwks = await jwkFactory.createRSA('RS256');
     const jwt = await jwtFactory.create(jwks.privateKey, { lifetime: 100 });
 
-    const jwtVerifier = new JwtVerifier(crypto.webcrypto, ['http://localhost2'], {
-      load: async () => [jwks.publicKey],
+    const jwtVerifier = new JwtVerifier(['http://localhost2'], {
+      loader: { load: async () => [jwks.publicKey] },
     });
     const jwtDecoder = new JwtDecoder(jwtVerifier);
 
@@ -92,12 +90,12 @@ describe('JwtFactory and JwtDecoder', () => {
   });
 
   test('fail verification if the JWT has invalid issuer', async () => {
-    const jwkFactory = new JwkFactory(crypto.webcrypto);
-    const jwtFactory = new JwtFactory(crypto.webcrypto, 'http://localhost');
+    const jwkFactory = new JwkFactory();
+    const jwtFactory = new JwtFactory('http://localhost');
     const jwks = await jwkFactory.createRSA('RS256');
     const jwt = await jwtFactory.create(jwks.privateKey, { lifetime: 100, payload: { nbf: Date.now() / 1000 + 1 } });
 
-    const jwtVerifier = new JwtVerifier(crypto.webcrypto, ['http://localhost'], { load: async () => [jwks.publicKey] });
+    const jwtVerifier = new JwtVerifier(['http://localhost'], { loader: { load: async () => [jwks.publicKey] } });
     const jwtDecoder = new JwtDecoder(jwtVerifier);
 
     await expect(() => jwtDecoder.decode(jwt)).rejects.toThrow('invalid jwt nbf claim');

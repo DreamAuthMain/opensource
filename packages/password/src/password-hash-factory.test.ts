@@ -20,7 +20,7 @@ describe('PasswordHashFactory', () => {
   });
 
   test('Argon2id with new salt', async () => {
-    const factory = new PasswordHashFactory(webcrypto);
+    const factory = new PasswordHashFactory(async () => webcrypto);
     const [hash, params] = await factory.create('password', {
       t: 'argon2id',
       i: 3,
@@ -42,7 +42,7 @@ describe('PasswordHashFactory', () => {
   });
 
   test('Argon2id with existing salt', async () => {
-    const factory = new PasswordHashFactory(webcrypto);
+    const factory = new PasswordHashFactory(async () => webcrypto);
     const salt = '0o8shEpPoXnx5OU1xF5j/1kXQxD3IWlaPaPQYp/YvG24/T0y7LyV1i5Oe3o1zGGWYtiOzL/+n3XXsEVazfO4YA==';
     const [hash, params] = await factory.create('password', {
       t: 'argon2id',
@@ -66,7 +66,7 @@ describe('PasswordHashFactory', () => {
   });
 
   test('PBKDF2 with new salt', async () => {
-    const factory = new PasswordHashFactory(webcrypto);
+    const factory = new PasswordHashFactory(async () => webcrypto);
     const [hash, params] = await factory.create('password', {
       t: 'pbkdf2',
       i: 3,
@@ -86,7 +86,7 @@ describe('PasswordHashFactory', () => {
   });
 
   test('PBKDF2 with existing salt', async () => {
-    const factory = new PasswordHashFactory(webcrypto);
+    const factory = new PasswordHashFactory(async () => webcrypto);
     const salt = '0o8shEpPoXnx5OU1xF5j/1kXQxD3IWlaPaPQYp/YvG24/T0y7LyV1i5Oe3o1zGGWYtiOzL/+n3XXsEVazfO4YA==';
     const [hash, params] = await factory.create('password', {
       t: 'pbkdf2',

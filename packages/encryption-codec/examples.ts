@@ -1,15 +1,13 @@
-import crypto from 'node:crypto';
-
 import { EncryptionCodec } from '@dreamauth/encryption-codec';
 import { JwkFactory } from '@dreamauth/jwk';
 
 // You need a JWK RSA key pair to encrypt and decrypt data.
-const jwkFactory = new JwkFactory(crypto.webcrypto);
+const jwkFactory = new JwkFactory();
 // Only RSA-OAEP-256 is supported for encryption.
 const { publicKey, privateKey } = await jwkFactory.createRSA('RSA-OAEP-256');
 
 // Create an instance of the codec.
-const codec = new EncryptionCodec(crypto.webcrypto);
+const codec = new EncryptionCodec();
 
 // Encrypt data using the public key.
 const bytes = new TextEncoder().encode('Hello, World!');

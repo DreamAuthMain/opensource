@@ -13,8 +13,8 @@ describe('JwkFactory and JwkImporter', () => {
     ] as const
   ).forEach(([alg, name, hash, method]) => {
     test(`create and import ${alg}`, async () => {
-      const jwkFactory = new JwkFactory(webcrypto);
-      const jwkImporter = new JwkImporter(webcrypto);
+      const jwkFactory = new JwkFactory();
+      const jwkImporter = new JwkImporter();
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'verify');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'sign');
@@ -45,8 +45,8 @@ describe('JwkFactory and JwkImporter', () => {
 
   ([['RSA-OAEP-256', 'RSA-OAEP', 'SHA-256', 'createRSA']] as const).forEach(([alg, name, hash, method]) => {
     test(`create and import ${alg}`, async () => {
-      const jwkFactory = new JwkFactory(webcrypto);
-      const jwkImporter = new JwkImporter(webcrypto);
+      const jwkFactory = new JwkFactory();
+      const jwkImporter = new JwkImporter();
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'encrypt');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'decrypt');
@@ -77,8 +77,8 @@ describe('JwkFactory and JwkImporter', () => {
 
   ([['ES256', 'ECDSA', 'P-256', 'createECC']] as const).forEach(([alg, name, curve, method]) => {
     test(`create and import ${alg}`, async () => {
-      const jwkFactory = new JwkFactory(webcrypto);
-      const jwkImporter = new JwkImporter(webcrypto);
+      const jwkFactory = new JwkFactory();
+      const jwkImporter = new JwkImporter();
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'verify');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'sign');

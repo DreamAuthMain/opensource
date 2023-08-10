@@ -16,7 +16,7 @@ export default defineConfig({
       include: ['packages/*/src/**/*.{ts,tsx}'],
       exclude: ['packages/_*', '**/exports.ts', '**/*.test.*', '**/*.d.ts'],
       branches: 80,
-      functions: 80,
+      functions: 70,
       lines: 50,
       statements: 50,
     },

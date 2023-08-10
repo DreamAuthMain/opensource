@@ -1,5 +1,3 @@
-import crypto from 'node:crypto';
-
 import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
 
 //
@@ -7,7 +5,7 @@ import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamau
 //
 
 // Create a JWK factory instance.
-const jwkFactory = new JwkFactory(crypto);
+const jwkFactory = new JwkFactory();
 
 // Create a JWK RSA pair for encryption.
 const jwkRsaEncryptionPair = await jwkFactory.createRSA('RSA-OAEP-256', 2048);
@@ -45,5 +43,5 @@ const jwks = await oidcJwkLoader.load('https://example.com');
 // Import JWKs to CryptoKeys.
 //
 
-const importer = new JwkImporter(crypto.webcrypto);
+const importer = new JwkImporter();
 const key = await importer.import(jwkRsaSigningPair.privateKey, 'sign');

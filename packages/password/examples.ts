@@ -1,8 +1,6 @@
-import crypto from 'node:crypto';
-
 import { PasswordHashFactory } from '@dreamauth/password';
 
-const hashFactory = new PasswordHashFactory(crypto.webcrypto);
+const hashFactory = new PasswordHashFactory();
 
 //
 // Argon2id (recommended)
