@@ -3,9 +3,8 @@ import { type NotNever } from './types.js';
 type UndefinedKeys<T> = {
   [P in keyof T]-?: undefined extends T[P] ? P : never;
 }[keyof T];
-
-export type AutoPartial<T> = Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>>;
-export type Simplify<T> = T extends object ? { [P in keyof T]: T[P] } : T;
+type AutoPartial<T> = Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>>;
+type Simplify<T> = T extends object ? { [P in keyof T]: T[P] } : T;
 
 export type Merged<TBase, TSources> = TSources extends [infer TSource, ...infer TRest]
   ? Merged<
