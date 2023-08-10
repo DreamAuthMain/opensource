@@ -1,16 +1,16 @@
-import { type AnyRecord, type NotNever } from './types.js';
+import { type NotNever } from './types.js';
 
 type UndefinedKeys<T> = {
   [P in keyof T]-?: undefined extends T[P] ? P : never;
 }[keyof T];
 
 export type AutoPartial<T> = Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>>;
-export type Simplify<T> = T extends AnyRecord ? { [P in keyof T]: T[P] } : T;
+export type Simplify<T> = T extends object ? { [P in keyof T]: T[P] } : T;
 
 export type Merged<TBase, TSources> = TSources extends [infer TSource, ...infer TRest]
   ? Merged<
       {
-        [P in keyof TBase | keyof TSource]: P extends keyof TBase
+        [P in Extract<keyof TBase | keyof TSource, string>]: P extends keyof TBase
           ? P extends keyof TSource
             ? undefined extends NotNever<TSource[P]>
               ? NotNever<TBase[P]> | Exclude<NotNever<TSource[P]>, undefined>
@@ -22,8 +22,8 @@ export type Merged<TBase, TSources> = TSources extends [infer TSource, ...infer 
     >
   : AutoPartial<TBase>;
 
-export const merge = <TBase extends AnyRecord, TSources extends readonly AnyRecord[]>(
-  a: TBase,
+export const merge = <TBase extends object, TSources extends readonly (object | undefined)[]>(
+  a: TBase | undefined,
   ...[b, ...rest]: TSources
 ): Simplify<Merged<TBase, TSources>> => {
   while (b !== undefined) {
