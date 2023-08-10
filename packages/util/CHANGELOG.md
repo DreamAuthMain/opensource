@@ -1,3 +1,9 @@
+## 1.0.5 (2023-08-10)
+
+### Bug Fixes
+
+- **merge:** Allow undefined args. (677b1e7)
+
 ## 1.0.4 (2023-08-09)
 
 ### Bug Fixes
