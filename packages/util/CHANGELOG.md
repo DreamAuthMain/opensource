@@ -1,3 +1,9 @@
+## 1.0.6 (2023-08-10)
+
+### Bug Fixes
+
+- **merge:** Allow nulls and don't stop when the first undefined is encountered. (0d7b698)
+
 ## 1.0.5 (2023-08-10)
 
 ### Bug Fixes
