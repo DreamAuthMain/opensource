@@ -1,3 +1,9 @@
+## 1.0.8 (2023-08-15)
+
+### Chores
+
+- Export AutoPartial, UndefinedKeys, and Simplify types. (60e644b)
+
 ## 1.0.7 (2023-08-10)
 
 ### Bug Fixes
