@@ -1,3 +1,9 @@
+## 1.0.11 (2023-08-16)
+
+### Chores
+
+- Add OmitPartial type. (b28fddb)
+
 ## 1.0.10 (2023-08-16)
 
 ### Chores
