@@ -1,3 +1,4 @@
+export * from './assign.js';
 export * from './is-array.js';
 export * from './is-error.js';
 export * from './is-object.js';
