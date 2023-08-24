@@ -1,3 +1,13 @@
+# 2.0.0 (2023-08-24)
+
+### Breaking Changes
+
+- Rename OmitPartial to PickPartial. (2a6355f)
+
+### Features
+
+- Add PickRequired type. (059cf05)
+
 ## 1.0.11 (2023-08-16)
 
 ### Chores
