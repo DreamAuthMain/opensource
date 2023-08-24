@@ -12,6 +12,6 @@ export type UndefinedKeys<T> = {
 
 export type AutoPartial<T> = Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>>;
 
-export type Simplify<T> = T extends object ? { [P in keyof T]: T[P] } : T;
+export type PickPartial<T, TKey extends keyof T> = Partial<Pick<T, TKey>> & Omit<T, TKey>;
 
-export type OmitPartial<T, TKey extends keyof T> = Omit<T, TKey> & Partial<Pick<T, TKey>>;
+export type Simplify<T> = T extends object ? { [P in keyof T]: T[P] } : T;
