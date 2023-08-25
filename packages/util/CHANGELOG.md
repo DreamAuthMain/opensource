@@ -1,3 +1,9 @@
+# 3.0.0 (2023-08-24)
+
+### Breaking Changes
+
+- Remove Pick&#42; types. (e72922c)
+
 # 2.0.0 (2023-08-24)
 
 ### Breaking Changes
