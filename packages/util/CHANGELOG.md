@@ -1,3 +1,9 @@
+## 3.0.1 (2023-08-25)
+
+### Chores
+
+- Add unsafe. (303244d)
+
 # 3.0.0 (2023-08-24)
 
 ### Breaking Changes
