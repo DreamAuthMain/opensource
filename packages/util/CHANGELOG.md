@@ -1,3 +1,9 @@
+## 3.0.5 (2023-08-26)
+
+### Bug Fixes
+
+- **unsafe:** Error prop hinting. (940e76b)
+
 ## 3.0.4 (2023-08-26)
 
 ### Bug Fixes
