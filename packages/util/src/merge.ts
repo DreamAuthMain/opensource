@@ -1,6 +1,9 @@
-import { type AutoPartial, type NotNever, type Simplify } from './types.js';
+import { type AutoPartial, type NotNever, type ObjectLiteral, type Simplify } from './types.js';
 
-export type Merged<TBase, TValues> = TValues extends [infer TFirst, ...infer TRest]
+export type Merged<
+  TBase extends ObjectLiteral | undefined | null,
+  TValues extends readonly (ObjectLiteral | undefined | null)[],
+> = TValues extends readonly [infer TFirst, ...infer TRest]
   ? Merged<
       {
         [P in Extract<keyof TBase | keyof TFirst, string>]: P extends keyof TBase
@@ -11,12 +14,15 @@ export type Merged<TBase, TValues> = TValues extends [infer TFirst, ...infer TRe
             : NotNever<TBase[P]>
           : NotNever<TFirst[P & keyof TFirst]>;
       },
-      TRest
+      TRest extends readonly (ObjectLiteral | undefined | null)[] ? TRest : []
     >
   : AutoPartial<TBase>;
 
-export const merge = <TBase extends object, TValues extends readonly (object | undefined | null)[]>(
-  base: TBase | undefined | null,
+export const merge = <
+  const TBase extends ObjectLiteral | undefined | null,
+  const TValues extends readonly (ObjectLiteral | undefined | null)[],
+>(
+  base: TBase,
   ...values: TValues
 ): Simplify<Merged<TBase, TValues>> => {
   let result: Record<string, any> = base ?? {};

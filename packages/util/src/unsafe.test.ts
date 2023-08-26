@@ -69,7 +69,7 @@ describe('unsafe', () => {
     const a = unsafe(() => {
       throw new MyError('test', { cause: { foo: 'a', bar: ['b', 'c'] } });
     })
-      .handle({ $type: MyError, cause: { foo: 'a', bar: ['b', 'c'] } }, () => true)
+      .handle(MyError, { cause: { foo: 'a', bar: ['b', 'c'] } }, () => true)
       .call();
 
     expect(a).toBe(true);
@@ -78,7 +78,7 @@ describe('unsafe', () => {
       return unsafe(() => {
         throw new Error('test');
       })
-        .handle({ $type: MyError, message: 'test' }, () => true)
+        .handle(MyError, { message: 'test' }, () => true)
         .call();
     }).toThrowError('test');
 
@@ -86,7 +86,7 @@ describe('unsafe', () => {
       return unsafe(() => {
         throw new Error('test');
       })
-        .handle({ $type: Error, message: 'not test' }, () => true)
+        .handle(Error, { message: 'not test' }, () => true)
         .call();
     }).toThrowError('test');
   });
@@ -196,27 +196,7 @@ describe('unsafe', () => {
     expect(cleanup).toHaveBeenCalledOnce();
   });
 
-  test('allow', () => {
-    const a = unsafe(() => {
-      throw new MyError('test');
-    })
-      .allow(MyError, true)
-      .allow(Error)
-      .call();
-
-    expect(a).toBe(true);
-
-    const b = unsafe(() => {
-      throw new Error('test');
-    })
-      .allow(MyError, 1)
-      .allow(Error)
-      .call();
-
-    expect(b).toBe(undefined);
-  });
-
-  test('retry', () => {
+  test('retry by type', () => {
     const fn = vi
       .fn<[], boolean>()
       .mockImplementationOnce(() => {
@@ -227,6 +207,34 @@ describe('unsafe', () => {
 
     expect(a).toBe(true);
     expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  test('retry by deep match', () => {
+    const fn = vi
+      .fn()
+      .mockImplementationOnce(() => {
+        throw new Error('1');
+      })
+      .mockReturnValueOnce(true);
+    const cleanup = vi.fn();
+    const a = unsafe(fn).retry({ message: '1' }).cleanup(cleanup).call();
+    expect(a).toBe(true);
+    expect(fn).toHaveBeenCalledTimes(2);
+    expect(cleanup).toHaveBeenCalledOnce();
+  });
+
+  test('retry by type and deep match', () => {
+    const fn = vi
+      .fn()
+      .mockImplementationOnce(() => {
+        throw new MyError('1');
+      })
+      .mockReturnValueOnce(true);
+    const cleanup = vi.fn();
+    const a = unsafe(fn).retry(MyError, { message: '1' }).cleanup(cleanup).call();
+    expect(a).toBe(true);
+    expect(fn).toHaveBeenCalledTimes(2);
+    expect(cleanup).toHaveBeenCalledOnce();
   });
 
   test('retry 2 times', () => {

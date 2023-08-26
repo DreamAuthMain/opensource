@@ -1,4 +1,6 @@
-export const isObjectLiteral = (value: unknown): value is Readonly<Record<string, unknown>> => {
+import { type ObjectLiteral } from './types.js';
+
+export const isObjectLiteral = <T>(value: T): value is Extract<T & {}, ObjectLiteral> & ObjectLiteral => {
   if (typeof value !== 'object') return false;
   if (value === null) return false;
 

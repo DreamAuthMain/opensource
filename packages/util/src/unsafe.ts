@@ -1,23 +1,17 @@
 import { deepMatch } from './deep-match.js';
 import { isPromiseLike } from './is-promise-like.js';
-import { type NotNever, type Simplify } from './types.js';
+import { type NotNever, type ObjectLiteral } from './types.js';
 
 type ErrorConstructor<TError extends Error> = new (...args: any[]) => TError;
 
-type ErrorCallback<TReturn, TError extends Error, TProps extends Record<string, unknown>> = (
+type ErrorCallback<TReturn, TError extends Error, TProps extends ObjectLiteral> = (
   this: UnsafeContext,
-  error: TError & Simplify<Omit<TProps, '$type'> & Record<string, unknown>>,
+  error: TError & TProps & ObjectLiteral,
 ) => TReturn;
-
-type ErrorProps<TError extends Error, TProps extends Record<string, unknown>> = {
-  readonly $type?: ErrorConstructor<TError>;
-} & {
-  readonly [P in keyof TProps]: TProps[P];
-};
 
 interface ErrorHandler<TReturn = any> {
   readonly match: (error: Error) => error is Error;
-  readonly handle: 'retry' | ErrorCallback<TReturn, any, any>;
+  readonly handle: 'retry' | ErrorCallback<TReturn, any, ObjectLiteral>;
 }
 
 interface UnsafeContext {
@@ -27,22 +21,59 @@ interface UnsafeContext {
 
 type UnsafeCallback<TReturn, TArgs extends unknown[]> = (this: UnsafeContext, ...args: TArgs) => TReturn;
 
-interface Unsafe<TReturn, THandlerReturn, TCleanerReturn extends void | PromiseLike<void>, TArgs extends unknown[]> {
+type UnsafeResult<
+  TReturn,
+  THandlerReturn,
+  TCleanerReturn extends void | PromiseLike<void>,
+  TRetry extends boolean,
+> = NotNever<Extract<TReturn | TCleanerReturn, PromiseLike<unknown>>> extends PromiseLike<unknown>
+  ? PromiseLike<Awaited<TReturn | THandlerReturn>>
+  : TRetry extends true
+  ? NotNever<Extract<THandlerReturn, PromiseLike<unknown>>> extends PromiseLike<unknown>
+    ? PromiseLike<Awaited<TReturn | THandlerReturn>> | Exclude<TReturn | THandlerReturn, PromiseLike<unknown>>
+    : TReturn | THandlerReturn
+  : TReturn | THandlerReturn;
+
+interface Unsafe<
+  TReturn,
+  THandlerReturn,
+  TCleanerReturn extends void | PromiseLike<void>,
+  TRetry extends boolean,
+  TArgs extends unknown[],
+> {
+  /**
+   * Set the maximum number of retries (default = 1).
+   */
+  readonly maxRetries: (count: number) => Unsafe<TReturn, THandlerReturn, TCleanerReturn, TRetry, TArgs>;
+
+  /**
+   * Retry when a matching error occurs. The default number of retries
+   * is 1, but it can be changed by calling `maxRetries(count)`.
+   */
+  readonly retry: {
+    (type: ErrorConstructor<any>): Unsafe<TReturn, THandlerReturn, TCleanerReturn, true, TArgs>;
+    (props: ObjectLiteral): Unsafe<TReturn, THandlerReturn, TCleanerReturn, true, TArgs>;
+    (type: ErrorConstructor<any>, props: ObjectLiteral): Unsafe<TReturn, THandlerReturn, TCleanerReturn, true, TArgs>;
+  };
+
   /**
    * Invoke a callback matching errors.
    */
-  readonly handle: <TNewHandlerReturn, TError extends Error, const TProps extends Record<string, unknown>>(
-    match: ErrorConstructor<TError> | ErrorProps<TError, TProps>,
-    handle: ErrorCallback<TNewHandlerReturn, TError, TProps>,
-  ) => Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TArgs>;
-
-  /**
-   * Catch the matching error and return undefined or a literal value.
-   */
-  readonly allow: <TNewHandlerReturn = undefined>(
-    match: ErrorConstructor<any> | ErrorProps<any, any>,
-    value?: TNewHandlerReturn,
-  ) => Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TArgs>;
+  readonly handle: {
+    <TNewHandlerReturn, TError extends Error>(
+      type: ErrorConstructor<TError>,
+      handle: ErrorCallback<TNewHandlerReturn, TError, {}>,
+    ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TRetry, TArgs>;
+    <TNewHandlerReturn, const TProps extends ObjectLiteral>(
+      props: TProps,
+      handle: ErrorCallback<TNewHandlerReturn, Error, TProps>,
+    ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TRetry, TArgs>;
+    <TNewHandlerReturn, TError extends Error, const TProps extends ObjectLiteral>(
+      type: ErrorConstructor<TError>,
+      props: TProps,
+      handle: ErrorCallback<TNewHandlerReturn, TError, TProps>,
+    ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TRetry, TArgs>;
+  };
 
   /**
    * Add a callback to be invoked immediately before the final value is
@@ -52,47 +83,29 @@ interface Unsafe<TReturn, THandlerReturn, TCleanerReturn extends void | PromiseL
    */
   readonly cleanup: <TNewCleanerReturn extends void | PromiseLike<void>>(
     callback: () => TNewCleanerReturn,
-  ) => Unsafe<TReturn, THandlerReturn, TCleanerReturn | TNewCleanerReturn, TArgs>;
-
-  /**
-   * Retry when a matching error occurs. The default number of retries
-   * is 1, but it can be changed by calling `maxRetries(count)`.
-   */
-  readonly retry: (
-    match: ErrorConstructor<any> | ErrorProps<any, any>,
-  ) => Unsafe<TReturn, THandlerReturn, TCleanerReturn, TArgs>;
-
-  /**
-   * Set the maximum number of retries (default = 1).
-   */
-  readonly maxRetries: (count: number) => Unsafe<TReturn, THandlerReturn, TCleanerReturn, TArgs>;
+  ) => Unsafe<TReturn, THandlerReturn, TCleanerReturn | TNewCleanerReturn, TRetry, TArgs>;
 
   /**
    * Call the unsafe function, invoke any matched error handlers, and
    * return the final result.
    */
-  readonly call: (
-    ...args: TArgs
-  ) => NotNever<Extract<TReturn | TCleanerReturn, PromiseLike<unknown>>> extends PromiseLike<unknown>
-    ? PromiseLike<Awaited<TReturn | THandlerReturn>>
-    : NotNever<Extract<THandlerReturn, PromiseLike<unknown>>> extends PromiseLike<unknown>
-    ? PromiseLike<Awaited<TReturn | THandlerReturn>> | Exclude<TReturn | THandlerReturn, PromiseLike<unknown>>
-    : TReturn | THandlerReturn;
+  readonly call: (...args: TArgs) => UnsafeResult<TReturn, THandlerReturn, TCleanerReturn, TRetry>;
 }
 
 const getError = (error: unknown): Error => {
   return error instanceof Error ? error : new TypeError('Invalid Error', { cause: error });
 };
 
-const getErrorMatcher = <TError extends Error>(
-  condition: ErrorConstructor<any> | ErrorProps<any, any>,
-): ((error: unknown) => error is TError) => {
-  return typeof condition === 'function'
-    ? (error: unknown): error is TError => error instanceof condition
-    : (error: unknown): error is TError => {
-        const { $type, ...props } = condition;
-        return (!$type || error instanceof $type) && deepMatch(error, props);
-      };
+const getErrorMatcher = <TError extends Error>({
+  type,
+  props,
+}: {
+  type?: Function;
+  props?: ObjectLiteral;
+}): ((error: unknown) => error is TError) => {
+  return (error: unknown): error is TError => {
+    return (!type || error instanceof type) && (!props || deepMatch(error, props));
+  };
 };
 
 const chain = ([callback, ...callbacks]: readonly (() => void | PromiseLike<void>)[]): void | PromiseLike<void> => {
@@ -107,54 +120,56 @@ const createUnsafe = <
   TReturn,
   THandlerReturn,
   TCleanerReturn extends void | PromiseLike<void>,
+  TRetry extends boolean,
   TArgs extends unknown[],
 >(
   callback: UnsafeCallback<TReturn, TArgs>,
   handlers: readonly ErrorHandler<THandlerReturn>[],
   cleaners: readonly (() => TCleanerReturn)[],
   maxRetries: number,
-): Unsafe<TReturn, THandlerReturn, TCleanerReturn, TArgs> => {
+): Unsafe<TReturn, THandlerReturn, TCleanerReturn, TRetry, TArgs> => {
   return {
-    handle: <TNewHandlerReturn, TError extends Error, const TProps extends Record<string, unknown>>(
-      condition: ErrorConstructor<TError> | ErrorProps<TError, TProps>,
-      handle: ErrorCallback<TNewHandlerReturn, TError, TProps>,
-    ) => {
-      return createUnsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TArgs>(
+    maxRetries: (count) => {
+      return createUnsafe(callback, handlers, cleaners, count);
+    },
+    retry: (...args: [type: Function] | [props: {}] | [type: Function, props: ObjectLiteral]) => {
+      const [type, props] =
+        args.length === 2 ? args : typeof args[0] === 'function' ? [args[0], undefined] : [undefined, args[0]];
+
+      return createUnsafe(
         callback,
-        [...handlers, { match: getErrorMatcher(condition), handle }],
+        [...handlers, { match: getErrorMatcher({ type, props }), handle: 'retry' }],
         cleaners,
         maxRetries,
       );
     },
-    allow: <TNewHandlerReturn = undefined>(
-      match: ErrorConstructor<any> | ErrorProps<any, any>,
-      value?: TNewHandlerReturn,
+    handle: <TNewHandlerReturn>(
+      ...args:
+        | [type: Function, errorCallback: ErrorCallback<TNewHandlerReturn, any, ObjectLiteral>]
+        | [props: ObjectLiteral, errorCallback: ErrorCallback<TNewHandlerReturn, any, ObjectLiteral>]
+        | [type: Function, props: ObjectLiteral, errorCallback: ErrorCallback<TNewHandlerReturn, any, ObjectLiteral>]
     ) => {
-      return createUnsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TArgs>(
+      const [type, props, errorCallback] =
+        args.length === 3
+          ? args
+          : typeof args[0] === 'function'
+          ? [args[0], undefined, args[1]]
+          : [undefined, args[0], args[1]];
+
+      return createUnsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TRetry, TArgs>(
         callback,
-        [...handlers, { match: getErrorMatcher(match), handle: () => value as TNewHandlerReturn }],
+        [...handlers, { match: getErrorMatcher({ type, props }), handle: errorCallback }],
         cleaners,
         maxRetries,
       );
     },
     cleanup: <TNewCleanerReturn extends void | PromiseLike<void>>(cleaner: () => TNewCleanerReturn) => {
-      return createUnsafe<TReturn, THandlerReturn, TCleanerReturn | TNewCleanerReturn, TArgs>(
+      return createUnsafe<TReturn, THandlerReturn, TCleanerReturn | TNewCleanerReturn, TRetry, TArgs>(
         callback,
         handlers,
         [...cleaners, cleaner],
         maxRetries,
       );
-    },
-    retry: (match) => {
-      return createUnsafe(
-        callback,
-        [...handlers, { match: getErrorMatcher(match), handle: 'retry' }],
-        cleaners,
-        maxRetries,
-      );
-    },
-    maxRetries: (count) => {
-      return createUnsafe(callback, handlers, cleaners, count);
     },
     call: (...args: TArgs): any => {
       let retry = 0;
@@ -169,10 +184,13 @@ const createUnsafe = <
             ({ handle, match }) => (handle !== 'retry' || remainingRetries > 0) && match(error),
           );
 
-          previousErrors = [...previousErrors, error];
-
           if (handler) {
-            return handler.handle === 'retry' ? next(remainingRetries - 1) : handler.handle.call(context, error);
+            if (handler.handle === 'retry') {
+              previousErrors = [...previousErrors, error];
+              return next(remainingRetries - 1);
+            }
+
+            return handler.handle.call(context, error);
           }
 
           throw error;
@@ -192,10 +210,10 @@ const createUnsafe = <
       try {
         result = next(maxRetries);
       } catch (error) {
-        result = chain(cleaners);
+        const errorResult = chain(cleaners);
 
-        if (isPromiseLike(result)) {
-          return result.then(() => {
+        if (isPromiseLike(errorResult)) {
+          return errorResult.then(() => {
             throw error;
           });
         }
@@ -229,6 +247,6 @@ const createUnsafe = <
  */
 export const unsafe = <TReturn, TArgs extends unknown[] = unknown[]>(
   callback: (this: UnsafeContext, ...args: TArgs) => TReturn,
-): Unsafe<TReturn, never, void, TArgs> => {
+): Unsafe<TReturn, never, void, false, TArgs> => {
   return createUnsafe(callback, [], [], 1);
 };
