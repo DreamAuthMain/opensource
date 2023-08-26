@@ -16,6 +16,8 @@ interface ErrorHandler<TReturn = any> {
   readonly handle: 'retry' | ErrorCallback<TReturn, any, ObjectLiteral>;
 }
 
+type InferErrorProps<T> = T extends Error ? { readonly [P in keyof T]?: T[P] } : never;
+
 interface UnsafeContext {
   readonly retry: number;
   readonly previousErrors: readonly Error[];
@@ -42,9 +44,9 @@ interface Unsafe<
   readonly retry: {
     (type: ErrorConstructor<any> | Falsy): Unsafe<TReturn, THandlerReturn, TCleanerReturn, true, TArgs>;
     (props: ObjectLiteral): Unsafe<TReturn, THandlerReturn, TCleanerReturn, true, TArgs>;
-    (
-      type: ErrorConstructor<any> | Falsy,
-      props: ObjectLiteral,
+    <TError extends Error>(
+      type: ErrorConstructor<TError> | Falsy,
+      props: ObjectLiteral & InferErrorProps<TError>,
     ): Unsafe<TReturn, THandlerReturn, TCleanerReturn, true, TArgs>;
   };
 
@@ -62,7 +64,7 @@ interface Unsafe<
     ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TRetry, TArgs>;
     <TNewHandlerReturn, TError extends Error, const TProps extends ObjectLiteral>(
       type: ErrorConstructor<TError> | Falsy,
-      props: TProps,
+      props: TProps & InferErrorProps<TError>,
       handle: ErrorCallback<TNewHandlerReturn, TError, TProps>,
     ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TCleanerReturn, TRetry, TArgs>;
   };
