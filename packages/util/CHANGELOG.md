@@ -1,3 +1,9 @@
+## 3.0.4 (2023-08-26)
+
+### Bug Fixes
+
+- Types in assign, merge, isComposite, isObject, and isObjectLiteral. (caa50be)
+
 ## 3.0.3 (2023-08-26)
 
 ### Chores
