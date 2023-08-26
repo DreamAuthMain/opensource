@@ -1,3 +1,9 @@
+## 3.0.3 (2023-08-26)
+
+### Chores
+
+- Allow falsy values for error types to disable unsafe handler and retry rules. (89e75a4)
+
 ## 3.0.2 (2023-08-26)
 
 ### Bug Fixes
