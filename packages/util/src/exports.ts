@@ -1,6 +1,7 @@
 export * from './assign.js';
 export * from './clean.js';
 export * from './deep-match.js';
+export * from './falsy.js';
 export * from './is-array.js';
 export * from './is-composite.js';
 export * from './is-error.js';
