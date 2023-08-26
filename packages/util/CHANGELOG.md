@@ -1,3 +1,9 @@
+## 3.0.2 (2023-08-26)
+
+### Bug Fixes
+
+- Unsafe and supporting utils. (705bd9b)
+
 ## 3.0.1 (2023-08-25)
 
 ### Chores
