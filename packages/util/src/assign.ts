@@ -1,34 +1,26 @@
-import { type AutoPartial, type NotNever, type ObjectLiteral, type Simplify } from './types.js';
+import { type AutoPartial, type NotNever, type Simplify } from './types.js';
 
 export type Assigned<
-  TBase extends ObjectLiteral | undefined | null,
-  TValues extends readonly (ObjectLiteral | undefined | null)[],
+  TBase extends object | undefined | null,
+  TValues extends readonly (object | undefined | null)[],
 > = TValues extends readonly [infer TFirst, ...infer TRest]
-  ? TBase extends ObjectLiteral
-    ? Assigned<
-        {
-          [P in Extract<keyof TBase | keyof TFirst, string>]: P extends keyof TBase
-            ? P extends keyof TFirst
-              ? undefined extends NotNever<TFirst[P]>
-                ? NotNever<TBase[P]> | NotNever<TFirst[P]>
-                : NotNever<TFirst[P]>
-              : NotNever<TBase[P]>
-            : NotNever<TFirst[P & keyof TFirst]>;
-        },
-        TRest extends readonly (ObjectLiteral | undefined | null)[] ? TRest : []
-      >
-    : (TBase extends {} ? TBase : unknown) &
-        Simplify<
-          Assigned<
-            TFirst extends ObjectLiteral ? TFirst : {},
-            TRest extends readonly (ObjectLiteral | undefined | null)[] ? TRest : []
-          >
-        >
+  ? Assigned<
+      {
+        [P in Extract<keyof TBase | keyof TFirst, string>]: P extends keyof TBase
+          ? P extends keyof TFirst
+            ? undefined extends NotNever<TFirst[P]>
+              ? NotNever<TBase[P]> | NotNever<TFirst[P]>
+              : NotNever<TFirst[P]>
+            : NotNever<TBase[P]>
+          : NotNever<TFirst[P & keyof TFirst]>;
+      },
+      TRest extends readonly (object | undefined | null)[] ? TRest : []
+    >
   : AutoPartial<TBase>;
 
 export const assign = <
-  const TBase extends ObjectLiteral | undefined | null,
-  const TValues extends readonly (ObjectLiteral | undefined | null)[],
+  const TBase extends object | undefined | null,
+  const TValues extends readonly (object | undefined | null)[],
 >(
   base: TBase,
   ...values: TValues

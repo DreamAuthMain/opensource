@@ -1,8 +1,8 @@
-import { type AutoPartial, type NotNever, type ObjectLiteral, type Simplify } from './types.js';
+import { type AutoPartial, type NotNever, type Simplify } from './types.js';
 
 export type Merged<
-  TBase extends ObjectLiteral | undefined | null,
-  TValues extends readonly (ObjectLiteral | undefined | null)[],
+  TBase extends object | undefined | null,
+  TValues extends readonly (object | undefined | null)[],
 > = TValues extends readonly [infer TFirst, ...infer TRest]
   ? Merged<
       {
@@ -14,13 +14,13 @@ export type Merged<
             : NotNever<TBase[P]>
           : NotNever<TFirst[P & keyof TFirst]>;
       },
-      TRest extends readonly (ObjectLiteral | undefined | null)[] ? TRest : []
+      TRest extends readonly (object | undefined | null)[] ? TRest : []
     >
   : AutoPartial<TBase>;
 
 export const merge = <
-  const TBase extends ObjectLiteral | undefined | null,
-  const TValues extends readonly (ObjectLiteral | undefined | null)[],
+  const TBase extends object | undefined | null,
+  const TValues extends readonly (object | undefined | null)[],
 >(
   base: TBase,
   ...values: TValues

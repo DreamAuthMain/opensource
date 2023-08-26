@@ -1,6 +1,6 @@
 import { type ObjectLiteral } from './types.js';
 
-export const isComposite = <T>(value: T): value is Extract<T & {}, object> & ObjectLiteral => {
+export const isComposite = (value: unknown): value is ObjectLiteral => {
   return typeof value === 'function' || (typeof value === 'object' && value !== null);
 };
 
