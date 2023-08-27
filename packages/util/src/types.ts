@@ -1,15 +1,10 @@
-export type ObjectLiteral = Readonly<Record<string, unknown>>;
+export type Simplify<T> = any extends any ? { [P in keyof T]: T[P] } : never;
 
-export type Simplify<T> = T extends ObjectLiteral ? { [P in keyof T]: T[P] } : T;
+export type Primitive = string | number | boolean | symbol | bigint | undefined | null;
 
-export type ObjectLike = Readonly<Record<string, any>>;
+export type Dict<T> = Readonly<Record<string, T>>;
 
-/**
- * @deprecated Use `ObjectLike` instead.
- */
-export type AnyRecord = ObjectLike;
-
-export type KeyOf<TItem extends AnyRecord, TType = any> = {
+export type KeyOf<TItem extends object, TType = any> = {
   [P in Extract<keyof TItem, string>]: TItem[P] extends TType ? P : never;
 }[Extract<keyof TItem, string>];
 
@@ -19,6 +14,4 @@ export type UndefinedKeys<T> = {
   [P in keyof T]-?: undefined extends T[P] ? P : never;
 }[keyof T];
 
-export type AutoPartial<T> = T extends ObjectLiteral
-  ? Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>>
-  : T;
+export type AutoPartial<T> = T extends object ? Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>> : T;

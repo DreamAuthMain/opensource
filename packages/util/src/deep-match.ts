@@ -1,6 +1,6 @@
 import { isArray } from './is-array.js';
-import { isComposite } from './is-composite.js';
-import { isObjectLiteral } from './is-object-literal.js';
+import { isDict } from './is-dict.js';
+import { isObject } from './is-object.js';
 
 export const deepMatch = <const T>(value: unknown, match: T): value is T => {
   if (value === match) return true;
@@ -15,7 +15,7 @@ export const deepMatch = <const T>(value: unknown, match: T): value is T => {
     return true;
   }
 
-  if (isComposite(value) && isObjectLiteral(match)) {
+  if (isObject(value) && isDict(match)) {
     const keys = Object.getOwnPropertyNames(match);
 
     for (const key of keys) {

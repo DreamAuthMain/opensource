@@ -1,6 +1,8 @@
-import { isArray } from './is-array.js';
-import { type ObjectLiteral } from './types.js';
+import { type Dict } from './types.js';
 
-export const isObject = (value: unknown): value is ObjectLiteral => {
-  return typeof value === 'object' && value !== null && !isArray(value);
+/**
+ * Any non-primitive and non-function value.
+ */
+export const isObject = (value: unknown): value is Dict<unknown> => {
+  return typeof value === 'object' && value !== null;
 };
