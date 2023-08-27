@@ -1,3 +1,7 @@
+## 3.0.14 (2023-08-27)
+
+**Note**: Updated local dependencies.
+
 ## 3.0.13 (2023-08-26)
 
 **Note**: Updated local dependencies.

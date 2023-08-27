@@ -1,3 +1,9 @@
+# 4.0.0 (2023-08-27)
+
+### Breaking Changes
+
+- Remove unsafe. (3ad7b43)
+
 ## 3.0.5 (2023-08-26)
 
 ### Bug Fixes

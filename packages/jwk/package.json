@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/jwk",
   "description": "DreamAuth JWK",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@dreamauth/crypto": "^1.0.0",
-    "@dreamauth/types": "^4.0.13",
-    "@dreamauth/util": "^3.0.5"
+    "@dreamauth/types": "^4.0.14",
+    "@dreamauth/util": "^4.0.0"
   }
 }
