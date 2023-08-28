@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { raise } from './errors.js';
 import { type PartialCryptoProvider } from './partial-crypto.js';
 
 export const cryptoProvider: PartialCryptoProvider<any> = async () => {
@@ -9,6 +10,6 @@ export const cryptoProvider: PartialCryptoProvider<any> = async () => {
       ? require('node:crypto').webcrypto
       : await import('node:crypto').then(({ webcrypto }) => webcrypto);
   } catch (error) {
-    throw new Error('No crypto implementation found', { cause: error });
+    return raise('NoCrypto', { cause: error });
   }
 };
