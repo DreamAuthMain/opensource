@@ -1,0 +1,35 @@
+{
+  "name": "@dreamauth/eslint-plugin",
+  "description": "DreamAuth ESLint Plugin",
+  "version": "1.0.0",
+  "author": "Chris Ackerman <chris@topher.land>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreamAuthMain/opensource.git",
+    "directory": "packages/eslint-plugin"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "lib/**"
+  ],
+  "directories": {
+    "lib": "lib"
+  },
+  "type": "module",
+  "types": "lib/exports.d.ts",
+  "module": "lib/exports.js",
+  "exports": {
+    ".": {
+      "types": "./lib/exports.d.ts",
+      "default": "./lib/exports.js"
+    }
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@typescript-eslint/utils": "^6.5.0"
+  }
+}
