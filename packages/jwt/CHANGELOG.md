@@ -1,3 +1,9 @@
+# 5.0.0 (2023-08-28)
+
+### Breaking Changes
+
+- **errors:** Move to custom error classes derived from DreamAuthError. (8d27e77)
+
 ## 4.0.14 (2023-08-27)
 
 **Note**: Updated local dependencies.
