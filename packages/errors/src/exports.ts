@@ -1,1 +1,2 @@
-export * from './errors.js';
+export * from './error.js';
+export * from './raise.js';

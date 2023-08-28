@@ -4,7 +4,7 @@ import { JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
 import { SECONDS, time } from '@dreamauth/time';
 import { isJwk, type Jwk, type Jwt } from '@dreamauth/types';
 
-import { error } from './errors.js';
+import { raise } from './errors.js';
 import { PARAMS } from './params.js';
 
 const algs = Object.keys(PARAMS) as unknown as [keyof typeof PARAMS, ...(keyof typeof PARAMS)[]];
@@ -36,9 +36,9 @@ export class JwtVerifier {
   async verify(jwt: Jwt): Promise<void> {
     const nowSeconds = time.now().as(SECONDS);
 
-    if (!this.#issuers.has(jwt.payload.iss)) return error('InvalidJwtIss');
-    if (jwt.payload.exp <= nowSeconds) return error('ExpiredJwt');
-    if (jwt.payload.nbf != null && jwt.payload.nbf > nowSeconds) return error('InvalidJwtNbf');
+    if (!this.#issuers.has(jwt.payload.iss)) return raise('InvalidIssuer');
+    if (jwt.payload.exp <= nowSeconds) return raise('Expired');
+    if (jwt.payload.nbf != null && jwt.payload.nbf > nowSeconds) return raise('NotYetValid');
 
     const cachedJwks: Jwk<keyof typeof PARAMS, 'verify'>[] | undefined = this.#cache.get(jwt.payload.iss);
 
@@ -54,7 +54,7 @@ export class JwtVerifier {
 
     if (await this.#verify(jwt, loadedJwks)) return;
 
-    error('InvalidJwtSignature');
+    return raise('InvalidSignature');
   }
 
   async #verify(jwt: Jwt, jwks: Jwk<keyof typeof PARAMS, 'verify'>[]): Promise<boolean> {

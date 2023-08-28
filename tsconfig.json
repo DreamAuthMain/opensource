@@ -13,6 +13,7 @@
     "forceConsistentCasingInFileNames": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": false,
+    "stripInternal": true,
     "declaration": true,
     "sourceMap": true,
     "allowJs": true,

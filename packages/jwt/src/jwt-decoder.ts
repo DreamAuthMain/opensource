@@ -1,7 +1,7 @@
 import { base64UrlDecode } from '@dreamauth/base64url';
 import { isJwtHeader, isJwtPayload, type Jwt } from '@dreamauth/types';
 
-import { error } from './errors.js';
+import { raise } from './errors.js';
 import { type JwtVerifier } from './jwt-verifier.js';
 
 /**
@@ -25,10 +25,10 @@ export class JwtDecoder {
       header = JSON.parse(new TextDecoder().decode(base64UrlDecode(headerString)));
       payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(payloadString)));
     } catch {
-      return error('InvalidJwt');
+      return raise('Invalid');
     }
 
-    if (!isJwtHeader(header) || !isJwtPayload(payload)) return error('InvalidJwt');
+    if (!isJwtHeader(header) || !isJwtPayload(payload)) return raise('Invalid');
 
     const jwt: Jwt = { header, headerString, payload, payloadString, signature };
 
