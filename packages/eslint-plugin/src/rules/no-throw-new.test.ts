@@ -1,7 +1,7 @@
 import { RuleTester } from '@typescript-eslint/utils/ts-eslint';
-import { beforeEach, describe, test } from 'vitest';
+import { describe, test } from 'vitest';
 
-import { rules } from '../exports.js';
+import dreamauth from '../exports.js';
 
 RuleTester.describe = describe;
 RuleTester.it = test;
@@ -9,7 +9,7 @@ RuleTester.it = test;
 describe('eslint', () => {
   const ruleTester = new RuleTester();
 
-  ruleTester.run('no-throw-new', rules['no-throw-new'], {
+  ruleTester.run('no-throw-new', dreamauth.rules['no-throw-new'], {
     valid: ['throw error;'],
     invalid: [
       {
