@@ -1,5 +1,7 @@
+import { type UuidLike } from '@dreamauth/util';
+
 interface BaseCrypto {
-  randomUUID(): string;
+  randomUUID(): UuidLike;
   getRandomValues(array: Uint8Array): Uint8Array;
   subtle: {
     generateKey(
