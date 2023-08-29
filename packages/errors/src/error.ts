@@ -8,7 +8,8 @@ export abstract class DreamAuthError<TCode extends string | number | symbol> ext
   readonly code: TCode;
   readonly context: Record<string, unknown>;
 
-  constructor(message: string, code: TCode, { cause, context = {} }: ErrorOptions = {}) {
+  constructor(message: string, code: TCode, options: Error | ErrorOptions = {}) {
+    const { cause, context = {} } = options instanceof Error ? { cause: options } : options;
     super(message, { cause });
 
     this.code = code;
