@@ -1,3 +1,9 @@
+## 4.0.1 (2023-08-29)
+
+### Chores
+
+- Add Uuid and Email types. (65d603e)
+
 # 4.0.0 (2023-08-27)
 
 ### Breaking Changes
