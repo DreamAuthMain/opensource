@@ -8,7 +8,7 @@ const rule: TSESLint.RuleModule<keyof typeof messages> = {
   create: (context) => {
     return {
       ThrowStatement(node) {
-        if ((node.argument?.type as any) === AST_NODE_TYPES.NewExpression) {
+        if ((node.argument?.type as any) !== AST_NODE_TYPES.Identifier) {
           context.report({ node, messageId: 'noThrowNew' });
         }
       },

@@ -13,7 +13,11 @@ describe('eslint', () => {
     valid: ['throw error;'],
     invalid: [
       {
-        code: 'throw new Error("");',
+        code: 'throw new Error();',
+        errors: [{ messageId: 'noThrowNew' }],
+      },
+      {
+        code: 'throw Error();',
         errors: [{ messageId: 'noThrowNew' }],
       },
     ],
