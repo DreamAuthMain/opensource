@@ -1,3 +1,12 @@
+## 4.0.3 (2023-08-29)
+
+### Chores
+
+- Add exports for isEmailLike and NilUuid. (39291d0)
+- Add NilUuid constant. (e54324e)
+- Rename Uuid type to UuidLike. (f528c56)
+- Rename isEmail to isEmailLike. (6880a92)
+
 ## 4.0.2 (2023-08-29)
 
 ### Chores
