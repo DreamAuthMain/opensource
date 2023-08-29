@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/errors",
   "description": "DreamAuth Errors",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {

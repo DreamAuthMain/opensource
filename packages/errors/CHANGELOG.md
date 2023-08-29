@@ -1,3 +1,9 @@
+## 3.0.1 (2023-08-28)
+
+### Bug Fixes
+
+- If DreamAuthError options is an error, use it as a cause. (97cd9c7)
+
 # 3.0.0 (2023-08-28)
 
 ### Breaking Changes
