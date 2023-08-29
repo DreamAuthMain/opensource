@@ -1,17 +1,17 @@
-import { type Dict, type Falsy } from '@dreamauth/util';
+import { type Dict, type Falsy, isObject } from '@dreamauth/util';
 
 import { type AnyError, type ErrorConstructor, getError, type InferErrorProps } from './error.js';
-import { createMatch, getMatchArgs, type Match } from './match.js';
+import { createMatch, type Match } from './match.js';
 
-type Handle<TReturn, TError extends Error, TProps extends Dict<any>> = (
+type Handle<TReturn, TError extends Error> = (
   this: UnsafeContext,
-  error: TError & TProps & Dict<unknown>,
+  error: TError,
   context: UnsafeContext,
 ) => TReturn | PromiseLike<TReturn>;
 
 interface HandleEntry<TReturn> {
   readonly match: Match<AnyError>;
-  readonly action: 'retry' | Handle<TReturn, AnyError, {}>;
+  readonly action: 'retry' | Handle<TReturn, AnyError>;
 }
 
 export interface UnsafeContext {
@@ -30,14 +30,10 @@ export interface Unsafe<TReturn, THandlerReturn, TArgs extends unknown[]> {
    * The default maximum number of retries is 1, which can be changed by
    * calling the `maxRetries` method.
    */
-  readonly retry: {
-    (type: ErrorConstructor<AnyError> | Falsy): Unsafe<TReturn, THandlerReturn, TArgs>;
-    (props: Dict<any>): Unsafe<TReturn, THandlerReturn, TArgs>;
-    <TError extends Error>(
-      type: ErrorConstructor<TError> | Falsy,
-      props: Dict<any> & InferErrorProps<TError>,
-    ): Unsafe<TReturn, THandlerReturn, TArgs>;
-  };
+  readonly retry: <TError extends Error>(
+    type: ErrorConstructor<TError> | Falsy,
+    props?: InferErrorProps<TError>,
+  ) => Unsafe<TReturn, THandlerReturn, TArgs>;
 
   /**
    * Match an error by type and/or properties, and handle it with a
@@ -47,16 +43,12 @@ export interface Unsafe<TReturn, THandlerReturn, TArgs extends unknown[]> {
   readonly handle: {
     <TError extends Error, TNewHandlerReturn = undefined>(
       type: ErrorConstructor<TError> | Falsy,
-      handle?: Handle<TNewHandlerReturn, TError, {}>,
+      handle?: Handle<TNewHandlerReturn, TError>,
     ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TArgs>;
-    <const TProps extends Dict<any>, TNewHandlerReturn = undefined>(
-      props: TProps,
-      handle?: Handle<TNewHandlerReturn, Error, TProps>,
-    ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TArgs>;
-    <TError extends Error, const TProps extends Dict<any>, TNewHandlerReturn = undefined>(
+    <TError extends Error, TNewHandlerReturn = undefined>(
       type: ErrorConstructor<TError> | Falsy,
-      props: TProps & InferErrorProps<TError>,
-      handle?: Handle<TNewHandlerReturn, TError, TProps>,
+      props: InferErrorProps<TError>,
+      handle?: Handle<TNewHandlerReturn, TError>,
     ): Unsafe<TReturn, THandlerReturn | TNewHandlerReturn, TArgs>;
   };
 
@@ -86,13 +78,7 @@ const createUnsafe = <TReturn, THandlerReturn, TArgs extends unknown[]>(
       return createUnsafe(callback, handlers, cleaners, count);
     },
 
-    retry: (
-      ...args:
-        | [type: ErrorConstructor<AnyError> | Falsy]
-        | [props: Dict<any>]
-        | [type: ErrorConstructor<AnyError> | Falsy, props: Dict<any>]
-    ) => {
-      const [type, props] = getMatchArgs(args);
+    retry: (type: ErrorConstructor<AnyError> | Falsy, props?: Dict<any>) => {
       const match = createMatch(type, props);
 
       return createUnsafe(callback, [...handlers, { match, action: 'retry' }], cleaners, maxRetries);
@@ -100,15 +86,22 @@ const createUnsafe = <TReturn, THandlerReturn, TArgs extends unknown[]>(
 
     handle: <TNewHandlerReturn>(
       ...args:
-        | [type: ErrorConstructor<AnyError> | Falsy, errorCallback?: Handle<TNewHandlerReturn, AnyError, {}>]
-        | [props: Dict<any>, errorCallback?: Handle<TNewHandlerReturn, AnyError, {}>]
+        | [type: ErrorConstructor<AnyError> | Falsy, errorCallback?: Handle<TNewHandlerReturn, AnyError>]
         | [
             type: ErrorConstructor<AnyError> | Falsy,
             props: Dict<any>,
-            errorCallback?: Handle<TNewHandlerReturn, AnyError, {}>,
+            errorCallback?: Handle<TNewHandlerReturn, AnyError>,
           ]
     ) => {
-      const [type, props, action = () => undefined as TNewHandlerReturn] = getMatchArgs(args);
+      const type = args[0];
+      const props = isObject(args[1]) || !args[1] ? args[1] : undefined;
+      const action = (
+        typeof args[1] === 'function'
+          ? args[1]
+          : typeof args[2] === 'function'
+          ? args[2]
+          : () => undefined as TNewHandlerReturn
+      ) as Handle<TNewHandlerReturn, AnyError>;
       const match = createMatch(type, props);
 
       return createUnsafe<TReturn, THandlerReturn | TNewHandlerReturn, TArgs>(

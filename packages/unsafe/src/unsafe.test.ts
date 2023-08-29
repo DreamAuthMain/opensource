@@ -49,26 +49,6 @@ describe('unsafe', () => {
     await expect(promise).rejects.toThrowError('test');
   });
 
-  test('handled deep match only', async () => {
-    const promise = unsafe(async () => {
-      throw new MyError('test', { cause: { foo: 'bar' } });
-    })
-      .handle({ name: 'MyError', message: 'test', cause: { foo: 'bar' } }, async () => true)
-      .call();
-
-    await expect(promise).resolves.toBe(true);
-  });
-
-  test('unhandled deep match only', async () => {
-    const promise = unsafe(async () => {
-      throw new MyError('test', { cause: { foo: 'bar' } });
-    })
-      .handle({ name: 'MyError', message: 'test', cause: { foo: 'baz' } }, async () => true)
-      .call();
-
-    await expect(promise).rejects.toThrowError('test');
-  });
-
   test('handled type and deep match', async () => {
     const promise = unsafe(async () => {
       throw new MyError('test', { cause: { foo: 'a', bar: ['b', 'c'] } });
@@ -157,16 +137,6 @@ describe('unsafe', () => {
 
     await expect(promise).resolves.toBe(true);
     expect(fn).toHaveBeenCalledTimes(2);
-  });
-
-  test('retry deep match only', async () => {
-    const fn = vi.fn().mockRejectedValueOnce(new Error('1')).mockResolvedValueOnce(true);
-    const cleanup = vi.fn().mockResolvedValue(undefined);
-    const promise = unsafe(fn).retry({ message: '1' }).cleanup(cleanup).call();
-
-    await expect(promise).resolves.toBe(true);
-    expect(fn).toHaveBeenCalledTimes(2);
-    expect(cleanup).toHaveBeenCalledOnce();
   });
 
   test('retry type and deep match', async () => {
