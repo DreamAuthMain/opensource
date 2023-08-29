@@ -1,3 +1,9 @@
+## 1.0.4 (2023-08-29)
+
+### Bug Fixes
+
+- Return type UuidLike from randomUUID. (851d6c2)
+
 ## 1.0.3 (2023-08-28)
 
 **Note**: Updated local dependencies.

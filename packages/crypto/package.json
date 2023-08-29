@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/crypto",
   "description": "DreamAuth WebCrypto Wrapper",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
