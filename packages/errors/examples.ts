@@ -5,8 +5,15 @@ export const CustomErrorCodes = {
   Invalid: 'Thing is invalid',
 };
 
-export class CustomError extends DreamAuthError<keyof typeof CustomErrorCodes> {
-  constructor(code: keyof typeof CustomErrorCodes, options?: ErrorOptions) {
+export interface CustomContext {
+  /**
+   * A predefined context key.
+   */
+  key: string;
+}
+
+export class CustomError extends DreamAuthError<keyof typeof CustomErrorCodes, CustomContext> {
+  constructor(code: keyof typeof CustomErrorCodes, options?: ErrorOptions<CustomContext>) {
     super(CustomErrorCodes[code], code, options);
   }
 }
@@ -15,5 +22,5 @@ export const raise = createRaise(CustomError);
 
 raise('NotFound', {
   cause: new Error('Some other error'),
-  context: { foo: 'bar' },
+  context: { key: 'value' },
 });

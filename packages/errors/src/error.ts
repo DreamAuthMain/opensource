@@ -1,14 +1,17 @@
-export interface ErrorOptions {
+export interface ErrorOptions<TContext extends Record<string, any> = {}> {
   cause?: unknown;
-  context?: Record<string, any>;
+  context?: Partial<TContext> & Record<string, any>;
 }
 
-export abstract class DreamAuthError<TCode extends string | number | symbol> extends Error {
+export abstract class DreamAuthError<
+  TCode extends string | number | symbol,
+  TContext extends Record<string, any> = {},
+> extends Error {
   readonly name = this.constructor.name;
   readonly code: TCode;
-  readonly context: Record<string, unknown>;
+  readonly context: Partial<TContext> & Record<string, unknown>;
 
-  constructor(message: string, code: TCode, options: Error | ErrorOptions = {}) {
+  constructor(message: string, code: TCode, options: Error | ErrorOptions<TContext> = {}) {
     const { cause, context = {} } = options instanceof Error ? { cause: options } : options;
     super(message, { cause });
 
