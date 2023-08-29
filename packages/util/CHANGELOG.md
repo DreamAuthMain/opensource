@@ -1,3 +1,9 @@
+## 4.0.2 (2023-08-29)
+
+### Chores
+
+- Add isEmail and isUuid. (7dcb1a8)
+
 ## 4.0.1 (2023-08-29)
 
 ### Chores
