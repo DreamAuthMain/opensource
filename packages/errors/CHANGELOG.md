@@ -1,3 +1,9 @@
+## 3.0.2 (2023-08-28)
+
+### Chores
+
+- Add context type hinting. (b760e47)
+
 ## 3.0.1 (2023-08-28)
 
 ### Bug Fixes
