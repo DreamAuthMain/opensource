@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/unsafe",
   "description": "DreamAuth error handling and logging.",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
