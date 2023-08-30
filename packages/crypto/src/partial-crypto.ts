@@ -2,7 +2,7 @@ import { type UuidLike } from '@dreamauth/util';
 
 interface BaseCrypto {
   randomUUID(): UuidLike;
-  getRandomValues(array: Uint8Array): Uint8Array;
+  getRandomValues<TBuffer extends ArrayBufferView>(array: TBuffer): TBuffer;
   subtle: {
     generateKey(
       algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
