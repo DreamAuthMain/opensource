@@ -35,6 +35,7 @@
   "dependencies": {
     "@dreamauth/base64url": "^1.0.3",
     "@dreamauth/crypto": "^1.0.8",
+    "@dreamauth/errors": "^4.0.2",
     "@dreamauth/jwk": "^3.0.25",
     "hash-wasm": "4.9.0"
   }
