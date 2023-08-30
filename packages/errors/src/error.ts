@@ -1,5 +1,12 @@
 export interface DreamAuthErrorOptions<TContext extends Record<string, any> = {}> {
+  /**
+   * The cause of the error, if any.
+   */
   cause?: unknown;
+  /**
+   * Additional context to be included in the error which may be useful
+   * for debugging.
+   */
   context?: Partial<TContext> & Record<string, any>;
 }
 
@@ -7,12 +14,26 @@ export abstract class DreamAuthError<
   TCode extends string | number | symbol,
   TContext extends Record<string, any> = {},
 > extends Error {
+  /**
+   * Class name of the error.
+   */
   readonly name = this.constructor.name;
+
+  /**
+   * Code which can be used for debugging and choosing a user-friendly
+   * error message.
+   */
   readonly code: TCode;
+
+  /**
+   * Additional context to be included in the error which may be useful
+   * for debugging.
+   */
   readonly context: Partial<TContext> & Record<string, unknown>;
 
   constructor(message: string, code: TCode, options: Error | DreamAuthErrorOptions<TContext> = {}) {
     const { cause, context = {} } = options instanceof Error ? { cause: options } : options;
+
     super(message, { cause });
 
     this.code = code;
