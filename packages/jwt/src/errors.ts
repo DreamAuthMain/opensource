@@ -1,4 +1,4 @@
-import { createRaise, DreamAuthError, type ErrorOptions } from '@dreamauth/errors';
+import { createRaise, DreamAuthError, type DreamAuthErrorOptions } from '@dreamauth/errors';
 
 export const JwtErrorCodes = {
   Expired: 'JWT is expired',
@@ -10,7 +10,7 @@ export const JwtErrorCodes = {
 } as const;
 
 export class JwtError extends DreamAuthError<keyof typeof JwtErrorCodes> {
-  constructor(code: keyof typeof JwtErrorCodes, options?: ErrorOptions) {
+  constructor(code: keyof typeof JwtErrorCodes, options?: DreamAuthErrorOptions) {
     super(JwtErrorCodes[code], code, options);
   }
 }
