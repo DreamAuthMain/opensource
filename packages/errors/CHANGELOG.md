@@ -1,3 +1,9 @@
+## 4.0.1 (2023-08-30)
+
+### Documentation
+
+- Added tsdoc comments to error properties. (d07d0c7)
+
 # 4.0.0 (2023-08-29)
 
 ### Breaking Changes
