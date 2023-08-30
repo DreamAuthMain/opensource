@@ -1,3 +1,9 @@
+## 4.0.2 (2023-08-30)
+
+### Documentation
+
+- Improve code field comment. (055b2db)
+
 ## 4.0.1 (2023-08-30)
 
 ### Documentation
