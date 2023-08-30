@@ -7,6 +7,7 @@ export * from './is-dict.js';
 export * from './is-email-like.js';
 export * from './is-error.js';
 export * from './is-object.js';
+export * from './is-primitive.js';
 export * from './is-promise-like.js';
 export * from './is-uuid.js';
 export * from './merge.js';
