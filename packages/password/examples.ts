@@ -1,4 +1,4 @@
-import { PasswordHashFactory } from '@dreamauth/password';
+import { PasswordFactory, PasswordHashFactory } from '@dreamauth/password';
 
 const hashFactory = new PasswordHashFactory();
 
@@ -44,3 +44,7 @@ const [verificationHash1] = await hashFactory.create('password', params1);
 if (hash1 === verificationHash1) {
   // The passwords match.
 }
+
+const passwordFactory = new PasswordFactory();
+const passwordLength32 = await passwordFactory.create();
+const passwordLength64 = await passwordFactory.create(64);

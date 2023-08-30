@@ -1,10 +1,10 @@
 # DreamAuth Password
 
-Generate password hashes.
+Generate passwords and password hashes.
 
 See the [examples](examples.ts).
 
-## Algorithms
+## Hashing Algorithms
 
 - `Argon2id` (recommended: side-channel and GPU-based attack resistant)
   - Using [hash-wasm](https://www.npmjs.com/package/hash-wasm).
@@ -22,7 +22,7 @@ See also:
 - [OWASP password cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
 - [1Password cracking challenge](https://blog.1password.com/cracking-challenge-update/).
 
-## Security Recommendations
+## Hashing Security Recommendations
 
 - Output hash size should be at least 32 bytes.
 - Salt size should be at least twice the output hash size.
