@@ -20,8 +20,8 @@ export abstract class DreamAuthError<
   readonly name = this.constructor.name;
 
   /**
-   * Code which can be used for debugging and choosing a user-friendly
-   * error message.
+   * Code which can be used for programmatic handling, choosing
+   * user-friendly error messages, or debugging.
    */
   readonly code: TCode;
 
