@@ -1,3 +1,9 @@
+## 5.0.8 (2023-08-29)
+
+### Chores
+
+- Update error dependents. (799b440)
+
 ## 5.0.7 (2023-08-29)
 
 **Note**: Updated local dependencies.

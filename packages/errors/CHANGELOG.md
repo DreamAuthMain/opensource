@@ -1,3 +1,9 @@
+# 4.0.0 (2023-08-29)
+
+### Breaking Changes
+
+- Rename ErrorOptions to DreamAuthErrorOptions. (9f1e8a5)
+
 ## 3.0.2 (2023-08-28)
 
 ### Chores

@@ -1,3 +1,9 @@
+## 1.0.5 (2023-08-29)
+
+### Chores
+
+- Update error dependents. (799b440)
+
 ## 1.0.4 (2023-08-29)
 
 ### Bug Fixes
