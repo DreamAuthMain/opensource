@@ -1,3 +1,9 @@
+## 2.2.0 (2023-08-30)
+
+### Features
+
+- Add assertGoodPassword. (248a976)
+
 ## 2.1.0 (2023-08-30)
 
 ### Features
