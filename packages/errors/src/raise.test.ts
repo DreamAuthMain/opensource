@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'vitest';
 
-import { DreamAuthError, type ErrorOptions } from './error.js';
+import { DreamAuthError, type DreamAuthErrorOptions } from './error.js';
 import { createRaise } from './raise.js';
 
 class MyError extends DreamAuthError<any> {
-  constructor(code: 'code', options?: ErrorOptions) {
+  constructor(code: 'code', options?: DreamAuthErrorOptions) {
     super('message', code, options);
   }
 }

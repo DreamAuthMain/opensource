@@ -1,4 +1,4 @@
-export interface ErrorOptions<TContext extends Record<string, any> = {}> {
+export interface DreamAuthErrorOptions<TContext extends Record<string, any> = {}> {
   cause?: unknown;
   context?: Partial<TContext> & Record<string, any>;
 }
@@ -11,7 +11,7 @@ export abstract class DreamAuthError<
   readonly code: TCode;
   readonly context: Partial<TContext> & Record<string, unknown>;
 
-  constructor(message: string, code: TCode, options: Error | ErrorOptions<TContext> = {}) {
+  constructor(message: string, code: TCode, options: Error | DreamAuthErrorOptions<TContext> = {}) {
     const { cause, context = {} } = options instanceof Error ? { cause: options } : options;
     super(message, { cause });
 

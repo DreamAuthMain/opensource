@@ -1,4 +1,4 @@
-import { createRaise, DreamAuthError, type ErrorOptions } from '@dreamauth/errors';
+import { createRaise, DreamAuthError, type DreamAuthErrorOptions } from '@dreamauth/errors';
 
 export const CustomErrorCodes = {
   NotFound: 'Thing not found',
@@ -13,7 +13,7 @@ export interface CustomContext {
 }
 
 export class CustomError extends DreamAuthError<keyof typeof CustomErrorCodes, CustomContext> {
-  constructor(code: keyof typeof CustomErrorCodes, options?: ErrorOptions<CustomContext>) {
+  constructor(code: keyof typeof CustomErrorCodes, options?: DreamAuthErrorOptions<CustomContext>) {
     super(CustomErrorCodes[code], code, options);
   }
 }
