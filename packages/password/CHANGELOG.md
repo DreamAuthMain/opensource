@@ -1,3 +1,9 @@
+## 2.1.0 (2023-08-30)
+
+### Features
+
+- Add password factory. (4e300d0)
+
 ## 2.0.24 (2023-08-30)
 
 **Note**: Updated local dependencies.

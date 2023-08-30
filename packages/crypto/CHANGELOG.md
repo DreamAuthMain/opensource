@@ -1,3 +1,9 @@
+## 1.0.8 (2023-08-30)
+
+### Chores
+
+- Allow getRandomValues to accept any ArrayBufferView. (3fc17bc)
+
 ## 1.0.7 (2023-08-30)
 
 **Note**: Updated local dependencies.
