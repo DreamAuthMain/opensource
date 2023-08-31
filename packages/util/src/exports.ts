@@ -12,4 +12,5 @@ export * from './is-promise-like.js';
 export * from './is-uuid.js';
 export * from './merge.js';
 export * from './nil-uuid.js';
+export * from './pick.js';
 export * from './types.js';
