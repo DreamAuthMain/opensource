@@ -15,3 +15,5 @@ export type UndefinedKeys<T> = {
 }[keyof T];
 
 export type AutoPartial<T> = T extends object ? Omit<T, UndefinedKeys<T>> & Partial<Pick<T, UndefinedKeys<T>>> : T;
+
+export type StringHint<T extends string> = T | (string & {});
