@@ -35,6 +35,6 @@
   "dependencies": {
     "@dreamauth/crypto": "^1.0.12",
     "@dreamauth/types": "^4.0.21",
-    "@dreamauth/util": "^4.0.7"
+    "@dreamauth/util": "^4.0.8"
   }
 }

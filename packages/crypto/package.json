@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "@dreamauth/errors": "^4.0.2",
-    "@dreamauth/util": "^4.0.7"
+    "@dreamauth/util": "^4.0.8"
   }
 }

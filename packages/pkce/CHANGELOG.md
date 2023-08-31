@@ -1,3 +1,9 @@
+## 2.0.13 (2023-08-31)
+
+### Chores
+
+- Update deps. (adb757d)
+
 ## 2.0.12 (2023-08-31)
 
 **Note**: Updated local dependencies.

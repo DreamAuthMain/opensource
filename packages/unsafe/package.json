@@ -34,6 +34,6 @@
   },
   "dependencies": {
     "@dreamauth/time": "^1.0.0",
-    "@dreamauth/util": "^4.0.7"
+    "@dreamauth/util": "^4.0.8"
   }
 }

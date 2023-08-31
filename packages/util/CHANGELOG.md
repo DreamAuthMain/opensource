@@ -1,3 +1,9 @@
+## 4.0.8 (2023-08-31)
+
+### Bug Fixes
+
+- Select type TKey did not allow any string. (98bf40c)
+
 ## 4.0.7 (2023-08-31)
 
 ### Chores
