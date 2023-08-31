@@ -1,3 +1,7 @@
+## 2.2.4 (2023-08-31)
+
+**Note**: Updated local dependencies.
+
 ## 2.2.3 (2023-08-31)
 
 **Note**: Updated local dependencies.
