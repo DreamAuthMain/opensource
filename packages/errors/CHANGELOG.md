@@ -1,3 +1,7 @@
+## 4.0.3 (2023-08-31)
+
+**Note**: Updated to version "4.0.3".
+
 ## 4.0.2 (2023-08-30)
 
 ### Documentation

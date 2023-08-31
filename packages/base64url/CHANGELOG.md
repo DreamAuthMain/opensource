@@ -1,3 +1,7 @@
+## 1.0.4 (2023-08-31)
+
+**Note**: Updated to version "1.0.4".
+
 ## 1.0.3 (2023-07-12)
 
 ### Build System
