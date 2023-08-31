@@ -51,4 +51,7 @@ export type StringHint<T extends string> = T | (string & {});
  * Like `Pick`, but it allows any string key. Keys which are not present
  * in `TValue` will be ignored.
  */
-export type Select<TValue extends object, TKey extends KeyOf<TValue>> = Pick<TValue, Extract<TKey, KeyOf<TValue>>>;
+export type Select<TValue extends object, TKey extends StringHint<KeyOf<TValue>>> = Pick<
+  TValue,
+  Extract<TKey, KeyOf<TValue>>
+>;
