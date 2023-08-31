@@ -1,3 +1,10 @@
+## 4.0.6 (2023-08-31)
+
+### Chores
+
+- Add StringHint type. (00b851e)
+- **pick:** Refactor Picked type. (a503145)
+
 ## 4.0.5 (2023-08-30)
 
 ### Chores
