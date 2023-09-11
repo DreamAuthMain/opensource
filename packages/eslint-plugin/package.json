@@ -30,6 +30,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^6.6.0"
+    "@typescript-eslint/utils": "^6.7.0"
   }
 }
