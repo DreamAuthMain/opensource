@@ -1,3 +1,13 @@
+export const JWK_RSA_ENC_ALGS = ['RSA-OAEP-256'] as const;
+export const JWK_RSA_SIG_ALGS = ['RS256', 'RS384', 'RS512', 'PS256', 'PS384', 'PS512'] as const;
+export const JWK_RSA_ALGS = [...JWK_RSA_ENC_ALGS, ...JWK_RSA_SIG_ALGS] as const;
+
+export const JWK_ECC_SIG_ALGS = ['ES256', 'ES384', 'ES512'] as const;
+
+export const JWK_SIG_ALGS = [...JWK_RSA_SIG_ALGS, ...JWK_ECC_SIG_ALGS] as const;
+
+export const JWK_ALGS = [...JWK_RSA_ENC_ALGS, ...JWK_RSA_SIG_ALGS, ...JWK_ECC_SIG_ALGS] as const;
+
 export const IMPORT_PARAMS = {
   RS256: {
     name: 'RSASSA-PKCS1-v1_5',
@@ -39,7 +49,7 @@ export const IMPORT_PARAMS = {
     name: 'RSA-OAEP',
     hash: 'SHA-256',
   },
-} as const satisfies Record<string, RsaHashedImportParams | EcKeyImportParams>;
+} as const satisfies Record<(typeof JWK_ALGS)[number], RsaHashedImportParams | EcKeyImportParams>;
 
 export const GEN_RSA_PARAMS = {
   RS256: {
@@ -92,7 +102,7 @@ export const GEN_RSA_PARAMS = {
     keyUsage: ['encrypt', 'decrypt'],
   },
 } as const satisfies Record<
-  string,
+  (typeof JWK_RSA_ALGS)[number],
   RsaHashedKeyGenParams & { keyUsage: readonly ['verify', 'sign'] | readonly ['encrypt', 'decrypt'] }
 >;
 
@@ -109,4 +119,4 @@ export const GEN_ECC_PARAMS = {
     name: 'ECDSA',
     namedCurve: 'P-521',
   },
-} as const satisfies Record<string, EcKeyGenParams>;
+} as const satisfies Record<(typeof JWK_ECC_SIG_ALGS)[number], EcKeyGenParams>;
