@@ -1,3 +1,5 @@
+import { type JWK_SIG_ALGS } from '@dreamauth/jwk';
+
 export const PARAMS = {
   RS256: {
     name: 'RSASSA-PKCS1-v1_5',
@@ -32,4 +34,4 @@ export const PARAMS = {
     name: 'ECDSA',
     hash: 'SHA-512',
   },
-} as const satisfies Record<string, AlgorithmIdentifier | RsaPssParams | EcdsaParams>;
+} as const satisfies Record<(typeof JWK_SIG_ALGS)[number], AlgorithmIdentifier | RsaPssParams | EcdsaParams>;
