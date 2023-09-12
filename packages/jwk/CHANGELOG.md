@@ -1,3 +1,9 @@
+## 3.0.31 (2023-09-12)
+
+### Chores
+
+- Export algorithm name constants. (50323f5)
+
 ## 3.0.30 (2023-08-31)
 
 **Note**: Updated to version "3.0.30".
