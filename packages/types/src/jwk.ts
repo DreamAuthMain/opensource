@@ -1,19 +1,5 @@
 import { isArray, isObject } from '@dreamauth/util';
 
-type Alg =
-  | 'RS256'
-  | 'RS384'
-  | 'RS512'
-  | 'PS256'
-  | 'PS384'
-  | 'PS512'
-  | 'ES256'
-  | 'ES384'
-  | 'ES512'
-  | 'RSA-OAEP-256'
-  | (string & {});
-type Op = 'sign' | 'verify' | 'encrypt' | 'decrypt' | (string & {});
-
 export type Jwk<A extends string = string, O extends string = string> = Omit<JsonWebKey, 'key_ops'> & {
   readonly kid: string;
   readonly alg: A;
@@ -24,7 +10,11 @@ export type Jwk<A extends string = string, O extends string = string> = Omit<Jso
   readonly [key: string]: unknown;
 };
 
-export interface JwkPair<A extends string = string, TPublicOp extends string = string, TPrivateOp extends Op = Op> {
+export interface JwkPair<
+  A extends string = string,
+  TPublicOp extends string = string,
+  TPrivateOp extends string = string,
+> {
   readonly privateKey: Jwk<A, TPrivateOp>;
   readonly publicKey: Jwk<A, TPublicOp>;
 }
@@ -42,8 +32,8 @@ const isJwkObject = (value: unknown): value is Jwk => {
 };
 
 export const isJwk: {
-  <A extends Alg, O extends Op>(value: unknown, algs: [A, ...A[]], ops: [O, ...O[]]): value is Jwk<A, O>;
-  <A extends Alg>(value: unknown, algs: [A, ...A[]]): value is Jwk<A>;
+  <A extends string, O extends string>(value: unknown, algs: [A, ...A[]], ops: [O, ...O[]]): value is Jwk<A, O>;
+  <A extends string>(value: unknown, algs: [A, ...A[]]): value is Jwk<A>;
   (value: unknown): value is Jwk;
 } = (value: unknown, algs?: string[], ops?: string[]): value is Jwk => {
   if (!isJwkObject(value)) return false;
