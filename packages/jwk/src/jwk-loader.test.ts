@@ -14,7 +14,7 @@ vi.mock('./fetch-oidc-jwks.js', () => ({
 describe('JwkLoader', (test) => {
   beforeEach(() => {
     vi.mocked(fetchOIDCJwksUri).mockResolvedValue('https://example.com/jwks.json');
-    vi.mocked(fetchOIDCJwks).mockResolvedValue([{ kid: '1', alg: 'RS256' }]);
+    vi.mocked(fetchOIDCJwks).mockResolvedValue([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
   });
 
   test('valid url issuer', async () => {
@@ -22,7 +22,7 @@ describe('JwkLoader', (test) => {
     const jwks = await loader.load('https://example.com');
     expect(fetchOIDCJwksUri).toHaveBeenLastCalledWith('https://example.com/.well-known');
     expect(fetchOIDCJwks).toHaveBeenLastCalledWith('https://example.com/jwks.json');
-    expect(jwks).toEqual([{ kid: '1', alg: 'RS256' }]);
+    expect(jwks).toEqual([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
   });
 
   test('non-url issuer', async () => {
@@ -47,7 +47,7 @@ describe('JwkLoader', (test) => {
       const jwks = await loader.load(iss);
       expect(fetchOIDCJwksUri).toHaveBeenLastCalledWith(`${iss.replace(/\/$/i, '')}/.well-known`);
       expect(fetchOIDCJwks).toHaveBeenLastCalledWith(`https://example.com/jwks.json`);
-      expect(jwks).toEqual([{ kid: '1', alg: 'RS256' }]);
+      expect(jwks).toEqual([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
     });
   });
 });
