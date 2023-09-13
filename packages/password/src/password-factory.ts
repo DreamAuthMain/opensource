@@ -1,11 +1,11 @@
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 
 export const PASSWORD_FACTORY_CHARS = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!?@#$%&*-+=~';
 
 export class PasswordFactory {
-  readonly #crypto: PartialCryptoProvider<'getRandomValues'>;
+  readonly #crypto: PlatformCryptoResolver;
 
-  constructor(crypto: PartialCryptoProvider<'getRandomValues'> = cryptoProvider) {
+  constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 

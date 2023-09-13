@@ -1,5 +1,5 @@
 import { base64UrlDecode, base64UrlEncode } from '@dreamauth/base64url';
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 import { argon2id } from 'hash-wasm/dist/argon2.umd.min.js';
 
 export interface Argon2IdParams {
@@ -29,9 +29,9 @@ export interface PBKDF2Params {
 }
 
 export class PasswordHashFactory {
-  #crypto: PartialCryptoProvider<'getRandomValues' | 'importKey' | 'deriveBits'>;
+  #crypto: PlatformCryptoResolver;
 
-  constructor(crypto: PartialCryptoProvider<'getRandomValues' | 'importKey' | 'deriveBits'> = cryptoProvider) {
+  constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 
