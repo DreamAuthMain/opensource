@@ -1,3 +1,9 @@
+## 5.0.19 (2023-09-13)
+
+### Chores
+
+- Update crypto usage. (277fa74)
+
 ## 5.0.18 (2023-09-12)
 
 **Note**: Updated local dependencies.

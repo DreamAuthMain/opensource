@@ -1,3 +1,9 @@
+## 2.0.33 (2023-09-13)
+
+### Chores
+
+- Update crypto usage. (2781094)
+
 ## 2.0.32 (2023-09-12)
 
 **Note**: Updated local dependencies.

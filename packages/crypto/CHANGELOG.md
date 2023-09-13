@@ -1,3 +1,9 @@
+# 2.0.0 (2023-09-13)
+
+### Breaking Changes
+
+- Simplify crypto types and resolution. (0465b5f)
+
 ## 1.0.13 (2023-08-31)
 
 **Note**: Updated to version "1.0.13".

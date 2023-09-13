@@ -1,3 +1,9 @@
+## 2.0.15 (2023-09-13)
+
+### Chores
+
+- Update crypto usage. (25cbd30)
+
 ## 2.0.14 (2023-08-31)
 
 **Note**: Updated to version "2.0.14".

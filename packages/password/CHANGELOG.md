@@ -1,3 +1,9 @@
+## 2.2.8 (2023-09-13)
+
+### Chores
+
+- Update crypto usage. (8df7014)
+
 ## 2.2.7 (2023-09-12)
 
 **Note**: Updated local dependencies.

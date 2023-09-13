@@ -1,3 +1,9 @@
+## 3.0.33 (2023-09-13)
+
+### Chores
+
+- Update crypto usage. (b7c3b99)
+
 ## 3.0.32 (2023-09-12)
 
 ### Chores
