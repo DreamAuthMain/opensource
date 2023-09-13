@@ -1,10 +1,10 @@
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 import { type Jwk } from '@dreamauth/types';
 
 import { IMPORT_PARAMS } from './params.js';
 
 export class JwkImporter {
-  #crypto: PartialCryptoProvider<'importKey'>;
+  #crypto: PlatformCryptoResolver;
   #cache = {
     sign: new WeakMap<Jwk, CryptoKey>(),
     verify: new WeakMap<Jwk, CryptoKey>(),
@@ -12,7 +12,7 @@ export class JwkImporter {
     encrypt: new WeakMap<Jwk, CryptoKey>(),
   } as const;
 
-  constructor(crypto: PartialCryptoProvider<'importKey'> = cryptoProvider) {
+  constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 

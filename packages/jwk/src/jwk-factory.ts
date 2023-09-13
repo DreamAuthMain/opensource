@@ -1,4 +1,4 @@
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 import { type JwkPair } from '@dreamauth/types';
 
 import { GEN_ECC_PARAMS, GEN_RSA_PARAMS } from './params.js';
@@ -11,9 +11,9 @@ type ModulusLength = 2048 | 3072 | 4096;
  * Supports algorithms for JWT signing and verifying only (not encryption).
  */
 export class JwkFactory {
-  readonly #crypto: PartialCryptoProvider<'randomUUID' | 'generateKey' | 'exportKey'>;
+  readonly #crypto: PlatformCryptoResolver;
 
-  constructor(crypto: PartialCryptoProvider<'randomUUID' | 'generateKey' | 'exportKey'> = cryptoProvider) {
+  constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 
