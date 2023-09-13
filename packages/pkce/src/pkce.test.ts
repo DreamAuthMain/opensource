@@ -20,7 +20,7 @@ describe('PkceFactory', () => {
   });
 
   test('createVerifier', async () => {
-    const pkce = new Pkce(async () => webcrypto);
+    const pkce = new Pkce();
     let verifier: string;
 
     verifier = await pkce.createVerifier(96);
@@ -40,7 +40,7 @@ describe('PkceFactory', () => {
   });
 
   test('createChallenge', async () => {
-    const pkce = new Pkce(async () => webcrypto);
+    const pkce = new Pkce();
     const challenge = await pkce.createChallenge(
       'XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIf',
     );

@@ -1,10 +1,10 @@
 import { base64UrlEncode } from '@dreamauth/base64url';
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 
 export class Pkce {
-  #crypto: PartialCryptoProvider<'getRandomValues' | 'digest'>;
+  #crypto: PlatformCryptoResolver;
 
-  constructor(crypto: PartialCryptoProvider<'getRandomValues' | 'digest'> = cryptoProvider) {
+  constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 
