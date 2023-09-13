@@ -1,5 +1,5 @@
 import { base64UrlEncode } from '@dreamauth/base64url';
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 import { JwkImporter } from '@dreamauth/jwk';
 import { DAYS, SECONDS, time } from '@dreamauth/time';
 import { type Jwk, type JwtHeader, type JwtIssuerUrl, type JwtPayload } from '@dreamauth/types';
@@ -22,7 +22,7 @@ export interface JwtFactoryOptions {
   /**
    * Custom crypto provider.
    */
-  readonly crypto?: PartialCryptoProvider<'randomUUID' | 'importKey' | 'sign'>;
+  readonly crypto?: PlatformCryptoResolver;
 }
 
 /**
@@ -30,7 +30,7 @@ export interface JwtFactoryOptions {
  * [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API).
  */
 export class JwtFactory {
-  readonly #crypto: PartialCryptoProvider<'randomUUID' | 'importKey' | 'sign'>;
+  readonly #crypto: PlatformCryptoResolver;
   readonly #jwkImporter: JwkImporter;
   readonly #issuer: JwtIssuerUrl;
   readonly #header: Partial<JwtHeader>;
@@ -39,12 +39,7 @@ export class JwtFactory {
 
   constructor(
     issuer: JwtIssuerUrl,
-    {
-      header = {},
-      payload = {},
-      lifetime = time(1, DAYS).as(SECONDS),
-      crypto = cryptoProvider,
-    }: JwtFactoryOptions = {},
+    { header = {}, payload = {}, lifetime = time(1, DAYS).as(SECONDS), crypto = getCrypto }: JwtFactoryOptions = {},
   ) {
     this.#issuer = issuer;
     this.#header = header;

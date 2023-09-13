@@ -1,5 +1,5 @@
 import { base64UrlDecode } from '@dreamauth/base64url';
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 import { JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
 import { SECONDS, time } from '@dreamauth/time';
 import { isJwk, type Jwk, type Jwt } from '@dreamauth/types';
@@ -11,7 +11,7 @@ const algs = Object.keys(PARAMS) as unknown as [keyof typeof PARAMS, ...(keyof t
 
 interface JwtVerifierOptions {
   readonly loader?: JwkLoader;
-  readonly crypto?: PartialCryptoProvider<'importKey' | 'verify'>;
+  readonly crypto?: PlatformCryptoResolver;
 }
 
 /**
@@ -22,14 +22,14 @@ interface JwtVerifierOptions {
 export class JwtVerifier {
   #issuers: Set<string>;
   #loader: JwkLoader;
-  #crypto: PartialCryptoProvider<'importKey' | 'verify'>;
+  #crypto: PlatformCryptoResolver;
   #jwkImporter: JwkImporter;
   #cache = new Map<string, Jwk<keyof typeof PARAMS, 'verify'>[]>();
 
-  constructor(issuers: string[], { loader = new JwkOIDCLoader(), crypto = cryptoProvider }: JwtVerifierOptions = {}) {
+  constructor(issuers: string[], { loader = new JwkOIDCLoader(), crypto = getCrypto }: JwtVerifierOptions = {}) {
     this.#issuers = new Set(issuers);
     this.#loader = loader;
-    this.#crypto = crypto ?? cryptoProvider;
+    this.#crypto = crypto;
     this.#jwkImporter = new JwkImporter(crypto);
   }
 
