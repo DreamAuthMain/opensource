@@ -1,14 +1,15 @@
-import { cryptoProvider, type PartialCryptoProvider } from '@dreamauth/crypto';
+import { type PlatformCryptoResolver } from '@dreamauth/crypto';
+import { getCrypto } from '@dreamauth/crypto';
 import { JwkImporter } from '@dreamauth/jwk';
 import { type Jwk } from '@dreamauth/types';
 
 import { PARAMS } from './params.js';
 
 export class EncryptionCodec {
-  #crypto: PartialCryptoProvider<'importKey' | 'encrypt' | 'decrypt'>;
+  #crypto: PlatformCryptoResolver;
   #jwkImporter: JwkImporter;
 
-  constructor(crypto: PartialCryptoProvider<'importKey' | 'encrypt' | 'decrypt'> = cryptoProvider) {
+  constructor(crypto = getCrypto) {
     this.#crypto = crypto;
     this.#jwkImporter = new JwkImporter(crypto);
   }
