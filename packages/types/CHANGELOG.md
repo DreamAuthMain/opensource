@@ -1,3 +1,7 @@
+## 4.0.24 (2023-09-13)
+
+**Note**: Updated local dependencies.
+
 ## 4.0.23 (2023-09-12)
 
 ### Chores

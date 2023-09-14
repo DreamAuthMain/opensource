@@ -1,3 +1,9 @@
+## 1.0.5 (2023-09-13)
+
+### Bug Fixes
+
+- Regex lint errors. (3e7667a)
+
 ## 1.0.4 (2023-08-31)
 
 **Note**: Updated to version "1.0.4".

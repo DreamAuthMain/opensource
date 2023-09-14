@@ -1,3 +1,9 @@
+## 2.2.9 (2023-09-13)
+
+### Bug Fixes
+
+- Regex lint errors. (3e7667a)
+
 ## 2.2.8 (2023-09-13)
 
 ### Chores

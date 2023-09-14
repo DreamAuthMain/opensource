@@ -1,3 +1,10 @@
+## 4.0.10 (2023-09-13)
+
+### Bug Fixes
+
+- Regex lint errors. (3e7667a)
+- Make isUUID regex case insensitive and unicode safe. (17b2dba)
+
 ## 4.0.9 (2023-08-31)
 
 **Note**: Updated to version "4.0.9".
