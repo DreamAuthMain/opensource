@@ -6,5 +6,5 @@ export type EmailLike = `${string}@${string}.${string}`;
  * part.
  */
 export const isEmailLike = (value: unknown): value is EmailLike => {
-  return typeof value === 'string' && /^[^@]+@(?:[^@.]+\.)+[^@.]+$/iu.test(value);
+  return typeof value === 'string' && /^[^@]+@(?:[^@.]+\.)+[^@.]+$/u.test(value);
 };

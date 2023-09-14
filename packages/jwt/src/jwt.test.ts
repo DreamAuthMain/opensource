@@ -29,17 +29,17 @@ describe('JwtFactory and JwtDecoder', () => {
     expect(decoded).toMatchObject({
       header: {
         alg: 'RS256',
-        kid: expect.stringMatching(/^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/),
+        kid: expect.stringMatching(/^[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}$/u),
         typ: 'JWT',
       },
-      headerString: expect.stringMatching(/^[0-9a-zA-Z_-]+$/),
+      headerString: expect.stringMatching(/^[\w-]+$/u),
       payload: {
         exp: expect.any(Number),
         iat: expect.any(Number),
         iss: 'http://localhost',
       },
-      payloadString: expect.stringMatching(/^[0-9a-zA-Z_-]+$/),
-      signature: expect.stringMatching(/^[0-9a-zA-Z_-]+$/),
+      payloadString: expect.stringMatching(/^[\w-]+$/u),
+      signature: expect.stringMatching(/^[\w-]+$/u),
     });
 
     expect((decoded.payload.iat as number) < Date.now() / 1000).toBe(true);
