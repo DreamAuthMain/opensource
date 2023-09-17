@@ -1,3 +1,9 @@
+## 2.0.10 (2023-09-16)
+
+### Chores
+
+- Remove unecessary type parameter from Dict types. (a82d08b)
+
 ## 2.0.9 (2023-09-13)
 
 **Note**: Updated local dependencies.

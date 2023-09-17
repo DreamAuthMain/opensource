@@ -1,3 +1,7 @@
+## 3.0.35 (2023-09-16)
+
+**Note**: Updated local dependencies.
+
 ## 3.0.34 (2023-09-13)
 
 ### Bug Fixes

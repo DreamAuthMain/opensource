@@ -1,3 +1,9 @@
+## 4.0.11 (2023-09-16)
+
+### Chores
+
+- Make the Dict type parameter default to any. (a5ddf4c)
+
 ## 4.0.10 (2023-09-13)
 
 ### Bug Fixes
