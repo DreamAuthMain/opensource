@@ -14,7 +14,7 @@ export type Primitive = string | number | boolean | symbol | bigint | undefined 
 /**
  * Like `Record`, but the key type is always `string`.
  */
-export type Dict<T> = Readonly<Record<string, T>>;
+export type Dict<T = any> = Readonly<Record<string, T>>;
 
 /**
  * Like `keyof`, but it only returns string keys and can be narrowed
