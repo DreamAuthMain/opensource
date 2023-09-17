@@ -78,7 +78,7 @@ const createUnsafe = <TReturn, THandlerReturn, TArgs extends unknown[]>(
       return createUnsafe(callback, handlers, cleaners, count);
     },
 
-    retry: (type: ErrorConstructor<AnyError> | Falsy, props?: Dict<any>) => {
+    retry: (type: ErrorConstructor<AnyError> | Falsy, props?: Dict) => {
       const match = createMatch(type, props);
 
       return createUnsafe(callback, [...handlers, { match, action: 'retry' }], cleaners, maxRetries);
@@ -87,11 +87,7 @@ const createUnsafe = <TReturn, THandlerReturn, TArgs extends unknown[]>(
     handle: <TNewHandlerReturn>(
       ...args:
         | [type: ErrorConstructor<AnyError> | Falsy, errorCallback?: Handle<TNewHandlerReturn, AnyError>]
-        | [
-            type: ErrorConstructor<AnyError> | Falsy,
-            props: Dict<any>,
-            errorCallback?: Handle<TNewHandlerReturn, AnyError>,
-          ]
+        | [type: ErrorConstructor<AnyError> | Falsy, props: Dict, errorCallback?: Handle<TNewHandlerReturn, AnyError>]
     ) => {
       const type = args[0];
       const props = isObject(args[1]) || !args[1] ? args[1] : undefined;
