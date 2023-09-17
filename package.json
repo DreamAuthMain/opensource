@@ -28,7 +28,7 @@
     "@werk/cli": "^6.0.0",
     "@werk/command-build": "^1.2.0",
     "@werk/command-exec": "^1.3.0",
-    "@werk/command-list": "^1.2.0",
+    "@werk/command-list": "^1.2.1",
     "@werk/command-publish": "^2.1.0",
     "@werk/command-run": "^3.1.0",
     "@werk/command-version": "^3.1.2",
