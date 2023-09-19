@@ -31,5 +31,8 @@
   },
   "dependencies": {
     "@typescript-eslint/utils": "^6.7.2"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9"
   }
 }

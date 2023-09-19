@@ -12,25 +12,27 @@
   },
   "files": [
     "CHANGELOG.md",
-    "lib/cjs/**",
-    "lib/esm/**"
+    "lib"
   ],
   "directories": {
     "lib": "lib"
   },
   "type": "module",
-  "types": "lib/esm/main.d.ts",
-  "module": "lib/esm/main.js",
-  "main": "lib/cjs/main.js",
+  "types": "lib/main.d.ts",
+  "module": "lib/main.js",
+  "main": "lib/main.cjs",
   "exports": {
     ".": {
-      "types": "./lib/esm/main.d.ts",
-      "import": "./lib/esm/main.js",
-      "default": "./lib/cjs/main.js"
+      "types": "./lib/main.d.ts",
+      "import": "./lib/main.js",
+      "default": "./lib/main.cjs"
     }
   },
   "sideEffects": false,
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "vite": "^4.4.9"
   }
 }
