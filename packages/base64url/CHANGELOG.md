@@ -1,3 +1,9 @@
+## 1.0.6 (2023-09-19)
+
+### Build System
+
+- Use Vite library mode. (1cf3c80)
+
 ## 1.0.5 (2023-09-13)
 
 ### Bug Fixes

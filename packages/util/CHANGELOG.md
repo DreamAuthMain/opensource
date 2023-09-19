@@ -1,3 +1,9 @@
+## 4.0.12 (2023-09-19)
+
+### Build System
+
+- Use Vite library mode. (1cf3c80)
+
 ## 4.0.11 (2023-09-16)
 
 ### Chores

@@ -1,3 +1,9 @@
+## 2.2.11 (2023-09-19)
+
+### Build System
+
+- Use Vite library mode. (1cf3c80)
+
 ## 2.2.10 (2023-09-16)
 
 **Note**: Updated local dependencies.
