@@ -1,3 +1,9 @@
+## 2.0.19 (2023-09-19)
+
+### Chores
+
+- Update deps. (c46a6aa)
+
 ## 2.0.18 (2023-09-19)
 
 ### Build System

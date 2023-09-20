@@ -1,3 +1,9 @@
+## 4.0.27 (2023-09-19)
+
+### Chores
+
+- Update deps. (c46a6aa)
+
 ## 4.0.26 (2023-09-19)
 
 ### Build System
