@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/eslint-plugin",
   "description": "DreamAuth ESLint Plugin",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {

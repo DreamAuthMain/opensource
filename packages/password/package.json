@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/password",
   "description": "DreamAuth Password",
-  "version": "2.2.12",
+  "version": "2.2.13",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -32,10 +32,10 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/base64url": "^1.0.7",
-    "@dreamauth/crypto": "^2.0.4",
-    "@dreamauth/errors": "^4.0.5",
-    "@dreamauth/jwk": "^3.0.37",
+    "@dreamauth/base64url": "^1.0.8",
+    "@dreamauth/crypto": "^2.0.5",
+    "@dreamauth/errors": "^4.0.6",
+    "@dreamauth/jwk": "^3.0.38",
     "hash-wasm": "4.9.0"
   },
   "devDependencies": {
