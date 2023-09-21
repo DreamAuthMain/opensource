@@ -1,3 +1,9 @@
+## 3.0.39 (2023-09-21)
+
+### Chores
+
+- Enable build type checking. (9ba2162)
+
 ## 3.0.38 (2023-09-21)
 
 ### Chores
