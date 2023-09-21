@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "vite": "^4.4.9",
-    "vite-plugin-dts": "^3.5.3"
+    "vite-plugin-dts": "^3.5.4"
   }
 }
