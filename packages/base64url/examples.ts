@@ -1,4 +1,4 @@
-import { base64UrlDecode, base64UrlEncode } from '@dreamauth/base64url';
+import { base64UrlDecode, base64UrlEncode } from './src/exports.js';
 
 //
 // Decode Base64URL encoded string to byte array.

@@ -1,4 +1,4 @@
-import { createRaise, DreamAuthError, type DreamAuthErrorOptions } from '@dreamauth/errors';
+import { createRaise, DreamAuthError, type DreamAuthErrorOptions } from './src/exports.js';
 
 export const CustomErrorCodes = {
   NotFound: 'Thing not found',

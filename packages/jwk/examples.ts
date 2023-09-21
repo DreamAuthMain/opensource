@@ -1,4 +1,4 @@
-import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
+import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from './src/exports.js';
 
 //
 // Create JWKs

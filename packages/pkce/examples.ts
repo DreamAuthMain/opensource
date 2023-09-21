@@ -1,4 +1,4 @@
-import { Pkce } from '@dreamauth/pkce';
+import { Pkce } from './src/exports.js';
 
 const pkce = new Pkce();
 

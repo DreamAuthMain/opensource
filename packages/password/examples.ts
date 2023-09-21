@@ -1,4 +1,4 @@
-import { PasswordFactory, PasswordHashFactory } from '@dreamauth/password';
+import { PasswordFactory, PasswordHashFactory } from './src/exports.js';
 
 const hashFactory = new PasswordHashFactory();
 
