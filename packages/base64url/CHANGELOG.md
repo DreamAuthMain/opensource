@@ -1,3 +1,9 @@
+## 1.0.10 (2023-09-21)
+
+### Bug Fixes
+
+- Examples fail typechecking because they are importing their own packages before being built. (b0d99ef)
+
 ## 1.0.9 (2023-09-21)
 
 ### Chores
