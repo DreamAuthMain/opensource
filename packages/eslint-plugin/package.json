@@ -30,11 +30,11 @@
     "access": "public"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "^6.7.2"
+    "@typescript-eslint/utils": "^6.7.3"
   },
   "devDependencies": {
     "vite": "^4.4.9",
     "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-dts": "^3.5.4"
+    "vite-plugin-dts": "^3.6.0"
   }
 }
