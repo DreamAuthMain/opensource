@@ -32,7 +32,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/time": "^1.0.5",
     "@dreamauth/util": "^4.0.15"
   },
   "devDependencies": {

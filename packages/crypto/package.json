@@ -32,8 +32,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/errors": "^4.0.8",
-    "@dreamauth/util": "^4.0.15"
+    "@dreamauth/errors": "^4.0.8"
   },
   "devDependencies": {
     "vite": "^4.4.9",
