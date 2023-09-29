@@ -1,3 +1,10 @@
+## 2.2.16 (2023-09-29)
+
+### Chores
+
+- Remove unused dependencies. (a54c775)
+- Update deps. (cdc5d79)
+
 ## 2.2.15 (2023-09-21)
 
 ### Bug Fixes
