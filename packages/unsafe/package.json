@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/unsafe",
   "description": "DreamAuth error handling and logging.",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -32,7 +32,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/util": "^4.0.16"
+    "@dreamauth/util": "^4.0.17"
   },
   "devDependencies": {
     "vite": "^4.5.0",

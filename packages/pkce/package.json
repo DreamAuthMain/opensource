@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/pkce",
   "description": "DreamAuth PKCE",
-  "version": "2.0.23",
+  "version": "2.0.24",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
@@ -32,8 +32,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/base64url": "^1.0.11",
-    "@dreamauth/crypto": "^2.0.8"
+    "@dreamauth/base64url": "^1.0.12",
+    "@dreamauth/crypto": "^2.0.9"
   },
   "devDependencies": {
     "vite": "^4.5.0",
