@@ -35,11 +35,11 @@
     "@dreamauth/base64url": "^1.0.11",
     "@dreamauth/crypto": "^2.0.8",
     "@dreamauth/errors": "^4.0.9",
-    "hash-wasm": "4.9.0"
+    "hash-wasm": "4.10.0"
   },
   "devDependencies": {
-    "vite": "^4.4.9",
+    "vite": "^4.5.0",
     "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-dts": "^3.6.0"
+    "vite-plugin-dts": "^3.6.1"
   }
 }

@@ -37,8 +37,8 @@
     "@dreamauth/types": "^4.0.30"
   },
   "devDependencies": {
-    "vite": "^4.4.9",
+    "vite": "^4.5.0",
     "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-dts": "^3.6.0"
+    "vite-plugin-dts": "^3.6.1"
   }
 }
