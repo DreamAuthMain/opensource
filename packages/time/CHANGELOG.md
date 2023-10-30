@@ -1,3 +1,10 @@
+## 1.0.8 (2023-10-30)
+
+### Chores
+
+- Update deps. (26b82c1)
+- update deps. (a3d6978)
+
 ## 1.0.7 (2023-10-25)
 
 ### Chores
