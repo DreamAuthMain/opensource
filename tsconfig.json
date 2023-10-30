@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
     "target": "ES2022",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "types": ["node"],
@@ -14,8 +13,6 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": false,
     "stripInternal": true,
-    "declaration": true,
-    "sourceMap": true,
     "allowJs": true,
     "noEmit": true
   },
