@@ -95,8 +95,8 @@ const createUnsafe = <TReturn, THandlerReturn, TArgs extends unknown[]>(
         typeof args[1] === 'function'
           ? args[1]
           : typeof args[2] === 'function'
-          ? args[2]
-          : () => undefined as TNewHandlerReturn
+            ? args[2]
+            : () => undefined as TNewHandlerReturn
       ) as Handle<TNewHandlerReturn, AnyError>;
       const match = createMatch(type, props);
 
