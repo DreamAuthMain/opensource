@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/time",
   "description": "DreamAuth Time",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {

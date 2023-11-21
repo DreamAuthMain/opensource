@@ -1,3 +1,10 @@
+## 3.0.44 (2023-11-21)
+
+### Chores
+
+- Update deps and rename barrel files to index.ts. (2b572a6)
+- Update deps. (afb9f13)
+
 ## 3.0.43 (2023-10-30)
 
 ### Chores

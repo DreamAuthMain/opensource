@@ -1,7 +1,7 @@
 {
   "name": "@dreamauth/base64url",
   "description": "DreamAuth Base64URL",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "author": "Chris Ackerman <chris@topher.land>",
   "license": "ISC",
   "repository": {
