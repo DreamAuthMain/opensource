@@ -1,3 +1,9 @@
+## 1.0.15 (2023-11-21)
+
+### Bug Fixes
+
+- Config compatibility and extensibility. (9bb91a3)
+
 ## 1.0.14 (2023-11-21)
 
 ### Chores
