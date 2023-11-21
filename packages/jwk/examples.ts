@@ -1,4 +1,4 @@
-import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from './src/exports.js';
+import { JwkFactory, JwkImporter, type JwkLoader, JwkOIDCLoader } from './src/index.js';
 
 //
 // Create JWKs

@@ -1,7 +1,7 @@
 import { RuleTester } from '@typescript-eslint/utils/ts-eslint';
 import { describe, test } from 'vitest';
 
-import dreamauth from '../exports.js';
+import dreamauth from '../index.js';
 
 RuleTester.describe = describe;
 RuleTester.it = test;

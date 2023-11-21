@@ -1,4 +1,4 @@
-import { base64UrlDecode, base64UrlEncode } from './src/exports.js';
+import { base64UrlDecode, base64UrlEncode } from './src/index.js';
 
 //
 // Decode Base64URL encoded string to byte array.

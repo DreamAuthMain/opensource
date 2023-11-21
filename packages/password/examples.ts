@@ -1,4 +1,4 @@
-import { PasswordFactory, PasswordHashFactory } from './src/exports.js';
+import { PasswordFactory, PasswordHashFactory } from './src/index.js';
 
 const hashFactory = new PasswordHashFactory();
 

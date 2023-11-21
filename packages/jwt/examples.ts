@@ -1,6 +1,6 @@
 import { JwkFactory } from '@dreamauth/jwk';
 
-import { JwtDecoder, JwtFactory, JwtVerifier } from './src/exports.js';
+import { JwtDecoder, JwtFactory, JwtVerifier } from './src/index.js';
 
 // You need a private JWK for JWT signing, and a public JWK for JWT
 // verification. These would normally be generated ahead of time, and

@@ -13,9 +13,8 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": false,
     "stripInternal": true,
-    "allowJs": true,
     "noEmit": true
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": [".*", "node_modules", "lib", "dist", "out", "coverage"]
+  "exclude": [".git", "node_modules", "out", "lib", "dist"]
 }

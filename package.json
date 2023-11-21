@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf out packages/*/out lib packages/*/lib node_modules packages/*/node_modules",
-    "lint": "eslint 'packages/*/src/**/*.{js,cjs,ts,tsx}'",
+    "lint": "eslint --max-warnings=0 .",
     "build": "werk -p build",
     "test": "npm run build && npm run lint -- --max-warnings=0 && werk vitest run && werk depcheck",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@testing-library/react": "^14.1.2",
     "@types/eslint": "^8.44.7",
-    "@types/node": "^20.9.2",
+    "@types/node": "^20.9.3",
     "@vitest/coverage-v8": "^0.34.6",
     "@werk/cli": "^9.0.0",
     "@werk/command-build": "^2.1.9",

@@ -1,4 +1,4 @@
-import { Pkce } from './src/exports.js';
+import { Pkce } from './src/index.js';
 
 const pkce = new Pkce();
 
