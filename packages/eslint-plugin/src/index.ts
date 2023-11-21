@@ -1,13 +1,12 @@
-import { type TSESLint } from '@typescript-eslint/utils';
+import { type ESLint, type Linter } from 'eslint';
 
-import { type messages } from './messages.js';
 import noThrowNew from './rules/no-throw-new.js';
 
 const dreamauth = {
   rules: {
     'no-throw-new': noThrowNew,
-  } as const satisfies Record<string, TSESLint.RuleModule<keyof typeof messages>>,
-};
+  },
+} satisfies ESLint.Plugin;
 
 const plugin = Object.assign(dreamauth, {
   configs: {
@@ -26,8 +25,8 @@ const plugin = Object.assign(dreamauth, {
           'dreamauth/no-throw-new': ['off'],
         },
       },
-    ],
+    ] satisfies Linter.FlatConfig[],
   },
-} as const);
+});
 
 export default plugin;

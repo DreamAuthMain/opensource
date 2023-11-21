@@ -1,10 +1,12 @@
-import { RuleTester } from '@typescript-eslint/utils/ts-eslint';
+import { RuleTester } from 'eslint';
 import { describe, test } from 'vitest';
 
 import dreamauth from '../index.js';
 
-RuleTester.describe = describe;
-RuleTester.it = test;
+Object.assign(RuleTester, {
+  describe,
+  it: test,
+});
 
 describe('eslint', () => {
   const ruleTester = new RuleTester();

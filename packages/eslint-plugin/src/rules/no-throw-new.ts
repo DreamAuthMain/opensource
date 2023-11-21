@@ -1,15 +1,14 @@
-import { AST_NODE_TYPES, type TSESLint } from '@typescript-eslint/utils';
+import { type Rule } from 'eslint';
 
-import { messages } from '../messages.js';
+import { type MessageId, messages } from '../messages.js';
 
-const rule: TSESLint.RuleModule<keyof typeof messages> = {
+const rule: Rule.RuleModule = {
   meta: { type: 'suggestion', messages, schema: [] },
-  defaultOptions: [],
   create: (context) => {
     return {
       ThrowStatement(node) {
-        if ((node.argument?.type as any) !== AST_NODE_TYPES.Identifier) {
-          context.report({ node, messageId: 'noThrowNew' });
+        if (node.argument?.type !== 'Identifier') {
+          context.report({ node, messageId: 'noThrowNew' satisfies MessageId });
         }
       },
     };
