@@ -4,10 +4,9 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "clean": "rm -rf out packages/*/out lib packages/*/lib node_modules packages/*/node_modules",
     "lint": "eslint --max-warnings=0 .",
-    "build": "werk -p build",
     "test": "npm run build && npm run lint -- --max-warnings=0 && werk vitest run && werk depcheck",
+    "build": "werk -p build",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
   "workspaces": [
