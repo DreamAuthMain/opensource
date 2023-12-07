@@ -26,11 +26,16 @@ jobs:
 
       - name: Build
         run: |
+          set -e
           npm run build
           npx @werk/cli publish --no-build --to-archive
 
       - name: Test
-        run: npm test
+        run: |
+          set -e
+          npm run lint -- --max-warnings=0
+          npx @werk/cli depcheck
+          npx @werk/cli vitest run
 
       - name: Publish (Dry Run)
         run: npx @werk/cli publish --from-archive --dry-run
