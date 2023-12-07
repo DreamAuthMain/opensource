@@ -37,8 +37,8 @@ jobs:
         run: |
           set -e
           npm run lint -- --max-warnings=0
+          npx @werk/cli vitest run --no-build
           npx @werk/cli depcheck
-          npx @werk/cli vitest run
 
       - name: Publish
         run: |
