@@ -18,14 +18,15 @@
     "lib": "lib"
   },
   "type": "module",
-  "types": "lib/main.d.ts",
-  "module": "lib/main.js",
-  "main": "lib/main.cjs",
+  "types": "lib/esm/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./lib/main.d.ts",
-      "import": "./lib/main.js",
-      "default": "./lib/main.cjs"
+    "require": {
+      "types": "./lib/cjs/index.d.ts",
+      "default": "./lib/cjs/index.cjs"
+    },
+    "import": {
+      "types": "./lib/esm/index.d.ts",
+      "default": "./lib/esm/index.js"
     }
   },
   "sideEffects": false,
@@ -33,8 +34,8 @@
     "access": "public"
   },
   "devDependencies": {
-    "vite": "^5.0.2",
+    "vite": "^5.0.6",
     "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-dts": "^3.6.3"
+    "vite-plugin-dts": "^3.6.4"
   }
 }

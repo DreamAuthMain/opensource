@@ -33,7 +33,7 @@ describe('error', () => {
   test('has correct toString', () => {
     const error = new MyError('message', 'code', { cause: 'cause', context: { foo: 'bar' } });
     expect(String(error)).toMatchInlineSnapshot(
-      '"{\\"code\\":\\"code\\",\\"name\\":\\"MyError\\",\\"message\\":\\"message\\",\\"context\\":{\\"foo\\":\\"bar\\"}}"',
+      '"{"code":"code","name":"MyError","message":"message","context":{"foo":"bar"}}"',
     );
   });
 

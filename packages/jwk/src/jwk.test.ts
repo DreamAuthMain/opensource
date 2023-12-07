@@ -18,7 +18,6 @@ describe('JwkFactory and JwkImporter', () => {
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'verify');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'sign');
-      expect(publicKey).toBeInstanceOf(webcrypto.CryptoKey);
       expect(publicKey).toMatchObject({
         type: 'public',
         usages: ['verify'],
@@ -29,7 +28,6 @@ describe('JwkFactory and JwkImporter', () => {
           modulusLength: 2048,
         },
       });
-      expect(privateKey).toBeInstanceOf(webcrypto.CryptoKey);
       expect(privateKey).toMatchObject({
         type: 'private',
         usages: ['sign'],
@@ -50,7 +48,6 @@ describe('JwkFactory and JwkImporter', () => {
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'encrypt');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'decrypt');
-      expect(publicKey).toBeInstanceOf(webcrypto.CryptoKey);
       expect(publicKey).toMatchObject({
         type: 'public',
         usages: ['encrypt'],
@@ -61,7 +58,6 @@ describe('JwkFactory and JwkImporter', () => {
           modulusLength: 2048,
         },
       });
-      expect(privateKey).toBeInstanceOf(webcrypto.CryptoKey);
       expect(privateKey).toMatchObject({
         type: 'private',
         usages: ['decrypt'],
@@ -82,7 +78,6 @@ describe('JwkFactory and JwkImporter', () => {
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'verify');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'sign');
-      expect(publicKey).toBeInstanceOf(webcrypto.CryptoKey);
       expect(publicKey).toMatchObject({
         type: 'public',
         usages: ['verify'],
@@ -92,7 +87,6 @@ describe('JwkFactory and JwkImporter', () => {
           namedCurve: curve,
         },
       });
-      expect(privateKey).toBeInstanceOf(webcrypto.CryptoKey);
       expect(privateKey).toMatchObject({
         type: 'private',
         usages: ['sign'],

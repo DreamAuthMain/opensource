@@ -17,13 +17,16 @@
     "lib": "lib"
   },
   "type": "module",
-  "types": "lib/index.d.ts",
-  "module": "lib/index.js",
-  "main": "lib/index.cjs",
+  "types": "lib/esm/index.d.ts",
   "exports": {
-    "types": "./lib/index.d.ts",
-    "import": "./lib/index.js",
-    "default": "./lib/index.cjs"
+    "require": {
+      "types": "./lib/cjs/index.d.ts",
+      "default": "./lib/cjs/index.cjs"
+    },
+    "import": {
+      "types": "./lib/esm/index.d.ts",
+      "default": "./lib/esm/index.js"
+    }
   },
   "sideEffects": false,
   "publishConfig": {
@@ -33,8 +36,8 @@
     "@dreamauth/errors": "^4.0.12"
   },
   "devDependencies": {
-    "vite": "^5.0.2",
+    "vite": "^5.0.6",
     "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-dts": "^3.6.3"
+    "vite-plugin-dts": "^3.6.4"
   }
 }
