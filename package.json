@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint --max-warnings=0 .",
     "build": "werk -p build",
-    "test": "npm run lint -- --max-warnings=0 && werk vitest run && werk depcheck",
+    "test": "npm run lint -- --max-warnings=0 && werk depcheck && werk vitest run",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
   "workspaces": [
