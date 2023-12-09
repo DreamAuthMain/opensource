@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+env:
+  TERM: linux
+  FORCE_COLOR: 1
+
 jobs:
   validate:
     runs-on: ubuntu-latest
