@@ -15,10 +15,12 @@ export default defineConfig({
       reportsDirectory: './out/coverage',
       include: ['**/*.{ts,tsx}'],
       exclude: ['**/{_*,.git*,.vscode,out,lib,dist,index*,example*,*.d.ts}', '*.*'],
-      branches: 80,
-      functions: 70,
-      lines: 50,
-      statements: 50,
+      thresholds: {
+        branches: 80,
+        functions: 70,
+        lines: 50,
+        statements: 70,
+      },
     },
   },
 });
