@@ -22,9 +22,12 @@ export class JwtDecoder {
     let payload: unknown;
 
     try {
-      header = JSON.parse(new TextDecoder().decode(base64UrlDecode(headerString)));
-      payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(payloadString)));
-    } catch {
+      header = JSON.parse(new TextDecoder()
+        .decode(base64UrlDecode(headerString)));
+      payload = JSON.parse(new TextDecoder()
+        .decode(base64UrlDecode(payloadString)));
+    }
+    catch {
       return raise('Invalid');
     }
 

@@ -21,13 +21,13 @@ export interface JwkPair<
 
 const isJwkObject = (value: unknown): value is Jwk => {
   return (
-    isObject(value) &&
-    typeof value.kid === 'string' &&
-    typeof value.alg === 'string' &&
-    (value.key_ops === undefined || (isArray(value.key_ops) && value.key_ops.every((op) => typeof op === 'string'))) &&
-    (value.iat === undefined || typeof value.iat === 'number') &&
-    (value.nbf === undefined || typeof value.nbf === 'number') &&
-    (value.exp === undefined || typeof value.exp === 'number')
+    isObject(value)
+    && typeof value.kid === 'string'
+    && typeof value.alg === 'string'
+    && (value.key_ops === undefined || (isArray(value.key_ops) && value.key_ops.every((op) => typeof op === 'string')))
+    && (value.iat === undefined || typeof value.iat === 'number')
+    && (value.nbf === undefined || typeof value.nbf === 'number')
+    && (value.exp === undefined || typeof value.exp === 'number')
   );
 };
 

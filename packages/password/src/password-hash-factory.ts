@@ -43,7 +43,8 @@ export class PasswordHashFactory {
   ): Promise<[hash: string, params: Argon2IdParams | PBKDF2Params]> {
     const crypto = await this.#crypto();
     const { t, s, l = 32 } = params;
-    const password = new TextEncoder().encode(plaintextPassword);
+    const password = new TextEncoder()
+      .encode(plaintextPassword);
     const salt: Uint8Array = s ? base64UrlDecode(s) : crypto.getRandomValues(new Uint8Array(l * 2));
 
     if (t === 'pbkdf2') {

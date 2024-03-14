@@ -4,12 +4,11 @@ class Time {
   readonly #ms: number;
 
   constructor(...args: [value: number, unit: TimeUnit] | [value: Time | Date]) {
-    this.#ms =
-      args.length === 1
-        ? args[0] instanceof Date
-          ? args[0].getTime()
-          : args[0].as(MS)
-        : Math.trunc(args[0]) * args[1];
+    this.#ms = args.length === 1
+      ? args[0] instanceof Date
+        ? args[0].getTime()
+        : args[0].as(MS)
+      : Math.trunc(args[0]) * args[1];
   }
 
   readonly as = (unit: TimeUnit): number => {
@@ -22,7 +21,8 @@ class Time {
   };
 
   readonly subtract = (...args: [value: number, unit: TimeUnit] | [value: Time]): Time => {
-    const ms = new Time(...args).as(MS);
+    const ms = new Time(...args)
+      .as(MS);
     return new Time(this.#ms - ms, MS);
   };
 

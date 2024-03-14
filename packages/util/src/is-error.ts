@@ -9,11 +9,11 @@ export const isError: {
   ...codes: readonly (string | { readonly code: string })[]
 ): value is Error & { readonly code: unknown; readonly cause?: unknown } => {
   return (
-    value instanceof Error &&
-    (codes.length === 0 ||
-      ('code' in value &&
-        codes.some((code) => {
-          return typeof code === 'string' ? value.code === code : value.code === code.code;
-        })))
+    value instanceof Error
+    && (codes.length === 0
+    || ('code' in value
+    && codes.some((code) => {
+      return typeof code === 'string' ? value.code === code : value.code === code.code;
+    })))
   );
 };

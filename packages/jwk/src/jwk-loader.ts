@@ -10,10 +10,10 @@ export interface JwkLoader {
 export class JwkOIDCLoader implements JwkLoader {
   async load(iss: string): Promise<Jwk[]> {
     if (
-      !iss.startsWith('https://') &&
-      !iss.startsWith('http://localhost:') &&
-      !iss.startsWith('http://localhost/') &&
-      iss !== 'http://localhost'
+      !iss.startsWith('https://')
+      && !iss.startsWith('http://localhost:')
+      && !iss.startsWith('http://localhost/')
+      && iss !== 'http://localhost'
     ) {
       return [];
     }

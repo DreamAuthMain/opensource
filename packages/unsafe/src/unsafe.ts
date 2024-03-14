@@ -122,7 +122,8 @@ const createUnsafe = <TReturn, THandlerReturn, TArgs extends unknown[]>(
 
           try {
             return await callback.call(context, ...args);
-          } catch (cause) {
+          }
+          catch (cause) {
             error = getError(cause);
             errors = [...errors, error];
 
@@ -136,7 +137,8 @@ const createUnsafe = <TReturn, THandlerReturn, TArgs extends unknown[]>(
             return await handler.action.call(context, error, context);
           }
         }
-      } finally {
+      }
+      finally {
         for (const cleaner of cleaners) {
           await cleaner();
         }

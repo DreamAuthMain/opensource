@@ -3,8 +3,8 @@ export type Picked<
   TKey extends string | number | symbol,
 > = any extends any
   ? {
-      [P in TKey]: P extends keyof TValue ? TValue[P] : unknown;
-    }
+    [P in TKey]: P extends keyof TValue ? TValue[P] : unknown;
+  }
   : never;
 
 export const pick = <

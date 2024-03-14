@@ -29,13 +29,13 @@ export const isJwtHeader = (value: unknown): value is JwtHeader => {
 
 export const isJwtPayload = (value: unknown): value is JwtPayload => {
   return (
-    isObject(value) &&
-    typeof value.iss === 'string' &&
-    (value.iss.startsWith('https://') ||
-      value.iss.startsWith('http://localhost:') ||
-      value.iss.startsWith('http://localhost/') ||
-      value.iss === 'http://localhost') &&
-    typeof value.exp === 'number' &&
-    (value.nbf === undefined || typeof value.nbf === 'number')
+    isObject(value)
+    && typeof value.iss === 'string'
+    && (value.iss.startsWith('https://')
+    || value.iss.startsWith('http://localhost:')
+    || value.iss.startsWith('http://localhost/')
+    || value.iss === 'http://localhost')
+    && typeof value.exp === 'number'
+    && (value.nbf === undefined || typeof value.nbf === 'number')
   );
 };

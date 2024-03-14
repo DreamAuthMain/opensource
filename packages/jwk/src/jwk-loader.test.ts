@@ -13,16 +13,21 @@ vi.mock('./fetch-oidc-jwks.js', () => ({
 
 describe('JwkLoader', (test) => {
   beforeEach(() => {
-    vi.mocked(fetchOIDCJwksUri).mockResolvedValue('https://example.com/jwks.json');
-    vi.mocked(fetchOIDCJwks).mockResolvedValue([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
+    vi.mocked(fetchOIDCJwksUri)
+      .mockResolvedValue('https://example.com/jwks.json');
+    vi.mocked(fetchOIDCJwks)
+      .mockResolvedValue([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
   });
 
   test('valid url issuer', async () => {
     const loader = new JwkOIDCLoader();
     const jwks = await loader.load('https://example.com');
-    expect(fetchOIDCJwksUri).toHaveBeenLastCalledWith('https://example.com/.well-known');
-    expect(fetchOIDCJwks).toHaveBeenLastCalledWith('https://example.com/jwks.json');
-    expect(jwks).toEqual([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
+    expect(fetchOIDCJwksUri)
+      .toHaveBeenLastCalledWith('https://example.com/.well-known');
+    expect(fetchOIDCJwks)
+      .toHaveBeenLastCalledWith('https://example.com/jwks.json');
+    expect(jwks)
+      .toEqual([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
   });
 
   test('non-url issuer', async () => {
@@ -30,7 +35,8 @@ describe('JwkLoader', (test) => {
     const jwks = await loader.load('not-a-valid-issuer');
     expect(fetchOIDCJwksUri).not.toHaveBeenCalled();
     expect(fetchOIDCJwks).not.toHaveBeenCalled();
-    expect(jwks).toEqual([]);
+    expect(jwks)
+      .toEqual([]);
   });
 
   test('insecure url issuer', async () => {
@@ -38,16 +44,20 @@ describe('JwkLoader', (test) => {
     const jwks = await loader.load('http://example.com');
     expect(fetchOIDCJwksUri).not.toHaveBeenCalled();
     expect(fetchOIDCJwks).not.toHaveBeenCalled();
-    expect(jwks).toEqual([]);
+    expect(jwks)
+      .toEqual([]);
   });
 
   (['http://localhost', 'http://localhost:8080', 'http://localhost/foo/'] as const).forEach((iss) => {
     test(`localhost (${iss}) issuer`, async () => {
       const loader = new JwkOIDCLoader();
       const jwks = await loader.load(iss);
-      expect(fetchOIDCJwksUri).toHaveBeenLastCalledWith(`${iss.replace(/\/$/u, '')}/.well-known`);
-      expect(fetchOIDCJwks).toHaveBeenLastCalledWith(`https://example.com/jwks.json`);
-      expect(jwks).toEqual([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
+      expect(fetchOIDCJwksUri)
+        .toHaveBeenLastCalledWith(`${iss.replace(/\/$/u, '')}/.well-known`);
+      expect(fetchOIDCJwks)
+        .toHaveBeenLastCalledWith(`https://example.com/jwks.json`);
+      expect(jwks)
+        .toEqual([{ kid: '1', alg: 'RS256', key_ops: ['sign'] }]);
     });
   });
 });

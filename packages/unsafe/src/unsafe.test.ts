@@ -14,14 +14,16 @@ describe('unsafe', () => {
   test('unhandled with no handlers', async () => {
     const promise = unsafe(async () => {
       throw new Error('test');
-    }).call();
+    })
+      .call();
 
     await expect(promise).rejects.toThrowError('test');
   });
 
   test('handled type only', async () => {
     const error = new MyError('test');
-    const fn = vi.fn().mockResolvedValue(true);
+    const fn = vi.fn()
+      .mockResolvedValue(true);
     const promise = unsafe(async () => {
       throw error;
     })
@@ -30,13 +32,14 @@ describe('unsafe', () => {
       .call();
 
     await expect(promise).resolves.toBe(true);
-    expect(fn).toHaveBeenLastCalledWith(
-      error,
-      expect.objectContaining({
-        retry: 0,
-        errors: [],
-      }),
-    );
+    expect(fn)
+      .toHaveBeenLastCalledWith(
+        error,
+        expect.objectContaining({
+          retry: 0,
+          errors: [],
+        }),
+      );
   });
 
   test('unhandled type only', async () => {
@@ -118,7 +121,8 @@ describe('unsafe', () => {
       .call();
 
     await expect(promise).resolves.toBe('a');
-    expect(result).toBe('abcd');
+    expect(result)
+      .toBe('abcd');
   });
 
   test('cleanup errors are unhandled', async () => {
@@ -132,21 +136,34 @@ describe('unsafe', () => {
   });
 
   test('retry type only', async () => {
-    const fn = vi.fn<[], boolean>().mockRejectedValueOnce(new Error('test')).mockResolvedValueOnce(true);
-    const promise = unsafe(fn).retry(Error).call();
+    const fn = vi.fn<[], boolean>()
+      .mockRejectedValueOnce(new Error('test'))
+      .mockResolvedValueOnce(true);
+    const promise = unsafe(fn)
+      .retry(Error)
+      .call();
 
     await expect(promise).resolves.toBe(true);
-    expect(fn).toHaveBeenCalledTimes(2);
+    expect(fn)
+      .toHaveBeenCalledTimes(2);
   });
 
   test('retry type and deep match', async () => {
-    const fn = vi.fn().mockRejectedValueOnce(new MyError('1')).mockResolvedValueOnce(true);
-    const cleanup = vi.fn().mockResolvedValue(undefined);
-    const promise = unsafe(fn).retry(MyError, { message: '1' }).cleanup(cleanup).call();
+    const fn = vi.fn()
+      .mockRejectedValueOnce(new MyError('1'))
+      .mockResolvedValueOnce(true);
+    const cleanup = vi.fn()
+      .mockResolvedValue(undefined);
+    const promise = unsafe(fn)
+      .retry(MyError, { message: '1' })
+      .cleanup(cleanup)
+      .call();
 
     await expect(promise).resolves.toBe(true);
-    expect(fn).toHaveBeenCalledTimes(2);
-    expect(cleanup).toHaveBeenCalledOnce();
+    expect(fn)
+      .toHaveBeenCalledTimes(2);
+    expect(cleanup)
+      .toHaveBeenCalledOnce();
   });
 
   test('retry 2 times', async () => {
@@ -155,43 +172,71 @@ describe('unsafe', () => {
       .mockRejectedValueOnce(new MyError('1'))
       .mockRejectedValueOnce(new MyError('2'))
       .mockResolvedValueOnce(true);
-    const promise = unsafe(fn).retry(MyError).maxRetries(2).call();
+    const promise = unsafe(fn)
+      .retry(MyError)
+      .maxRetries(2)
+      .call();
 
     await expect(promise).resolves.toBe(true);
-    expect(fn).toHaveBeenCalledTimes(3);
+    expect(fn)
+      .toHaveBeenCalledTimes(3);
   });
 
   test('retry with cleanup', async () => {
-    const fn = vi.fn().mockRejectedValueOnce(new Error('1')).mockResolvedValueOnce(true);
-    const cleanup1 = vi.fn().mockResolvedValue(undefined);
-    const cleanup2 = vi.fn().mockResolvedValue(undefined);
-    const promise = unsafe(fn).retry(Error).cleanup(cleanup1).cleanup(cleanup2).call();
+    const fn = vi.fn()
+      .mockRejectedValueOnce(new Error('1'))
+      .mockResolvedValueOnce(true);
+    const cleanup1 = vi.fn()
+      .mockResolvedValue(undefined);
+    const cleanup2 = vi.fn()
+      .mockResolvedValue(undefined);
+    const promise = unsafe(fn)
+      .retry(Error)
+      .cleanup(cleanup1)
+      .cleanup(cleanup2)
+      .call();
 
     await expect(promise).resolves.toBe(true);
-    expect(fn).toHaveBeenCalledTimes(2);
-    expect(cleanup1).toHaveBeenCalledOnce();
-    expect(cleanup2).toHaveBeenCalledOnce();
+    expect(fn)
+      .toHaveBeenCalledTimes(2);
+    expect(cleanup1)
+      .toHaveBeenCalledOnce();
+    expect(cleanup2)
+      .toHaveBeenCalledOnce();
   });
 
   test('retry, then handle, and cleanup', async () => {
     const error1 = new Error('1');
     const error2 = new Error('2');
-    const fn = vi.fn().mockRejectedValueOnce(error1).mockRejectedValueOnce(error2);
-    const handle = vi.fn().mockResolvedValue(true);
-    const cleanup = vi.fn().mockResolvedValue(undefined);
-    const promise = unsafe(fn).retry(Error).handle(Error, handle).cleanup(cleanup).call();
+    const fn = vi.fn()
+      .mockRejectedValueOnce(error1)
+      .mockRejectedValueOnce(error2);
+    const handle = vi.fn()
+      .mockResolvedValue(true);
+    const cleanup = vi.fn()
+      .mockResolvedValue(undefined);
+    const promise = unsafe(fn)
+      .retry(Error)
+      .handle(Error, handle)
+      .cleanup(cleanup)
+      .call();
 
     await expect(promise).resolves.toBe(true);
-    expect(fn).toHaveBeenCalledTimes(2);
-    expect(handle).toHaveBeenCalledOnce();
-    expect(handle).toHaveBeenLastCalledWith(error2, expect.objectContaining({ retry: 1, errors: [error1] }));
-    expect(cleanup).toHaveBeenCalledOnce();
+    expect(fn)
+      .toHaveBeenCalledTimes(2);
+    expect(handle)
+      .toHaveBeenCalledOnce();
+    expect(handle)
+      .toHaveBeenLastCalledWith(error2, expect.objectContaining({ retry: 1, errors: [error1] }));
+    expect(cleanup)
+      .toHaveBeenCalledOnce();
   });
 
   test('transform non-errors to errors', async () => {
     const promise = unsafe(async () => {
       throw 'foo';
-    }).call();
+    })
+      .call();
 
     await expect(promise).rejects.toBeInstanceOf(TypeError);
     await expect(promise).rejects.toMatchObject({ message: 'Invalid Error', cause: 'foo' });

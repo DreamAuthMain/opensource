@@ -34,7 +34,8 @@ export class JwtVerifier {
   }
 
   async verify(jwt: Jwt): Promise<void> {
-    const nowSeconds = time.now().as(SECONDS);
+    const nowSeconds = time.now()
+      .as(SECONDS);
 
     if (!this.#issuers.has(jwt.payload.iss)) return raise('InvalidIssuer');
     if (jwt.payload.exp <= nowSeconds) return raise('Expired');
@@ -46,9 +47,7 @@ export class JwtVerifier {
 
     const loadedJwks = await this.#loader
       .load(jwt.payload.iss)
-      .then((values) =>
-        values.filter((value): value is Jwk<keyof typeof PARAMS, 'verify'> => isJwk(value, algs, ['verify'])),
-      );
+      .then((values) => values.filter((value): value is Jwk<keyof typeof PARAMS, 'verify'> => isJwk(value, algs, ['verify'])));
 
     this.#cache.set(jwt.payload.iss, loadedJwks);
 
@@ -58,21 +57,24 @@ export class JwtVerifier {
   }
 
   async #verify(jwt: Jwt, jwks: Jwk<keyof typeof PARAMS, 'verify'>[]): Promise<boolean> {
-    const dataBytes = new TextEncoder().encode(`${jwt.headerString}.${jwt.payloadString}`);
+    const dataBytes = new TextEncoder()
+      .encode(`${jwt.headerString}.${jwt.payloadString}`);
     const signatureBytes = base64UrlDecode(jwt.signature);
 
     for (const jwk of jwks) {
       if (jwk.kid !== jwt.header.kid) continue;
       if (jwk.alg !== jwt.header.alg) continue;
 
-      const key = await this.#jwkImporter.import(jwk, 'verify').catch(() => null);
+      const key = await this.#jwkImporter.import(jwk, 'verify')
+        .catch(() => null);
 
       if (!key) continue;
 
       const crypto = await this.#crypto();
       const params = PARAMS[jwk.alg];
 
-      return await crypto.subtle.verify(params, key, signatureBytes, dataBytes).catch(() => false);
+      return await crypto.subtle.verify(params, key, signatureBytes, dataBytes)
+        .catch(() => false);
     }
 
     return false;

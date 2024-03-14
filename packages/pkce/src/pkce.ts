@@ -21,7 +21,8 @@ export class Pkce {
      * The challenge intentionally uses the bytes of the verifier string,
      * WITHOUT Base64URL decoding it.
      */
-    const bytes = new TextEncoder().encode(verifier);
+    const bytes = new TextEncoder()
+      .encode(verifier);
     const hash = await crypto.subtle.digest('SHA-256', bytes);
 
     return base64UrlEncode(hash);

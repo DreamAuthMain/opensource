@@ -7,13 +7,15 @@ describe('password-factory', () => {
     const factory = new PasswordFactory();
     const password = await factory.create();
 
-    expect(password.length).toBe(32);
+    expect(password.length)
+      .toBe(32);
   });
 
   test('create length 64', async () => {
     const factory = new PasswordFactory();
     const password = await factory.create(64);
 
-    expect(password.length).toBe(64);
+    expect(password.length)
+      .toBe(64);
   });
 });

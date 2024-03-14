@@ -13,18 +13,21 @@ describe('createRaise', () => {
   test('works', () => {
     const raise = createRaise(MyError);
 
-    expect(() => raise('code')).toThrowError(new MyError('code'));
+    expect(() => raise('code'))
+      .toThrowError(new MyError('code'));
 
     try {
       raise('code', { context: { foo: 'bar' } });
       return expect.fail();
-    } catch (error) {
-      expect((error as MyError).toJSON()).toMatchObject({
-        name: 'MyError',
-        message: 'message',
-        code: 'code',
-        context: { foo: 'bar' },
-      });
+    }
+    catch (error) {
+      expect((error as MyError).toJSON())
+        .toMatchObject({
+          name: 'MyError',
+          message: 'message',
+          code: 'code',
+          context: { foo: 'bar' },
+        });
     }
   });
 });

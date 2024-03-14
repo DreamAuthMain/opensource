@@ -5,17 +5,17 @@ export type Assigned<
   TValues extends readonly (object | undefined | null)[],
 > = TValues extends readonly [infer TFirst, ...infer TRest]
   ? Assigned<
-      {
-        [P in Extract<keyof TBase | keyof TFirst, string>]: P extends keyof TBase
-          ? P extends keyof TFirst
-            ? undefined extends NotNever<TFirst[P]>
-              ? NotNever<TBase[P]> | NotNever<TFirst[P]>
-              : NotNever<TFirst[P]>
-            : NotNever<TBase[P]>
-          : NotNever<TFirst[P & keyof TFirst]>;
-      },
-      TRest extends readonly (object | undefined | null)[] ? TRest : []
-    >
+    {
+      [P in Extract<keyof TBase | keyof TFirst, string>]: P extends keyof TBase
+        ? P extends keyof TFirst
+          ? undefined extends NotNever<TFirst[P]>
+            ? NotNever<TBase[P]> | NotNever<TFirst[P]>
+            : NotNever<TFirst[P]>
+          : NotNever<TBase[P]>
+        : NotNever<TFirst[P & keyof TFirst]>;
+    },
+    TRest extends readonly (object | undefined | null)[] ? TRest : []
+  >
   : AutoPartial<TBase>;
 
 export const assign = <

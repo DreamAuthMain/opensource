@@ -18,26 +18,28 @@ describe('JwkFactory and JwkImporter', () => {
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'verify');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'sign');
-      expect(publicKey).toMatchObject({
-        type: 'public',
-        usages: ['verify'],
-        extractable: false,
-        algorithm: {
-          name: name,
-          hash: { name: hash },
-          modulusLength: 2048,
-        },
-      });
-      expect(privateKey).toMatchObject({
-        type: 'private',
-        usages: ['sign'],
-        extractable: false,
-        algorithm: {
-          name: name,
-          hash: { name: hash },
-          modulusLength: 2048,
-        },
-      });
+      expect(publicKey)
+        .toMatchObject({
+          type: 'public',
+          usages: ['verify'],
+          extractable: false,
+          algorithm: {
+            name: name,
+            hash: { name: hash },
+            modulusLength: 2048,
+          },
+        });
+      expect(privateKey)
+        .toMatchObject({
+          type: 'private',
+          usages: ['sign'],
+          extractable: false,
+          algorithm: {
+            name: name,
+            hash: { name: hash },
+            modulusLength: 2048,
+          },
+        });
     });
   });
 
@@ -48,26 +50,28 @@ describe('JwkFactory and JwkImporter', () => {
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'encrypt');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'decrypt');
-      expect(publicKey).toMatchObject({
-        type: 'public',
-        usages: ['encrypt'],
-        extractable: false,
-        algorithm: {
-          name: name,
-          hash: { name: hash },
-          modulusLength: 2048,
-        },
-      });
-      expect(privateKey).toMatchObject({
-        type: 'private',
-        usages: ['decrypt'],
-        extractable: false,
-        algorithm: {
-          name: name,
-          hash: { name: hash },
-          modulusLength: 2048,
-        },
-      });
+      expect(publicKey)
+        .toMatchObject({
+          type: 'public',
+          usages: ['encrypt'],
+          extractable: false,
+          algorithm: {
+            name: name,
+            hash: { name: hash },
+            modulusLength: 2048,
+          },
+        });
+      expect(privateKey)
+        .toMatchObject({
+          type: 'private',
+          usages: ['decrypt'],
+          extractable: false,
+          algorithm: {
+            name: name,
+            hash: { name: hash },
+            modulusLength: 2048,
+          },
+        });
     });
   });
 
@@ -78,24 +82,26 @@ describe('JwkFactory and JwkImporter', () => {
       const jwk = await jwkFactory[method](alg);
       const publicKey = await jwkImporter.import(jwk.publicKey, 'verify');
       const privateKey = await jwkImporter.import(jwk.privateKey, 'sign');
-      expect(publicKey).toMatchObject({
-        type: 'public',
-        usages: ['verify'],
-        extractable: false,
-        algorithm: {
-          name: name,
-          namedCurve: curve,
-        },
-      });
-      expect(privateKey).toMatchObject({
-        type: 'private',
-        usages: ['sign'],
-        extractable: false,
-        algorithm: {
-          name: name,
-          namedCurve: curve,
-        },
-      });
+      expect(publicKey)
+        .toMatchObject({
+          type: 'public',
+          usages: ['verify'],
+          extractable: false,
+          algorithm: {
+            name: name,
+            namedCurve: curve,
+          },
+        });
+      expect(privateKey)
+        .toMatchObject({
+          type: 'private',
+          usages: ['sign'],
+          extractable: false,
+          algorithm: {
+            name: name,
+            namedCurve: curve,
+          },
+        });
     });
   });
 });

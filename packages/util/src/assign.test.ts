@@ -9,8 +9,13 @@ test('assign', () => {
   const result0 = assign(undefined, a, b);
   const result1 = assign(a, b, undefined, c);
   const result2 = assign(result0, null, result1);
-  const merged0: { a?: string | number | undefined; b: number; c: boolean; d?: undefined; e?: number | undefined } =
-    result0;
+  const merged0: {
+    a?: string | number | undefined;
+    b: number;
+    c: boolean;
+    d?: undefined;
+    e?: number | undefined;
+  } = result0;
   const merged1: {
     a?: string | number | undefined;
     b: number;
@@ -26,24 +31,27 @@ test('assign', () => {
     e?: number | undefined;
   } = result2;
 
-  expect(merged0).toStrictEqual({
-    a: 1,
-    b: 2,
-    c: true,
-    d: undefined,
-  });
+  expect(merged0)
+    .toStrictEqual({
+      a: 1,
+      b: 2,
+      c: true,
+      d: undefined,
+    });
 
-  expect(merged1).toStrictEqual({
-    a: 1,
-    b: 2,
-    c: 1,
-    d: undefined,
-  });
+  expect(merged1)
+    .toStrictEqual({
+      a: 1,
+      b: 2,
+      c: 1,
+      d: undefined,
+    });
 
-  expect(merged2).toStrictEqual({
-    a: 1,
-    b: 2,
-    c: 1,
-    d: undefined,
-  });
+  expect(merged2)
+    .toStrictEqual({
+      a: 1,
+      b: 2,
+      c: 1,
+      d: undefined,
+    });
 });

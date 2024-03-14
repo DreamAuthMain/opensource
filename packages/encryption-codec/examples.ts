@@ -11,11 +11,13 @@ const { publicKey, privateKey } = await jwkFactory.createRSA('RSA-OAEP-256');
 const codec = new EncryptionCodec();
 
 // Encrypt data using the public key.
-const bytes = new TextEncoder().encode('Hello, World!');
+const bytes = new TextEncoder()
+  .encode('Hello, World!');
 const encrypted = await codec.encrypt(publicKey, bytes);
 
 // Decrypt data using the private key.
 const decrypted = await codec.decrypt(privateKey, encrypted);
-const text = new TextDecoder().decode(decrypted);
+const text = new TextDecoder()
+  .decode(decrypted);
 
 console.log(text); // Hello, World!

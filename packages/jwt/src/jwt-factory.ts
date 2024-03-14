@@ -39,7 +39,12 @@ export class JwtFactory {
 
   constructor(
     issuer: JwtIssuerUrl,
-    { header = {}, payload = {}, lifetime = time(1, DAYS).as(SECONDS), crypto = getCrypto }: JwtFactoryOptions = {},
+    {
+      header = {},
+      payload = {},
+      lifetime = time(1, DAYS)
+        .as(SECONDS), crypto = getCrypto,
+    }: JwtFactoryOptions = {},
   ) {
     this.#issuer = issuer;
     this.#header = header;
@@ -56,7 +61,8 @@ export class JwtFactory {
     const crypto = await this.#crypto();
     const params = PARAMS[jwk.alg];
     const key = await this.#jwkImporter.import(jwk, 'sign');
-    const nowSeconds = time.now().as(SECONDS);
+    const nowSeconds = time.now()
+      .as(SECONDS);
     const headerFinal: JwtHeader = {
       ...this.#header,
       ...header,
@@ -78,7 +84,8 @@ export class JwtFactory {
     const signatureBytes = await crypto.subtle.sign(
       params,
       key,
-      new TextEncoder().encode(`${headerString}.${payloadString}`),
+      new TextEncoder()
+        .encode(`${headerString}.${payloadString}`),
     );
     const signature = base64UrlEncode(signatureBytes);
 
