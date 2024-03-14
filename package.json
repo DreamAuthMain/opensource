@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "clean": "git clean -fdx -e '.vscode' -e '.env*'",
-    "lint": "pnpm -r exec -- eslint src",
     "build": "pnpm -r --stream run build",
-    "test": "pnpm lint -- --max-errors=0 && vitest run",
+    "lint": "pnpm -r exec -- eslint src",
+    "depcheck": "pnpm -r exec -- depcheck --skip-missing",
+    "test": "pnpm build && pnpm lint -- --max-errors=0 && pnpm depcheck && vitest run",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
   "workspaces": [
@@ -23,6 +24,7 @@
     "@types/eslint": "^8.44.9",
     "@types/node": "^20.10.5",
     "@vitest/coverage-v8": "^1.1.0",
+    "depcheck": "^1.4.7",
     "eslint": "^8.56.0",
     "eslint-config-rational": "^4.0.5",
     "jsdom": "^23.0.1",
