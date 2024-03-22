@@ -1,6 +1,10 @@
-import dreamauth from '@dreamauth/eslint-plugin';
-import rational from 'eslint-config-rational';
+import { rational } from 'eslint-config-rational';
 
 export default rational({
-  override: [...dreamauth.configs.recommended],
+  customRestricted: [
+    {
+      message: 'Use a strongly typed `raise(code)` function instead of throwing new errors.',
+      selector: 'ThrowStatement[argument.type!="Identifier"]',
+    },
+  ],
 });

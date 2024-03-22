@@ -1,5 +1,8 @@
 import { type JWK_SIG_ALGS } from '@dreamauth/jwk';
 
+/**
+ * Crypto algorithm parameters for signing and verifying JWTs.
+ */
 export const PARAMS = {
   RS256: {
     name: 'RSASSA-PKCS1-v1_5',

@@ -2,7 +2,11 @@ import { base64UrlDecode, base64UrlEncode } from '@dreamauth/base64url';
 import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
 import { argon2id } from 'hash-wasm/dist/argon2.umd.min.js';
 
+/**
+ * Argon2id password hash parameters.
+ */
 export interface Argon2IdParams {
+  /** Algorithm type */
   readonly t: 'argon2id';
   /** Iterations (recommended minimum: 3) */
   readonly i: number;
@@ -16,7 +20,11 @@ export interface Argon2IdParams {
   readonly s?: string;
 }
 
+/**
+ * PBKDF2 password hash parameters.
+ */
 export interface PBKDF2Params {
+  /** Algorithm type */
   readonly t: 'pbkdf2';
   /** Iterations (recommended minimum: 600k) */
   readonly i: number;
@@ -28,14 +36,27 @@ export interface PBKDF2Params {
   readonly s?: string;
 }
 
+/**
+ * Password hash factory based on
+ * [Web Crypto](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API).
+ */
 export class PasswordHashFactory {
   #crypto: PlatformCryptoResolver;
 
+  /**
+   * Create a new password hash factory.
+   */
   constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 
+  /**
+   * Create a new Argon2id password hash (preferred).
+   */
   async create(password: string, params: Argon2IdParams): Promise<[hash: string, params: Argon2IdParams]>;
+  /**
+   * Create a new PBKDF2 password hash.
+   */
   async create(password: string, params: PBKDF2Params): Promise<[hash: string, params: PBKDF2Params]>;
   async create(
     plaintextPassword: string,

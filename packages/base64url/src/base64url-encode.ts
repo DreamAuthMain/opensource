@@ -1,3 +1,6 @@
+/**
+ * Encode a string or ArrayBuffer to a base64url string.
+ */
 export const base64UrlEncode = (value: string | ArrayBuffer): string => {
   const bytes = typeof value === 'string'
     ? new TextEncoder()

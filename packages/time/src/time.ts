@@ -1,9 +1,15 @@
-import { MS, type TimeUnit } from './unit.js';
+import { MS, type TimeUnits } from './units.js';
 
-class Time {
+/**
+ * Immutable time class.
+ */
+export class Time {
   readonly #ms: number;
 
-  constructor(...args: [value: number, unit: TimeUnit] | [value: Time | Date]) {
+  /**
+   * Constructs a new time instance.
+   */
+  constructor(...args: [value: number, unit: TimeUnits] | [value: Time | Date]) {
     this.#ms = args.length === 1
       ? args[0] instanceof Date
         ? args[0].getTime()
@@ -11,28 +17,45 @@ class Time {
       : Math.trunc(args[0]) * args[1];
   }
 
-  readonly as = (unit: TimeUnit): number => {
+  /**
+   * Returns the time as an offset from the epoch in the specified units.
+   */
+  readonly as = (unit: TimeUnits): number => {
     return Math.trunc(this.#ms / unit);
   };
 
-  readonly add = (...args: [value: number, unit: TimeUnit] | [value: Time]): Time => {
-    const ms = (args.length === 1 ? args[0] : new Time(...args)).as(MS);
+  /**
+   * Add a time span to the current time.
+   */
+  readonly add = (...args: [value: number, unit: TimeUnits] | [value: Time]): Time => {
+    const ms = new Time(...args)
+      .as(MS);
     return new Time(this.#ms + ms, MS);
   };
 
-  readonly subtract = (...args: [value: number, unit: TimeUnit] | [value: Time]): Time => {
+  /**
+   * Subtract a time span from the current time.
+   */
+  readonly subtract = (...args: [value: number, unit: TimeUnits] | [value: Time]): Time => {
     const ms = new Time(...args)
       .as(MS);
     return new Time(this.#ms - ms, MS);
   };
 
+  /**
+   * Returns the time as a `Date` instance.
+   */
   readonly toDate = (): Date => {
     return new Date(this.#ms);
   };
 }
 
-export type { Time };
-
+/**
+ * Get a new {@link Time} instance.
+ */
 export const time = Object.assign((...args: ConstructorParameters<typeof Time>): Time => new Time(...args), {
+  /**
+   * Get a {@link Time} instance representing the current time.
+   */
   now: (): Time => time(Date.now(), MS),
 });

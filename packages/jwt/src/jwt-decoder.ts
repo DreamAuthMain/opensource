@@ -11,10 +11,16 @@ import { type JwtVerifier } from './jwt-verifier.js';
 export class JwtDecoder {
   readonly #verifier: undefined | JwtVerifier;
 
+  /**
+   * Create a new JWT decoder.
+   */
   constructor(verifier?: JwtVerifier) {
     this.#verifier = verifier;
   }
 
+  /**
+   * Decode a JWT.
+   */
   async decode(value: string): Promise<Jwt> {
     const [headerString = '', payloadString = '', signature = ''] = value.split('.', 3);
 

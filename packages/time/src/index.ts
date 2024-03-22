@@ -1,2 +1,2 @@
 export * from './time.js';
-export * from './unit.js';
+export * from './units.js';

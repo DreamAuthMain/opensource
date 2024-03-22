@@ -6,6 +6,9 @@ import { type Jwk, type JwtHeader, type JwtIssuerUrl, type JwtPayload } from '@d
 
 import { PARAMS } from './params.js';
 
+/**
+ * JWT factory options.
+ */
 export interface JwtFactoryOptions {
   /**
    * Default header claims.
@@ -37,6 +40,9 @@ export class JwtFactory {
   readonly #payload: Partial<JwtPayload>;
   readonly #lifetime: number;
 
+  /**
+   * Create a new JWT factory.
+   */
   constructor(
     issuer: JwtIssuerUrl,
     {
@@ -54,6 +60,9 @@ export class JwtFactory {
     this.#jwkImporter = new JwkImporter(crypto);
   }
 
+  /**
+   * Create a new JWT.
+   */
   async create(
     jwk: Jwk<keyof typeof PARAMS, 'sign'>,
     { header = {}, payload = {}, lifetime = this.#lifetime }: Partial<JwtFactoryOptions> = {},

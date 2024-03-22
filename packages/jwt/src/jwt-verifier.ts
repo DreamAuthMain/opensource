@@ -15,7 +15,7 @@ interface JwtVerifierOptions {
 }
 
 /**
- * JWT validator which uses
+ * JWT verifier which uses
  * [OIDC Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html)
  * to verify JWT signatures.
  */
@@ -26,6 +26,9 @@ export class JwtVerifier {
   #jwkImporter: JwkImporter;
   #cache = new Map<string, Jwk<keyof typeof PARAMS, 'verify'>[]>();
 
+  /**
+   * Create a new JWT verifier.
+   */
   constructor(issuers: string[], { loader = new JwkOIDCLoader(), crypto = getCrypto }: JwtVerifierOptions = {}) {
     this.#issuers = new Set(issuers);
     this.#loader = loader;
@@ -33,6 +36,9 @@ export class JwtVerifier {
     this.#jwkImporter = new JwkImporter(crypto);
   }
 
+  /**
+   * Verify a JWT.
+   */
   async verify(jwt: Jwt): Promise<void> {
     const nowSeconds = time.now()
       .as(SECONDS);

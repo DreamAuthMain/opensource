@@ -1,5 +1,8 @@
 import { isArray, isObject } from '@dreamauth/util';
 
+/**
+ * JSON Web Key (JWK) as defined in RFC 7517.
+ */
 export type Jwk<A extends string = string, O extends string = string> = Omit<JsonWebKey, 'key_ops'> & {
   readonly kid: string;
   readonly alg: A;
@@ -10,12 +13,21 @@ export type Jwk<A extends string = string, O extends string = string> = Omit<Jso
   readonly [key: string]: unknown;
 };
 
+/**
+ * A public/private pair of JSON Web Keys (JWKs).
+ */
 export interface JwkPair<
   A extends string = string,
   TPublicOp extends string = string,
   TPrivateOp extends string = string,
 > {
+  /**
+   * The private key.
+   */
   readonly privateKey: Jwk<A, TPrivateOp>;
+  /**
+   * The public key.
+   */
   readonly publicKey: Jwk<A, TPublicOp>;
 }
 
@@ -31,6 +43,9 @@ const isJwkObject = (value: unknown): value is Jwk => {
   );
 };
 
+/**
+ * JSON Web Key (JWK) type predicate.
+ */
 export const isJwk: {
   <A extends string, O extends string>(value: unknown, algs: [A, ...A[]], ops: [O, ...O[]]): value is Jwk<A, O>;
   <A extends string>(value: unknown, algs: [A, ...A[]]): value is Jwk<A>;

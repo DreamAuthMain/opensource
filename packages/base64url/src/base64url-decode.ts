@@ -1,3 +1,6 @@
+/**
+ * Decode a base64url string to a Uint8Array.
+ */
 export const base64UrlDecode = (value: string): Uint8Array => {
   const base64 = value
     .replace(/-/gu, '+')

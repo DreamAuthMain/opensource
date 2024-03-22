@@ -3,6 +3,9 @@ import { type Jwk } from '@dreamauth/types';
 
 import { IMPORT_PARAMS } from './params.js';
 
+/**
+ * JWK importer with usage enforcement and caching.
+ */
 export class JwkImporter {
   #crypto: PlatformCryptoResolver;
   #cache = {
@@ -12,10 +15,16 @@ export class JwkImporter {
     encrypt: new WeakMap<Jwk, CryptoKey>(),
   } as const;
 
+  /**
+   * Create a new JWK importer.
+   */
   constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 
+  /**
+   * Import a JWK as a CryptoKey.
+   */
   async import(
     jwk: Jwk<keyof typeof IMPORT_PARAMS>,
     keyUsage: 'verify' | 'sign' | 'encrypt' | 'decrypt',

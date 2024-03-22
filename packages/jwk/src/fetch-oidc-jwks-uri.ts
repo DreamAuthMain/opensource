@@ -1,5 +1,8 @@
 import { isObject } from '@dreamauth/util';
 
+/**
+ * Fetch the JSON Web Key Set (JWKS) URI from the OpenID Connect configuration.
+ */
 export const fetchOIDCJwksUri = async (baseUrl: string): Promise<string> => {
   const response = await fetch(`${baseUrl}/openid-configuration`)
     .catch(() => null);
