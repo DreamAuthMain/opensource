@@ -24,9 +24,12 @@ describe('assert-good-password', () => {
     test(`password "${password}" is bad (${code})`, () => {
       try {
         assertGoodPassword(password);
-      } catch (error: any) {
-        expect(error).toBeInstanceOf(PasswordError);
-        expect(error.code).toBe(code);
+      }
+      catch (error: any) {
+        expect(error)
+          .toBeInstanceOf(PasswordError);
+        expect(error.code)
+          .toBe(code);
       }
 
       expect.assertions(2);

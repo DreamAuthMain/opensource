@@ -18,35 +18,44 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - name: Use PNPM
+        uses: pnpm/action-setup@v3
         with:
-          node-version: 18
-          cache: 'npm'
+          version: 8
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
 
       - name: Restore
-        run: npm ci
+        run: |
+          set -e
+          pnpm install --frozen-lockfile
+          pnpm install --global wurk
 
       - name: Build
         run: |
           set -e
-          npm run build
-          npx @werk/cli publish --no-build --to-archive
+          wurk build
+          wurk publish --to-archive
 
       - name: Test
         run: |
           set -e
-          npm run lint -- --max-warnings=0
-          npx @werk/cli depcheck
-          npx @werk/cli vitest run --no-build
+          wurk eslint -- --max-warnings=0
+          wurk depcheck
+          wurk vitest run
 
       - name: Publish
         run: |
-          npm config set //registry.npmjs.org/:_authToken '${NPM_TOKEN}'
-          npx @werk/cli publish --from-archive
+          set -e
+          pnpm config set //registry.npmjs.org/:_authToken '${NPM_TOKEN}'
+          wurk publish --from-archive
         env:
           NPM_TOKEN: ${{secrets.NPM_TOKEN}}

@@ -4,41 +4,40 @@
   "license": "ISC",
   "type": "module",
   "scripts": {
-    "lint": "eslint --max-warnings=0 .",
-    "build": "werk -p build",
-    "test": "npm run lint -- --max-warnings=0 && werk depcheck && werk vitest run",
+    "clean": "git clean -fdX -e '!/.*'",
+    "clean:output": "wurk clean -- -e '!**/node_modules' -e '!**/node_modules/**'",
+    "build": "wurk run build --stream",
+    "eslint": "wurk exec eslint src",
+    "depcheck": "wurk exec depcheck --skip-missing",
+    "test": "wurk build && wurk eslint --max-warnings=0 && wurk depcheck && wurk vitest run",
     "modernize": "npx npm-check-updates@latest -i --workspaces --root --format group"
   },
   "workspaces": [
     "packages/*"
   ],
   "engines": {
-    "node": ">=18",
-    "npm": ">=8",
-    "yarn": "please-use-npm",
-    "pnpm": "please-use-npm"
+    "node": ">=20",
+    "pnpm": ">=8",
+    "npm": "please-use-pnpm",
+    "yarn": "please-use-pnpm"
   },
-  "engineStrict": true,
+  "packageManager": "pnpm@8.15.4+sha1.c85a4305534f76d461407b59277b954bac97b5c4",
   "devDependencies": {
-    "@testing-library/react": "^14.1.2",
-    "@types/eslint": "^8.44.9",
-    "@types/node": "^20.10.5",
-    "@vitest/coverage-v8": "^1.1.0",
-    "@werk/cli": "^9.2.2",
-    "@werk/command-build": "^4.0.0",
-    "@werk/command-depcheck": "^1.0.15",
-    "@werk/command-exec": "^1.4.12",
-    "@werk/command-list": "^1.3.12",
-    "@werk/command-publish": "^2.2.13",
-    "@werk/command-run": "^3.2.13",
-    "@werk/command-version": "^3.3.13",
-    "@werk/command-vitest": "^1.3.12",
-    "eslint": "^8.56.0",
-    "eslint-config-rational": "^3.0.9",
-    "jsdom": "^23.0.1",
-    "prettier": "^3.1.1",
-    "typescript": "^5.3.3",
-    "vitest": "^1.1.0",
-    "vitest-fetch-mock": "^0.2.2"
+    "@testing-library/react": "^14.2.2",
+    "@types/node": "^20.11.30",
+    "@vitest/coverage-v8": "^1.4.0",
+    "@wurk/command-exec": "^0.4.0",
+    "@wurk/command-publish": "^0.4.0",
+    "@wurk/command-run": "^0.4.0",
+    "@wurk/command-version": "^0.4.0",
+    "@wurk/command-vitest": "^0.4.0",
+    "depcheck": "^1.4.7",
+    "eslint": "^8.57.0",
+    "eslint-config-rational": "^5.0.9",
+    "jsdom": "^24.0.0",
+    "typescript": "^5.4.3",
+    "vitest": "^1.4.0",
+    "vitest-fetch-mock": "^0.2.2",
+    "wurk": "^0.4.3"
   }
 }

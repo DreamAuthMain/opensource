@@ -8,8 +8,11 @@ describe('EncryptionCodec', () => {
     const jwkFactory = new JwkFactory();
     const jwk = await jwkFactory.createRSA('RSA-OAEP-256');
     const encryption = new EncryptionCodec();
-    const encrypted = await encryption.encrypt(jwk.publicKey, new TextEncoder().encode('Hello World!'));
+    const encrypted = await encryption.encrypt(jwk.publicKey, new TextEncoder()
+      .encode('Hello World!'));
     const decrypted = await encryption.decrypt(jwk.privateKey, encrypted);
-    expect(new TextDecoder().decode(decrypted)).toBe('Hello World!');
+    expect(new TextDecoder()
+      .decode(decrypted))
+      .toBe('Hello World!');
   });
 });

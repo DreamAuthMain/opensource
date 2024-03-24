@@ -1,3 +1,6 @@
+/**
+ * Options for creating a DreamAuthError.
+ */
 export interface DreamAuthErrorOptions<TContext extends Record<string, any> = {}> {
   /**
    * The cause of the error, if any.
@@ -10,6 +13,9 @@ export interface DreamAuthErrorOptions<TContext extends Record<string, any> = {}
   context?: Partial<TContext> & Record<string, any>;
 }
 
+/**
+ * Base class for all DreamAuth errors.
+ */
 export abstract class DreamAuthError<
   TCode extends string | number | symbol,
   TContext extends Record<string, any> = {},
@@ -31,6 +37,9 @@ export abstract class DreamAuthError<
    */
   readonly context: Partial<TContext> & Record<string, unknown>;
 
+  /**
+   * Create a new DreamAuthError.
+   */
   constructor(message: string, code: TCode, options: Error | DreamAuthErrorOptions<TContext> = {}) {
     const { cause, context = {} } = options instanceof Error ? { cause: options } : options;
 

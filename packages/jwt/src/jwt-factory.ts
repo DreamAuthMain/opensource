@@ -1,11 +1,14 @@
 import { base64UrlEncode } from '@dreamauth/base64url';
 import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
-import { JwkImporter } from '@dreamauth/jwk';
+import { type Jwk, JwkImporter } from '@dreamauth/jwk';
 import { DAYS, SECONDS, time } from '@dreamauth/time';
-import { type Jwk, type JwtHeader, type JwtIssuerUrl, type JwtPayload } from '@dreamauth/types';
 
+import { type JwtHeader, type JwtIssuerUrl, type JwtPayload } from './jwt.js';
 import { PARAMS } from './params.js';
 
+/**
+ * JWT factory options.
+ */
 export interface JwtFactoryOptions {
   /**
    * Default header claims.
@@ -37,9 +40,17 @@ export class JwtFactory {
   readonly #payload: Partial<JwtPayload>;
   readonly #lifetime: number;
 
+  /**
+   * Create a new JWT factory.
+   */
   constructor(
     issuer: JwtIssuerUrl,
-    { header = {}, payload = {}, lifetime = time(1, DAYS).as(SECONDS), crypto = getCrypto }: JwtFactoryOptions = {},
+    {
+      header = {},
+      payload = {},
+      lifetime = time(1, DAYS)
+        .as(SECONDS), crypto = getCrypto,
+    }: JwtFactoryOptions = {},
   ) {
     this.#issuer = issuer;
     this.#header = header;
@@ -49,6 +60,9 @@ export class JwtFactory {
     this.#jwkImporter = new JwkImporter(crypto);
   }
 
+  /**
+   * Create a new JWT.
+   */
   async create(
     jwk: Jwk<keyof typeof PARAMS, 'sign'>,
     { header = {}, payload = {}, lifetime = this.#lifetime }: Partial<JwtFactoryOptions> = {},
@@ -56,7 +70,8 @@ export class JwtFactory {
     const crypto = await this.#crypto();
     const params = PARAMS[jwk.alg];
     const key = await this.#jwkImporter.import(jwk, 'sign');
-    const nowSeconds = time.now().as(SECONDS);
+    const nowSeconds = time.now()
+      .as(SECONDS);
     const headerFinal: JwtHeader = {
       ...this.#header,
       ...header,
@@ -78,7 +93,8 @@ export class JwtFactory {
     const signatureBytes = await crypto.subtle.sign(
       params,
       key,
-      new TextEncoder().encode(`${headerString}.${payloadString}`),
+      new TextEncoder()
+        .encode(`${headerString}.${payloadString}`),
     );
     const signature = base64UrlEncode(signatureBytes);
 

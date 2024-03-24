@@ -41,6 +41,7 @@ const decoder = new JwtDecoder(verifier);
 
 try {
   const decoded = await decoder.decode(jwt);
-} catch (error) {
+}
+catch (error) {
   // Errors are thrown when the JWT is malformed or fails verification.
 }

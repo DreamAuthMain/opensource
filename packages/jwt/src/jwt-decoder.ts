@@ -1,7 +1,7 @@
 import { base64UrlDecode } from '@dreamauth/base64url';
-import { isJwtHeader, isJwtPayload, type Jwt } from '@dreamauth/types';
 
 import { raise } from './errors.js';
+import { isJwtHeader, isJwtPayload, type Jwt } from './jwt.js';
 import { type JwtVerifier } from './jwt-verifier.js';
 
 /**
@@ -11,10 +11,16 @@ import { type JwtVerifier } from './jwt-verifier.js';
 export class JwtDecoder {
   readonly #verifier: undefined | JwtVerifier;
 
+  /**
+   * Create a new JWT decoder.
+   */
   constructor(verifier?: JwtVerifier) {
     this.#verifier = verifier;
   }
 
+  /**
+   * Decode a JWT.
+   */
   async decode(value: string): Promise<Jwt> {
     const [headerString = '', payloadString = '', signature = ''] = value.split('.', 3);
 
@@ -22,9 +28,12 @@ export class JwtDecoder {
     let payload: unknown;
 
     try {
-      header = JSON.parse(new TextDecoder().decode(base64UrlDecode(headerString)));
-      payload = JSON.parse(new TextDecoder().decode(base64UrlDecode(payloadString)));
-    } catch {
+      header = JSON.parse(new TextDecoder()
+        .decode(base64UrlDecode(headerString)));
+      payload = JSON.parse(new TextDecoder()
+        .decode(base64UrlDecode(payloadString)));
+    }
+    catch {
       return raise('Invalid');
     }
 

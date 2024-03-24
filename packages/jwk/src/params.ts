@@ -1,13 +1,36 @@
+/**
+ * JWK RSA encryption algorithms.
+ */
 export const JWK_RSA_ENC_ALGS = ['RSA-OAEP-256'] as const;
+
+/**
+ * JWK RSA signature algorithms.
+ */
 export const JWK_RSA_SIG_ALGS = ['RS256', 'RS384', 'RS512', 'PS256', 'PS384', 'PS512'] as const;
+
+/**
+ * JWK RSA signature and encryption algorithms.
+ */
 export const JWK_RSA_ALGS = [...JWK_RSA_ENC_ALGS, ...JWK_RSA_SIG_ALGS] as const;
 
+/**
+ * JWK Elliptic Curve Cryptography (ECC) signature algorithms.
+ */
 export const JWK_ECC_SIG_ALGS = ['ES256', 'ES384', 'ES512'] as const;
 
+/**
+ * JWK signature algorithms.
+ */
 export const JWK_SIG_ALGS = [...JWK_RSA_SIG_ALGS, ...JWK_ECC_SIG_ALGS] as const;
 
+/**
+ * JWK signature and encryption algorithms.
+ */
 export const JWK_ALGS = [...JWK_RSA_ENC_ALGS, ...JWK_RSA_SIG_ALGS, ...JWK_ECC_SIG_ALGS] as const;
 
+/**
+ * JWK import parameters for various algorithms.
+ */
 export const IMPORT_PARAMS = {
   RS256: {
     name: 'RSASSA-PKCS1-v1_5',
@@ -51,6 +74,9 @@ export const IMPORT_PARAMS = {
   },
 } as const satisfies Record<(typeof JWK_ALGS)[number], RsaHashedImportParams | EcKeyImportParams>;
 
+/**
+ * JWK generation parameters for RSA algorithms.
+ */
 export const GEN_RSA_PARAMS = {
   RS256: {
     name: 'RSASSA-PKCS1-v1_5',
@@ -106,6 +132,9 @@ export const GEN_RSA_PARAMS = {
   RsaHashedKeyGenParams & { keyUsage: readonly ['verify', 'sign'] | readonly ['encrypt', 'decrypt'] }
 >;
 
+/**
+ * JWK generation parameters for ECC algorithms.
+ */
 export const GEN_ECC_PARAMS = {
   ES256: {
     name: 'ECDSA',

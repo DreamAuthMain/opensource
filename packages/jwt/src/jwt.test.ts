@@ -26,25 +26,29 @@ describe('JwtFactory and JwtDecoder', () => {
     const jwtDecoder = new JwtDecoder(jwtVerifier);
     const decoded = await jwtDecoder.decode(jwt);
 
-    expect(decoded).toMatchObject({
-      header: {
-        alg: 'RS256',
-        kid: expect.stringMatching(/^[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}$/u),
-        typ: 'JWT',
-      },
-      headerString: expect.stringMatching(/^[\w-]+$/u),
-      payload: {
-        exp: expect.any(Number),
-        iat: expect.any(Number),
-        iss: 'http://localhost',
-      },
-      payloadString: expect.stringMatching(/^[\w-]+$/u),
-      signature: expect.stringMatching(/^[\w-]+$/u),
-    });
+    expect(decoded)
+      .toMatchObject({
+        header: {
+          alg: 'RS256',
+          kid: expect.stringMatching(/^[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}$/u),
+          typ: 'JWT',
+        },
+        headerString: expect.stringMatching(/^[\w-]+$/u),
+        payload: {
+          exp: expect.any(Number),
+          iat: expect.any(Number),
+          iss: 'http://localhost',
+        },
+        payloadString: expect.stringMatching(/^[\w-]+$/u),
+        signature: expect.stringMatching(/^[\w-]+$/u),
+      });
 
-    expect((decoded.payload.iat as number) < Date.now() / 1000).toBe(true);
-    expect(decoded.payload.exp > Date.now() / 1000).toBe(true);
-    expect(decoded.payload.exp - (decoded.payload.iat as number)).toBe(86_410);
+    expect((decoded.payload.iat as number) < Date.now() / 1000)
+      .toBe(true);
+    expect(decoded.payload.exp > Date.now() / 1000)
+      .toBe(true);
+    expect(decoded.payload.exp - (decoded.payload.iat as number))
+      .toBe(86_410);
   });
 
   test('fail verification if the JWT has an invalid signature', async () => {

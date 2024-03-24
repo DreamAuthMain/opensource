@@ -1,6 +1,6 @@
 import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
-import { type JwkPair } from '@dreamauth/types';
 
+import { type JwkPair } from './jwk.js';
 import { GEN_ECC_PARAMS, GEN_RSA_PARAMS } from './params.js';
 
 type ModulusLength = 2048 | 3072 | 4096;
@@ -13,10 +13,16 @@ type ModulusLength = 2048 | 3072 | 4096;
 export class JwkFactory {
   readonly #crypto: PlatformCryptoResolver;
 
+  /**
+   * Create a new JWK factory.
+   */
   constructor(crypto = getCrypto) {
     this.#crypto = crypto;
   }
 
+  /**
+   * Create a new RSA signed JWK key pair.
+   */
   async createRSA<A extends keyof typeof GEN_RSA_PARAMS>(
     alg: A,
     modulusLength?: ModulusLength,
@@ -25,6 +31,9 @@ export class JwkFactory {
     return await this.#create(alg, { ...params, modulusLength: modulusLength ?? params.modulusLength }, keyUsage);
   }
 
+  /**
+   * Create a new Elliptic Curve signed JWK key pair.
+   */
   async createECC<A extends keyof typeof GEN_ECC_PARAMS>(alg: A): Promise<JwkPair<A, 'verify', 'sign'>> {
     const params = GEN_ECC_PARAMS[alg];
     return await this.#create(alg, params, ['verify', 'sign']);

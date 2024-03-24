@@ -7,6 +7,11 @@
 export type Simplify<T> = any extends any ? { [P in keyof T]: T[P] } : never;
 
 /**
+ * Falsy value type.
+ */
+export type Falsy = false | 0 | 0n | '' | null | undefined;
+
+/**
  * Matches any primitive type.
  */
 export type Primitive = string | number | boolean | symbol | bigint | undefined | null;

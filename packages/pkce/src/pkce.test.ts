@@ -14,9 +14,10 @@ const mockBytes = new Uint8Array([
 
 describe('PkceFactory', () => {
   beforeEach(() => {
-    vi.spyOn(webcrypto, 'getRandomValues').mockImplementation((array) => {
-      return mockBytes.slice(0, new Uint8Array(array.byteLength).length);
-    });
+    vi.spyOn(webcrypto, 'getRandomValues')
+      .mockImplementation((array) => {
+        return mockBytes.slice(0, new Uint8Array(array.byteLength).length);
+      });
   });
 
   test('createVerifier', async () => {
@@ -24,19 +25,22 @@ describe('PkceFactory', () => {
     let verifier: string;
 
     verifier = await pkce.createVerifier(96);
-    expect(verifier).toMatchInlineSnapshot(
-      '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIf"',
-    );
+    expect(verifier)
+      .toMatchInlineSnapshot(
+        '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIf"',
+      );
 
     verifier = await pkce.createVerifier(128);
-    expect(verifier).toMatchInlineSnapshot(
-      '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIfCEbLY8N24qrDcxmnrjkpNxcz1fzDTa_3onxPRnASd30"',
-    );
+    expect(verifier)
+      .toMatchInlineSnapshot(
+        '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIfCEbLY8N24qrDcxmnrjkpNxcz1fzDTa_3onxPRnASd30"',
+      );
 
     verifier = await pkce.createVerifier();
-    expect(verifier).toMatchInlineSnapshot(
-      '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIfCEbLY8N24qrDcxmnrjkpNxcz1fzDTa_3onxPRnASd30"',
-    );
+    expect(verifier)
+      .toMatchInlineSnapshot(
+        '"XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIfCEbLY8N24qrDcxmnrjkpNxcz1fzDTa_3onxPRnASd30"',
+      );
   });
 
   test('createChallenge', async () => {
@@ -45,6 +49,7 @@ describe('PkceFactory', () => {
       'XaOHqO5St-E5Yn-15lGL6zw_Gdz7v12F46f7BIYWW1SCKuB0mwDeoVWwcfiT43ZvZWcIXtFI4w8ibgTz2i-GSwR9Rpa0PV4ovK6D_KOXYAa6QFAPZJCUuOun07_ezXIf',
     );
 
-    expect(challenge).toBe('SymxQ48IZBLnrAdBCmR6M6bHjSIra9zbPxtDophLeuY');
+    expect(challenge)
+      .toBe('SymxQ48IZBLnrAdBCmR6M6bHjSIra9zbPxtDophLeuY');
   });
 });

@@ -9,6 +9,9 @@
     "url": "git+https://github.com/DreamAuthMain/opensource.git",
     "directory": "packages/jwk"
   },
+  "scripts": {
+    "build": "tsc -p src/tsconfig.json"
+  },
   "files": [
     "CHANGELOG.md",
     "lib"
@@ -17,15 +20,11 @@
     "lib": "lib"
   },
   "type": "module",
-  "types": "lib/esm/index.d.ts",
+  "types": "lib/index.d.ts",
   "exports": {
-    "require": {
-      "types": "./lib/cjs/index.d.ts",
-      "default": "./lib/cjs/index.cjs"
-    },
     "import": {
-      "types": "./lib/esm/index.d.ts",
-      "default": "./lib/esm/index.js"
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
     }
   },
   "sideEffects": false,
@@ -33,13 +32,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@dreamauth/crypto": "^2.0.14",
-    "@dreamauth/types": "^4.0.36",
-    "@dreamauth/util": "^4.0.22"
-  },
-  "devDependencies": {
-    "vite": "^5.0.10",
-    "vite-plugin-checker": "^0.6.2",
-    "vite-plugin-dts": "^3.6.4"
+    "@dreamauth/crypto": "workspace:^",
+    "@dreamauth/util": "workspace:^"
   }
 }
