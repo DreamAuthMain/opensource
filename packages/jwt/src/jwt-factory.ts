@@ -1,9 +1,9 @@
 import { base64UrlEncode } from '@dreamauth/base64url';
 import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
-import { JwkImporter } from '@dreamauth/jwk';
+import { type Jwk, JwkImporter } from '@dreamauth/jwk';
 import { DAYS, SECONDS, time } from '@dreamauth/time';
-import { type Jwk, type JwtHeader, type JwtIssuerUrl, type JwtPayload } from '@dreamauth/types';
 
+import { type JwtHeader, type JwtIssuerUrl, type JwtPayload } from './jwt.js';
 import { PARAMS } from './params.js';
 
 /**

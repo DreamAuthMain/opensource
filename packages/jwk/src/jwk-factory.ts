@@ -1,6 +1,6 @@
 import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
-import { type JwkPair } from '@dreamauth/types';
 
+import { type JwkPair } from './jwk.js';
 import { GEN_ECC_PARAMS, GEN_RSA_PARAMS } from './params.js';
 
 type ModulusLength = 2048 | 3072 | 4096;

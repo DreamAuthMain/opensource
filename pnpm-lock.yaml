@@ -73,9 +73,6 @@ importers:
       '@dreamauth/jwk':
         specifier: workspace:^
         version: link:../jwk
-      '@dreamauth/types':
-        specifier: workspace:^
-        version: link:../types
 
   packages/errors: {}
 
@@ -84,9 +81,6 @@ importers:
       '@dreamauth/crypto':
         specifier: workspace:^
         version: link:../crypto
-      '@dreamauth/types':
-        specifier: workspace:^
-        version: link:../types
       '@dreamauth/util':
         specifier: workspace:^
         version: link:../util
@@ -108,9 +102,9 @@ importers:
       '@dreamauth/time':
         specifier: workspace:^
         version: link:../time
-      '@dreamauth/types':
+      '@dreamauth/util':
         specifier: workspace:^
-        version: link:../types
+        version: link:../util
 
   packages/password:
     dependencies:
@@ -137,12 +131,6 @@ importers:
         version: link:../crypto
 
   packages/time: {}
-
-  packages/types:
-    dependencies:
-      '@dreamauth/util':
-        specifier: workspace:^
-        version: link:../util
 
   packages/unsafe:
     dependencies:

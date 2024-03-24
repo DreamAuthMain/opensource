@@ -1,6 +1,6 @@
-import { isJwk, type Jwk } from '@dreamauth/types';
 import { isArray, isObject } from '@dreamauth/util';
 
+import { isJwk, type Jwk } from './jwk.js';
 import { IMPORT_PARAMS } from './params.js';
 
 const algs = Object.keys(IMPORT_PARAMS) as [keyof typeof IMPORT_PARAMS, ...(keyof typeof IMPORT_PARAMS)[]];

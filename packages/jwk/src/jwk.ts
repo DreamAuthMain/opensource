@@ -31,18 +31,6 @@ export interface JwkPair<
   readonly publicKey: Jwk<A, TPublicOp>;
 }
 
-const isJwkObject = (value: unknown): value is Jwk => {
-  return (
-    isObject(value)
-    && typeof value.kid === 'string'
-    && typeof value.alg === 'string'
-    && (value.key_ops === undefined || (isArray(value.key_ops) && value.key_ops.every((op) => typeof op === 'string')))
-    && (value.iat === undefined || typeof value.iat === 'number')
-    && (value.nbf === undefined || typeof value.nbf === 'number')
-    && (value.exp === undefined || typeof value.exp === 'number')
-  );
-};
-
 /**
  * JSON Web Key (JWK) type predicate.
  */
@@ -55,4 +43,16 @@ export const isJwk: {
   if (algs && !algs.includes(value.alg)) return false;
   if (ops && !ops.every((op) => value.key_ops?.includes(op))) return false;
   return true;
+};
+
+const isJwkObject = (value: unknown): value is Jwk => {
+  return (
+    isObject(value)
+    && typeof value.kid === 'string'
+    && typeof value.alg === 'string'
+    && (value.key_ops === undefined || (isArray(value.key_ops) && value.key_ops.every((op) => typeof op === 'string')))
+    && (value.iat === undefined || typeof value.iat === 'number')
+    && (value.nbf === undefined || typeof value.nbf === 'number')
+    && (value.exp === undefined || typeof value.exp === 'number')
+  );
 };

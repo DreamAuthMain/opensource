@@ -1,10 +1,10 @@
 import { base64UrlDecode } from '@dreamauth/base64url';
 import { getCrypto, type PlatformCryptoResolver } from '@dreamauth/crypto';
-import { JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
+import { isJwk, type Jwk, JwkImporter, type JwkLoader, JwkOIDCLoader } from '@dreamauth/jwk';
 import { SECONDS, time } from '@dreamauth/time';
-import { isJwk, type Jwk, type Jwt } from '@dreamauth/types';
 
 import { raise } from './errors.js';
+import { type Jwt } from './jwt.js';
 import { PARAMS } from './params.js';
 
 const algs = Object.keys(PARAMS) as unknown as [keyof typeof PARAMS, ...(keyof typeof PARAMS)[]];

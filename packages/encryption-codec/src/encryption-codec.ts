@@ -1,7 +1,6 @@
 import { type PlatformCryptoResolver } from '@dreamauth/crypto';
 import { getCrypto } from '@dreamauth/crypto';
-import { JwkImporter } from '@dreamauth/jwk';
-import { type Jwk } from '@dreamauth/types';
+import { type Jwk, JwkImporter } from '@dreamauth/jwk';
 
 import { PARAMS } from './params.js';
 

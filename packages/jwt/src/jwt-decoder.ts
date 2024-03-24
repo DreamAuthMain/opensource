@@ -1,7 +1,7 @@
 import { base64UrlDecode } from '@dreamauth/base64url';
-import { isJwtHeader, isJwtPayload, type Jwt } from '@dreamauth/types';
 
 import { raise } from './errors.js';
+import { isJwtHeader, isJwtPayload, type Jwt } from './jwt.js';
 import { type JwtVerifier } from './jwt-verifier.js';
 
 /**

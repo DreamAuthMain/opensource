@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "@dreamauth/crypto": "workspace:^",
-    "@dreamauth/jwk": "workspace:^",
-    "@dreamauth/types": "workspace:^"
+    "@dreamauth/jwk": "workspace:^"
   }
 }

@@ -36,7 +36,7 @@
     "@dreamauth/crypto": "workspace:^",
     "@dreamauth/errors": "workspace:^",
     "@dreamauth/jwk": "workspace:^",
-    "@dreamauth/time": "workspace:^",
-    "@dreamauth/types": "workspace:^"
+    "@dreamauth/util": "workspace:^",
+    "@dreamauth/time": "workspace:^"
   }
 }

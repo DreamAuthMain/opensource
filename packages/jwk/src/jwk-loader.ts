@@ -1,7 +1,6 @@
-import { type Jwk } from '@dreamauth/types';
-
 import { fetchOIDCJwks } from './fetch-oidc-jwks.js';
 import { fetchOIDCJwksUri } from './fetch-oidc-jwks-uri.js';
+import { type Jwk } from './jwk.js';
 
 /**
  * JWK loader interface.
