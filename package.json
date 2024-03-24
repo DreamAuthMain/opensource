@@ -38,6 +38,6 @@
     "typescript": "^5.4.3",
     "vitest": "^1.4.0",
     "vitest-fetch-mock": "^0.2.2",
-    "wurk": "^0.4.2"
+    "wurk": "^0.4.3"
   }
 }

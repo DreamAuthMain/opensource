@@ -54,8 +54,8 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2(vitest@1.4.0)
       wurk:
-        specifier: ^0.4.2
-        version: 0.4.2
+        specifier: ^0.4.3
+        version: 0.4.3
 
   packages/base64url: {}
 
@@ -1250,7 +1250,7 @@ packages:
   /@wurk/command-exec@0.4.0:
     resolution: {integrity: sha512-EZeclV07zhwLgKZ+1f1cdhAFhT1d4rOjQia9h5U6aCWc6aE0p6h2ppzd2aLclHyKAScNNzCZn/ya0txDciFByQ==}
     dependencies:
-      wurk: 0.4.2
+      wurk: 0.4.3
     dev: true
 
   /@wurk/command-publish@0.4.0:
@@ -1258,13 +1258,13 @@ packages:
     dependencies:
       semver: 7.6.0
       tar-stream: 3.1.7
-      wurk: 0.4.2
+      wurk: 0.4.3
     dev: true
 
   /@wurk/command-run@0.4.0:
     resolution: {integrity: sha512-fOXH9F9K2iBORkxlvNGZOXXAz0bP+tdwO4360Zs2AnYzBzFAL37dOzSF428TYKoxFbwMgaqKqHZmWwipJ/qUHQ==}
     dependencies:
-      wurk: 0.4.2
+      wurk: 0.4.3
     dev: true
 
   /@wurk/command-version@0.4.0:
@@ -1272,13 +1272,13 @@ packages:
     dependencies:
       '@types/semver': 7.5.8
       semver: 7.6.0
-      wurk: 0.4.2
+      wurk: 0.4.3
     dev: true
 
   /@wurk/command-vitest@0.4.0:
     resolution: {integrity: sha512-etWWuboz2Tlwvcmtnec2f4uogu23aYdT3ZtgeIXCrrTnuLZmZBnvBVoOPmFgrA4VOo0yMnSg9ircA4ELTVoCaQ==}
     dependencies:
-      wurk: 0.4.2
+      wurk: 0.4.3
     dev: true
 
   /@wurk/git@0.4.0:
@@ -4901,8 +4901,8 @@ packages:
         optional: true
     dev: true
 
-  /wurk@0.4.2:
-    resolution: {integrity: sha512-QeHiQkikjbrqcr0lxQJ8kFs+BmRhv2ahm/OvpZ9U8Hqkhs6oL7Dydmw+f8K9yBszHhN4A7/M7S8foyXITsBgzA==}
+  /wurk@0.4.3:
+    resolution: {integrity: sha512-1YbcrXNotA87vNOPuZg0l2NroMlvjL9b19DNEGVyjMqhln2XMhBB9frbsVUk5Uriqa7d+ayQssqGfI0+9Oe/9A==}
     engines: {node: '>=20'}
     hasBin: true
     dependencies:
